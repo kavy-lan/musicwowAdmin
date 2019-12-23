@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="添加课时"
+    title="编辑课时"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"
@@ -383,13 +383,15 @@ export default {
   },
   watch: {
     id(newval, oldval) {
-      this.getClassDetail(newval)
+      // this.getClassDetail(newval)
     },
     bookid(newval, oldval) {
-      this.getDirectoryList(newval)
+      // this.getDirectoryList(newval)
     }
   },
   mounted() {
+    this.getClassDetail(this.id)
+    this.getDirectoryList(this.bookid)
   },
   methods: {
     close() {
@@ -444,7 +446,7 @@ export default {
     tuozhanImage1(res) {
       this.afters.images = ''
       for (let i = 0; i < res.length; i++) {
-        this.afters.images += res[i].url
+        this.afters.images += `${res[i].url},`
       }
       this.afters.images = this.afters.images.substring(0, this.afters.images.length - 1)
     },
@@ -672,7 +674,7 @@ export default {
                   this.tuozhanAudio = true
                   for (let m = 0; m < afters[i].material.audios.length; m++) {
                     this.aftersAudiosList.push({ url: afters[i].material.audios[m].url, name: afters[i].material.audios[m].title })
-                    this.after.audios.push({ url: afters[i].material.audios[m].url, title: afters[i].material.audios[m].title })
+                    this.afters.audios.push({ url: afters[i].material.audios[m].url, title: afters[i].material.audios[m].title })
                   }
                 }
                 if (afters[i].material.images.length > 0) {

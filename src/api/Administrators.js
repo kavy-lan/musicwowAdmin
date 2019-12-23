@@ -21,6 +21,12 @@ export function deleteAdministrators(ids) {
     params: { ids: ids }
   })
 }
+export function getEditAdministrators(id) {
+  return request({
+    url: `admin/${id}`,
+    method: 'get'
+  })
+}
 export function editAdministrators(id, username, mobile, head_img, remark, auth_ids) {
   return request({
     url: `admin/${id}`,

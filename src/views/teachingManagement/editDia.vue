@@ -114,23 +114,34 @@
         </div>
         <div v-if="detailMsg.directory_list.length>0" class="materialCatalogue">
           <div v-for="(item,index) in detailMsg.directory_list" :key="index" class="oneCatalogue">
-            <div style="text-align:center">{{ item.directory_no }}</div>
+            <svg-icon
+              class-name="search-icon"
+              icon-class="laji"
+              class="laji"
+              @click="deleCatalogue(index)"
+            />
+            <!-- <div style="text-align:center">{{ item.directory_no || index }}</div> -->
+            <el-input
+              v-model="item.directory_no"
+              class="No"
+              maxlength="20"
+            />
             <el-input
               v-model="item.title"
               placeholder="请输入目录名称，字数最多20字内"
               class="input"
               maxlength="20"
             />
-            <el-button
+            <!-- <el-button
               type="danger"
               icon="el-icon-delete"
               circle
               style="margin-left:5px"
               @click="deleCatalogue(index)"
-            />
+            /> -->
           </div>
         </div>
-        <!-- <el-button type="info" @click="newCatalogue">新增</el-button> -->
+        <el-button type="info" @click="newCatalogue">新增</el-button>
       </div>
       <div style="width:630px">
         <label style="vertical-align:top">单价课价格：</label>
@@ -195,10 +206,12 @@ export default {
   },
   watch: {
     id(newval, oldval) {
-      this.getDetail(newval)
+      // this.getDetail(newval)
     }
   },
-  mounted() {},
+  mounted() {
+    this.getDetail(this.id)
+  },
   methods: {
     close() {
       this.$emit('close', false)
@@ -266,12 +279,32 @@ export default {
               this.iconI = [{ url: this.detailMsg.icon }]
               this.materialVideoV = [{ url: this.detailMsg.video }]
               this.materialDetailedI = [{ url: this.detailMsg.details_image }]
+              // this.Catalogue = [...res.data.directory_list]
             }
           })
           .catch(error => {
             reject(error)
           })
       })
+    },
+    newCatalogue() {
+      // this.CatalogueNum = this.CatalogueNum + 1
+      // if (this.CatalogueNum <= 9) {
+      //   this.detailMsg.directory_list.push({
+      //     directory_no: parseInt(`0${this.CatalogueNum}`),
+      //     title: ''
+      //   })
+      // } else {
+      //   this.detailMsg.directory_list.push({
+      //     directory_no: parseInt(`${this.CatalogueNum}`),
+      //     title: ''
+      //   })
+      // }
+      this.detailMsg.directory_list.push({
+        directory_no: '',
+        title: ''
+      })
+      console.log(this.Catalogue)
     }
   }
 }
@@ -303,7 +336,7 @@ export default {
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
   }
-  >>> label {
+  >>> label:not(.el-upload-list__item-status-label) {
     font-size: 15px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
@@ -357,13 +390,18 @@ export default {
   margin-bottom: 40px;
 }
 .allCatalogue div,
-.oneCatalogue > div:nth-child(1) {
+.oneCatalogue > .No {
   width: 50px;
   height: 40px;
   background: rgba(235, 235, 235, 1);
   border-radius: 6px;
   border: 1px solid rgba(217, 217, 217, 1);
   line-height: 40px;
+}
+.oneCatalogue >.No >>>.el-input__inner{
+  padding: 0;
+  text-align: center;
+  border: none
 }
 .allCatalogue {
   width: 200px;
@@ -378,7 +416,7 @@ export default {
   }
 }
 .allCatalogue,
-.oneCatalogue > div:nth-child(1),
+.oneCatalogue > div:nth-child(2),
 .allCatalogue div {
   display: inline-block;
 }
@@ -396,5 +434,10 @@ export default {
     vertical-align: middle;
     margin-left: 15px;
   }
+}
+.laji{
+  font-size: 20px;
+  vertical-align: middle;
+  cursor: pointer;
 }
 </style>

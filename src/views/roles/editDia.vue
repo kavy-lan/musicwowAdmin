@@ -9,7 +9,7 @@
     :close-on-click-modal="false"
     :before-close="handleClose"
   >
-    <div class="left" @click="test">
+    <div class="left">
       <div>
         <label>角色名称:</label>
         <el-input v-model="rolesname" placeholder="请输入角色名称，字数最多20字内(必选)" class="input" maxlength="20" />
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { editRoles } from '../../api/roles'
+import { editRoles, getRolesDetail } from '../../api/roles'
 import { MessageBox, Message } from 'element-ui'
 import { array } from 'jszip/lib/support'
 import { join } from 'path'
@@ -53,13 +53,12 @@ export default {
   computed: {
     sum() {
       this.ifExist =
-        Number(Boolean(this.rolesname)) +
-        Number(Boolean(this.remark))
+        Number(Boolean(this.rolesname))
     }
   },
   watch: {
     ifExist(newval, oldval) {
-      if (Number(newval) == 2) {
+      if (Number(newval) == 1) {
         this.Exist = false
       } else {
         this.Exist = true
@@ -68,15 +67,11 @@ export default {
   },
   mounted() {
     console.log(this.id)
+    this.getDetail(this.id)
   },
   methods: {
     close() {
       this.$emit('close', false)
-    },
-    file(res) {
-      console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     file(res) {
       if (res.length > 0) {
@@ -112,9 +107,18 @@ export default {
           })
       })
     },
-    test() {
-      console.log(this.id)
-      console.log(33333)
+    getDetail(id) {
+      return new Promise((resolve, reject) => {
+        getRolesDetail(id).then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
+            this.rolesname = data.title
+            this.remark = data.remark
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
     }
   }
 }

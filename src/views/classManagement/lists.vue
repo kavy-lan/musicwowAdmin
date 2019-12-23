@@ -6,7 +6,7 @@
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="tableInit(1)">重置</el-button>
+      <el-button type="danger" @click="resetList">重置</el-button>
     </div>
     <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true , addId=bookID">添加</el-button>
     <el-button
@@ -88,7 +88,7 @@
     />
     <!-- 添加课时弹窗 -->
     <add-dia :id="addId" :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia :id="editId" :bookid="editBookId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :bookid="editBookId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
 </template>
@@ -125,17 +125,35 @@ export default {
       somedelete: '',
       searchList: [
         { label: 'ID', value: this.id, name: 'id', ops: '=' },
-        { label: '联系手机号', value: this.mobile, name: 'mobile', ops: '=' },
+        { label: '目录ID', value: this.book_directory_id, name: 'book_directory_id', ops: '=' },
         {
-          label: '用户登录名',
-          value: this.username,
-          name: 'username',
+          label: '教材ID',
+          value: this.book_id,
+          name: 'book_id',
+          ops: '='
+        },
+        {
+          label: '课时编号',
+          value: this.class_no,
+          name: 'class_no',
+          ops: '='
+        },
+        {
+          label: '目录标题',
+          value: this.title,
+          name: 'title',
+          ops: '%*%'
+        },
+        {
+          label: '知识点数',
+          value: this.knowledge_count,
+          name: 'knowledge_count',
           ops: '='
         }
       ],
       test: [],
-      message: '测试',
-      deleteShow: true
+      deleteShow: true,
+      searchModel: false
     }
   },
   computed: {
@@ -147,13 +165,9 @@ export default {
     // Mock: get all routes and roles list from server
   },
   mounted() {
-    // administratorsList().then(res=>{
-    //   console.log(res)
-    // })
-    // this.tableInit(1);
-    console.log(this.$route.query.id)
-    this.bookID = this.$route.query.id
-    this.tableInit(this.bookID, 1)
+    const that = this
+    that.bookID = this.$route.query.id
+    that.tableInit(this.bookID, 1)
   },
   methods: {
     tableInit(bookID, page, filters, ops) {
@@ -242,7 +256,11 @@ export default {
       console.log(this.test)
     },
     nextPage(val) {
-      this.tableInit(val)
+      if (this.searchModel) {
+        this.tableInit(this.bookID, val, this.filters, this.ops)
+      } else {
+        this.tableInit(this.bookID, val)
+      }
     },
     closr(val) {
       if (val == false) {
@@ -253,14 +271,15 @@ export default {
         this.dialogVisible = false
         this.dialogVisibleEdit = false
         this.dialogVisibleReset = false
-        this.tableInit(1)
+        this.tableInit(this.bookID, 1)
       }
     },
     six(e) {
       const obj = {}
       const ops = {}
       for (let i = 0; i < this.searchList.length; i++) {
-        if (this.searchList[i].value != undefined) {
+        if (this.searchList[i].value != undefined &&
+          this.searchList[i].value.trim()) {
           obj[this.searchList[i].name] = `${this.searchList[i].value}`
           ops[this.searchList[i].name] = `${this.searchList[i].ops}`
         }
@@ -269,7 +288,12 @@ export default {
       this.ops = JSON.stringify(ops)
     },
     submitSearch() {
-      this.tableInit(1, this.filters, this.ops)
+      this.tableInit(this.booID, 1, this.filters, this.ops)
+      this.searchModel = true
+    },
+    resetList() {
+      this.this.tableInit(this.booID, 1)
+      this.searchModel = false
     }
   }
 }
@@ -360,6 +384,7 @@ export default {
   > div {
     display: inline-block;
     margin-right: 20px;
+    margin-bottom: 15px
   }
   .input {
     width: 200px;

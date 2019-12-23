@@ -11,6 +11,11 @@
 <script>
 export default {
   name: 'AppMain',
+  data() {
+    return {
+      dialogVisible: this.$store.state.value
+    }
+  },
   computed: {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews
@@ -18,6 +23,8 @@ export default {
     key() {
       return this.$route.path
     }
+  },
+  mounted() {
   }
 }
 </script>

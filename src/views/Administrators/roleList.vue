@@ -6,7 +6,7 @@
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="tableInit(1)">重置</el-button>
+      <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
     <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
@@ -101,7 +101,7 @@
     />
     <!-- 添加课时弹窗 -->
     <add-dia :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" />
   </div>
 </template>
@@ -142,36 +142,9 @@ export default {
           ops: '='
         }
       ],
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
-      items: [
-        { id: 0, content: '选项一', disabled: false, checked: true },
-        { id: 1, content: '选项二', disabled: true, checked: false },
-        { id: 2, content: '选项三', disabled: false, checked: false }
-      ],
       test: [],
-      message: '测试',
-      deleteShow: true
+      deleteShow: true,
+      searchModel: false
     }
   },
   computed: {
@@ -183,9 +156,6 @@ export default {
     // Mock: get all routes and roles list from server
   },
   mounted() {
-    // administratorsList().then(res=>{
-    //   console.log(res)
-    // })
     this.tableInit(1)
   },
   methods: {
@@ -278,7 +248,11 @@ export default {
       console.log(this.test)
     },
     nextPage(val) {
-      this.tableInit(val)
+      if (this.searchModel) {
+        this.tableInit(val, this.filters, this.ops)
+      } else {
+        this.tableInit(val)
+      }
     },
     closr(val) {
       if (val == false) {
@@ -309,6 +283,11 @@ export default {
     },
     submitSearch() {
       this.tableInit(1, this.filters, this.ops)
+      this.searchModel = true
+    },
+    resetSearch() {
+      this.tableInit(1)
+      this.searchModel = false
     }
   }
 }
@@ -399,6 +378,7 @@ export default {
   > div {
     display: inline-block;
     margin-right: 20px;
+    margin-bottom: 15px
   }
   .input {
     width: 200px;

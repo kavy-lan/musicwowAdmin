@@ -31,3 +31,9 @@ export function addRoles(title, remark) {
     }
   })
 }
+export function getRolesDetail(id) {
+  return request({
+    url: `auth/${id}`,
+    method: 'get'
+  })
+}

@@ -1,7 +1,8 @@
 import {
   login,
   logout,
-  getInfo
+  getInfo,
+  getAdminDetail
 } from '@/api/user'
 import {
   getToken,
@@ -121,6 +122,16 @@ const actions = {
         resolve(data)
       }).catch(error => {
         reject(error)
+      })
+      return new Promise((resolve, reject) => {
+        getAdminDetail().then(res=>{
+          if(res.error_code==0){
+            const {data}=res
+            commit('SET_NAME', data.username)
+          }
+        }).catch(error => {
+          reject(error)
+        })
       })
     })
   },

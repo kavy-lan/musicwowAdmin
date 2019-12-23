@@ -21,3 +21,16 @@ export function logout() {
     method: 'get'
   })
 }
+export function getAdminDetail() {
+  return request({
+    url: 'public/admin',
+    method: 'get'
+  })
+}
+export function changePassWord(old, now) {
+  return request({
+    url: 'public/reset_password',
+    method: 'post',
+    data: { old_password: old, password: now }
+  })
+}

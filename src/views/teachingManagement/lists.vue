@@ -6,7 +6,7 @@
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="tableInit(1)">重置</el-button>
+      <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
     <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
@@ -101,7 +101,7 @@
     />
     <!-- 添加课时弹窗 -->
     <add-dia :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
 </template>
@@ -151,7 +151,8 @@ export default {
       ],
       test: [],
       message: '测试',
-      deleteShow: true
+      deleteShow: true,
+      searchModel: false
     }
   },
   computed: {
@@ -263,7 +264,11 @@ export default {
       console.log(this.test)
     },
     nextPage(val) {
-      this.tableInit(val)
+      if (this.searchModel) {
+        this.tableInit(val, this.filters, this.ops)
+      } else {
+        this.tableInit(val)
+      }
     },
     closr(val) {
       if (val == false) {
@@ -291,6 +296,11 @@ export default {
     },
     submitSearch() {
       this.tableInit(1, this.filters, this.ops)
+      this.searchModel = true
+    },
+    resetSearch() {
+      this.tableInit(1)
+      this.searchModel = false
     }
   }
 }
@@ -381,6 +391,7 @@ export default {
   > div {
     display: inline-block;
     margin-right: 20px;
+    margin-bottom: 15px
   }
   .input {
     width: 200px;

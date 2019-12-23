@@ -1,6 +1,7 @@
 const state = {
   visitedViews: [],
-  cachedViews: []
+  cachedViews: [],
+  dialogVisible: false
 }
 
 const mutations = {
@@ -63,6 +64,9 @@ const mutations = {
         break
       }
     }
+  },
+  changeValue(state, newVal) {
+    state.dialogVisible = newVal
   }
 }
 

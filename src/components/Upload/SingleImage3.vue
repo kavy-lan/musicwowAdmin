@@ -17,7 +17,7 @@
     :file-list="filelist"
   >
     <label>{{ label }}</label>
-    <el-button size="medium" type="info">上传</el-button>
+    <el-button size="medium" type="info" @click="upload">上传</el-button>
     <span slot="tip" class="el-upload__tip">{{ msg }}</span>
   </el-upload>
 </template>
@@ -51,7 +51,30 @@ export default {
     }
   },
   mounted() {
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
+    //   getUploadConfig()
+    //     .then(response => {
+    //       const { data } = response
+    //       var config = JSON.parse(window.atob(data.config))
+    //       console.log(config)
+    //       this.config = config
+    //       this.action = config.domain
+    //       this.formdata = {
+    //         // key: `pulic/image`,
+    //         OSSAccessKeyId: config.access_key_id,
+    //         policy: config.policy,
+    //         Signature: config.signature,
+    //         success_action_status: '200'
+    //       }
+    //     })
+    //     .catch(error => {
+    //       reject(error)
+    //     })
+    // })
+  },
+  methods: {
+    upload(){
+      return new Promise((resolve, reject) => {
       getUploadConfig()
         .then(response => {
           const { data } = response
@@ -71,8 +94,7 @@ export default {
           reject(error)
         })
     })
-  },
-  methods: {
+    },
     handleRemove(file, fileList) {
       console.log(file)
       for (let i = 0; i < this.file.length; i++) {

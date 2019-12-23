@@ -44,48 +44,6 @@
       </div>
     </div>
     <div style="display:none">{{ sum }}</div>
-    <!-- <div class="right">
-      <div>
-        <single-image
-          msg="图片小于2M，格式为jpg、png"
-          label="教材封面:"
-          size="2097152"
-          type=".jpg,.png"
-          :limit= 1
-        />
-      </div>
-
-      <div>
-        <single-image msg="图片尺寸120x120并小于1M，格式为png" label="乐器图标:" type=".png" :limit=1 size="1048576"/>
-      </div>
-      <div>
-        <label style="vertical-align:top">教材目标:</label>
-        <el-input
-          v-model="input"
-          placeholder="请输入教材目标，字数最多100字内"
-          class="input Target"
-          type="textarea"
-          maxlength="100"
-        />
-      </div>
-      <div>
-        <single-image
-          msg="图片小于2M，格式为jpg、png"
-          label="教材详情图:"
-          size="2097152"
-          type=".jpg,.png"
-          :limit=1
-        />
-      </div>
-      <div>
-        <label style="vertical-align:top">单价课价格：</label>
-        <el-radio-group v-model="radio" text-color="#585B63">
-          <el-radio :label="3">开启</el-radio>
-          <el-radio :label="6">关闭</el-radio>
-        </el-radio-group>
-      </div>
-    </div>-->
-    <!-- <single-image :msg="message"></single-image> -->
     <span slot="footer" class="dialog-footer">
       <el-button @click="close">取 消</el-button>
       <el-button type="info" :disabled="Exist" @click="addA">确 定</el-button>

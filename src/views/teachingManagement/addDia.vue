@@ -102,20 +102,31 @@
         </div>
         <div v-if="Catalogue.length>0" class="materialCatalogue">
           <div v-for="(item,index) in Catalogue" :key="index" class="oneCatalogue">
-            <div style="text-align:center">{{ index+1 }}</div>
+            <svg-icon
+              class-name="search-icon"
+              icon-class="laji"
+              class="laji"
+              @click="deleCatalogue(index)"
+            />
+            <!-- <div style="text-align:center">{{ index+1 }}</div> -->
+            <el-input
+              v-model="item.directory_no"
+              class="No"
+              maxlength="20"
+            />
             <el-input
               v-model="item.title"
               placeholder="请输入目录名称，字数最多20字内"
               class="input"
               maxlength="20"
             />
-            <el-button
+            <!-- <el-button
               type="danger"
               icon="el-icon-delete"
               circle
               style="margin-left:5px"
               @click="deleCatalogue(index)"
-            />
+            /> -->
           </div>
         </div>
         <el-button type="info" @click="newCatalogue">新增</el-button>
@@ -203,20 +214,22 @@ export default {
       this.materialDetailedI = res[0].url
     },
     newCatalogue() {
-      this.CatalogueNum = this.CatalogueNum + 1
-      if (this.CatalogueNum <= 9) {
-        this.Catalogue.push({
-          directory_no: parseInt(`0${this.CatalogueNum}`),
-          title: ''
-        })
-      } else {
-        this.Catalogue.push({
-          directory_no: parseInt(`${this.CatalogueNum}`),
-          title: ''
-        })
-      }
-
-      console.log(this.Catalogue)
+      // this.CatalogueNum = this.CatalogueNum + 1
+      // if (this.CatalogueNum <= 9) {
+      //   this.Catalogue.push({
+      //     directory_no: parseInt(`0${this.CatalogueNum}`),
+      //     title: ''
+      //   })
+      // } else {
+      //   this.Catalogue.push({
+      //     directory_no: parseInt(`${this.CatalogueNum}`),
+      //     title: ''
+      //   })
+      // }
+      this.Catalogue.push({
+        directory_no: '',
+        title: ''
+      })
     },
     deleCatalogue(index) {
       this.Catalogue.splice(index, 1)
@@ -300,7 +313,7 @@ export default {
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
   }
-  >>> label {
+  >>> label:not(.el-upload-list__item-status-label) {
     font-size: 15px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
@@ -354,13 +367,18 @@ export default {
   margin-bottom: 40px;
 }
 .allCatalogue div,
-.oneCatalogue > div:nth-child(1) {
+.oneCatalogue >.No {
   width: 50px;
   height: 40px;
   background: rgba(235, 235, 235, 1);
   border-radius: 6px;
   border: 1px solid rgba(217, 217, 217, 1);
   line-height: 40px;
+}
+.oneCatalogue >.No >>>.el-input__inner{
+  padding: 0;
+  text-align: center;
+  border: none
 }
 .allCatalogue {
   width: 200px;
@@ -375,7 +393,7 @@ export default {
   }
 }
 .allCatalogue,
-.oneCatalogue > div:nth-child(1),
+.oneCatalogue > div:nth-child(2),
 .allCatalogue div {
   display: inline-block;
 }
@@ -393,5 +411,10 @@ export default {
     vertical-align: middle;
     margin-left: 15px;
   }
+}
+.laji{
+  font-size: 20px;
+  vertical-align: middle;
+  cursor: pointer;
 }
 </style>

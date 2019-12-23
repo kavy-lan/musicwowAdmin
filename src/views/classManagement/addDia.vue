@@ -102,7 +102,7 @@
                 label="其他素材"
                 type=".jpg,.png"
                 size="1048576"
-                :limit="7"
+                :limit="1"
                 :clear="items.clear"
                 @files="templateOther2($event,index)"
               />
@@ -111,7 +111,6 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 label="视频素材:"
                 type=".mp4"
-                size="2097152"
                 :limit="4"
                 :clear="items.clear"
                 @files="templateVideo2($event,index)"
@@ -121,7 +120,6 @@
                 msg="素材音频格式为 mp4，视频最多4个"
                 label="音频素材"
                 type=".mp3"
-                size="2097152"
                 :limit="4"
                 :clear="items.clear"
                 @files="templateAudio2($event,index)"
@@ -131,7 +129,7 @@
               <single-image
                 v-if="items.show.knowledgeImage"
                 msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
-                label="头像:"
+                label="图片素材:"
                 type=".jpg,.png"
                 size="2097152"
                 :limit="4"
@@ -143,7 +141,6 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 label="视频素材:"
                 type=".mp4"
-                size="2097152"
                 :limit="4"
                 :clear="items.clear"
                 @files="templateVideo1($event,index)"
@@ -153,7 +150,6 @@
                 msg="素材音频格式为 mp3，音频最多4个"
                 label="音频素材"
                 type=".mp3"
-                size="2097152"
                 :limit="4"
                 :clear="items.clear"
                 @files="templateAudio1($event,index)"
@@ -168,7 +164,7 @@
     </div>
     <div class="right">
       <div class="Expand">
-        <label>课后拓展</label>
+        <label>课后拓展：</label>
         <div class="c_right">
           <div>
             <el-select
@@ -479,13 +475,10 @@ export default {
       console.log(this.Catalogue)
     },
     addA() {
-      console.log(this.Knowledge)
       const knowledges = []
       this.Knowledge.map(item => {
         knowledges.push({ knowledge_no: item.knowledge_no, template_type: item.template_type, images: item.images, negative_image: item.negative_image, videos: item.videos, audios: item.audios })
       })
-      console.log(knowledges)
-      console.log(this.afters)
       this.works1.classwork_no = 1
       this.works2.classwork_no = 2
       this.works1.images = this.works1images
@@ -494,7 +487,58 @@ export default {
       this.works2.video = this.works2videos
       this.works1.describe = this.workText1
       this.works2.describe = this.workText2
-      console.log(this.works1)
+      const works = [this.works1, this.works2]
+      this.arrayTirm(knowledges)
+      this.objectTirm(this.afters)
+      // this.arrayTirm(works)
+      // knowledges.map(item => {
+      //   if (item.template_type == 1 && !item.images) {
+      //     Message({
+      //       message: '知识点图片素材不能为空',
+      //       type: 'success',
+      //       duration: 5 * 1000
+      //     })
+      //     return false
+      //   } else if (item.template_type == 2 && (!item.images || !item.negative_image)) {
+      //     Message({
+      //       message: '知识点图片素材和底图素材不能为空',
+      //       type: 'success',
+      //       duration: 5 * 1000
+      //     })
+      //     return false
+      //   }
+      // })
+      for (let i = 0; i < knowledges.length; i++) {
+        if (knowledges[i].template_type == 1 && !knowledges[i].images) {
+          Message({
+            message: '知识点图片素材不能为空',
+            type: 'success',
+            duration: 5 * 1000
+          })
+          return false
+        } else if (knowledges[i].template_type == 2 && (!knowledges[i].images || !knowledges[i].negative_image)) {
+          Message({
+            message: '知识点图片素材和底图素材不能为空',
+            type: 'success',
+            duration: 5 * 1000
+          })
+          return false
+        }
+      }
+      // if (!works[0].describe.trim()) {
+      //   works.splice(0, 1)
+      // }
+      // if (!works[0].describe.trim()) {
+      //   works.splice(0, 1)
+      // }
+      if (!this.afters.images) {
+        Message({
+          message: '课后拓展图片素材不能为空',
+          type: 'success',
+          duration: 5 * 1000
+        })
+        return false
+      }
       const params = {
         book_id: this.id,
         book_directory_id: this.CatalogueId,
@@ -502,7 +546,7 @@ export default {
         title: this.className,
         knowledges: knowledges,
         afters: this.afters,
-        works: [this.works1, this.works2]
+        works: works
       }
       return new Promise((resolve, reject) => {
         addclassManagementList(params).then(res => {
@@ -686,6 +730,22 @@ export default {
         this.workV2 = true
       } else {
         this.workV2 = false
+      }
+    },
+    arrayTirm(array) {
+      for (let i = 0; i < array.length; i++) {
+        for (const key in array[i]) {
+          if (array[i][key].length < 1) {
+            delete array[i][key]
+          }
+        }
+      }
+    },
+    objectTirm(obj) {
+      for (const key in obj) {
+        if (obj[key].length < 1) {
+          delete obj[key]
+        }
       }
     }
   }

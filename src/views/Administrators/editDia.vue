@@ -29,6 +29,7 @@
           type=".jpg,.png"
           size="2097152"
           :limit="1"
+          :filelist="headImg"
           @files="file"
         />
       </div>
@@ -95,7 +96,7 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { editAdministrators } from '../../api/Administrators'
+import { editAdministrators,getEditAdministrators } from '../../api/Administrators'
 import { MessageBox, Message } from 'element-ui'
 import { array } from 'jszip/lib/support'
 import { join } from 'path'
@@ -115,8 +116,8 @@ export default {
       remark: '',
       img: '',
       ifExist: 0,
-      Exist: true
-      //   id:""
+      Exist: true,
+      headImg:[]
     }
   },
   computed: {
@@ -137,7 +138,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.id)
+    this.getDetail(this.id)
   },
   methods: {
     close() {
@@ -185,6 +186,24 @@ export default {
             reject(error)
           })
       })
+    },
+    getDetail(id){
+return new Promise((resolve, reject) => {
+  getEditAdministrators(id).then(res=>{
+    if(res.error_code==0){
+      const {data}=res
+      this.username=data.username
+      this.auth_ids=data.auth_ids
+      this.remark=data.remark
+      this.mobile=data.mobile
+      this.headImg=[{url:data.head_img}]
+      this.img=data.head_img
+      console.log(this.headImg)
+    }
+  }).catch(error => {
+            reject(error)
+          })
+})
     },
     test() {
       console.log(this.id)

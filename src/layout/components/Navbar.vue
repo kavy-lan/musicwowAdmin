@@ -37,7 +37,7 @@
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">Log Out</span>
+            <span style="display:block;" @click="logout">退出登陆</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -63,6 +63,11 @@ export default {
     SizeSelect,
     Search
   },
+  data() {
+    return {
+      dialogVisible: false
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -77,7 +82,11 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    changePassWord() {
+      this.dialogVisible = true
     }
+
   }
 }
 </script>
