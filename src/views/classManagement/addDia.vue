@@ -50,7 +50,12 @@
                 class="laji"
                 @click="deleteKnowledge(index)"
               />
-              <div class="total">{{ index+1 }}</div>
+              <!-- <div class="total">{{ items.knowledge_no }}</div> -->
+              <el-input
+                v-model="items.knowledge_no"
+                class="total konwtotal"
+                maxlength="20"
+              />
               <el-select
                 v-model="items.Templatevalue"
                 placeholder="请选择"
@@ -440,7 +445,7 @@ export default {
     homeWorkI2(res) {
       this.works2images = ''
       for (let i = 0; i < res.length; i++) {
-        this.works2.images += `${res[i].url},`
+        this.works2images += `${res[i].url},`
       }
       this.works2images = this.works2images.substring(0, this.works2images.length - 1)
     },
@@ -615,7 +620,7 @@ export default {
     newKnowledge() {
       this.KnowledgeNum = this.KnowledgeNum + 1
       // this.Knowledgebox.push(['图片素材'])
-      this.Knowledge.push({ knowledge_no: `${this.KnowledgeNum}`, template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
+      this.Knowledge.push({ knowledge_no: '', template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
         label: '模板1[知识点]'
       }, {
         value: '2',
@@ -904,5 +909,12 @@ label {
 }
 .upload-demo {
   margin-bottom: 13px;
+}
+.konwtotal{
+  >>>.el-input__inner{
+    padding: 0;
+    border: none;
+    text-align: center
+  }
 }
 </style>

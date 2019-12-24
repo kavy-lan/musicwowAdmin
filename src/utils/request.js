@@ -75,6 +75,52 @@ service.interceptors.response.use(
   error => {
     console.log(error.response)
     // console.log('err' + error) // for debug
+    if (error.response.data.error_code) {
+      switch (error.response.data.error_code) {
+        case 1:
+          Message({
+            message: error.response.data.message,
+            type: 'error',
+            duration: 5 * 1000
+          })
+          break
+        case 10000:
+          Message({
+            message: 'token过期,请重新登陆',
+            type: 'error',
+            duration: 5 * 1000
+          })
+          break
+        case 10001:
+          Message({
+            message: '参数异常',
+            type: 'error',
+            duration: 5 * 1000
+          })
+          break
+        case 10002:
+          Message({
+            message: '管理员异常',
+            type: 'error',
+            duration: 5 * 1000
+          })
+          break
+        case 10003:
+          Message({
+            message: '菜单异常',
+            type: 'error',
+            duration: 5 * 1000
+          })
+          break
+        case 10004:
+          Message({
+            message: '权限异常',
+            type: 'error',
+            duration: 5 * 1000
+          })
+          break
+      }
+    }
     Message({
       message: error.response.data.message,
       type: 'error',

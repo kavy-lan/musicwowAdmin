@@ -38,7 +38,9 @@ export default {
       action: '',
       config: '',
       removeFile: [],
-      successFile: []
+      successFile: [],
+      keybox: [],
+      num: 0
     }
   },
   watch: {
@@ -71,36 +73,38 @@ export default {
     //       reject(error)
     //     })
     // })
+    // this.file = this.filelist
+    if (this.filelist != undefined) {
+      this.file = this.filelist
+    }
   },
   methods: {
-    upload(){
+    upload() {
       return new Promise((resolve, reject) => {
-      getUploadConfig()
-        .then(response => {
-          const { data } = response
-          var config = JSON.parse(window.atob(data.config))
-          console.log(config)
-          this.config = config
-          this.action = config.domain
-          this.formdata = {
+        getUploadConfig()
+          .then(response => {
+            const { data } = response
+            var config = JSON.parse(window.atob(data.config))
+            this.config = config
+            this.action = config.domain
+            this.formdata = {
             // key: `pulic/image`,
-            OSSAccessKeyId: config.access_key_id,
-            policy: config.policy,
-            Signature: config.signature,
-            success_action_status: '200'
-          }
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+              OSSAccessKeyId: config.access_key_id,
+              policy: config.policy,
+              Signature: config.signature,
+              success_action_status: '200'
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     },
     handleRemove(file, fileList) {
-      console.log(file)
       for (let i = 0; i < this.file.length; i++) {
-        if (this.file[i].name == file.name) {
-          this.file.splice(i)
-          console.log(this.file)
+        if (this.file[i].uid == file.uid) {
+          this.file.splice(i, 1)
+          this.keybox.splice(i, 1)
         }
       }
     },
@@ -136,12 +140,24 @@ export default {
         'key',
         `pulic/${type}/${timestamp}${num}.${suffix1}`
       )
+      this.keybox.push({ url: `${this.action}/${this.formdata.key}`, uid: res.uid })
     },
-    success(res, file, fileList) {
-      this.file = []
-      for (let i = 0; i < fileList.length; i++) {
-        this.file.push({ url: `${this.action}/${this.formdata.key}`, name: fileList[i].name })
+    success(response, file, fileList) {
+      // this.file = []
+      // for (let i = 0; i < fileList.length; i++) {
+      // console.log(this.formdata.key)
+      // console.log(this.keybox)
+      for (let i = 0; i < this.keybox.length; i++) {
+        this.file.push({ url: this.keybox[i].url, name: file.name, uid: this.keybox[i].uid })
       }
+      for (let i = 0; i < this.file.length; i++) {
+        for (let j = i + 1; j < this.file.length; j++) {
+          if (this.file[i].uid == this.file[j].uid) {
+            this.file.splice(j, 1)
+          }
+        }
+      }
+      // }
       Message({
         message: '上传成功',
         type: 'success',
@@ -149,7 +165,6 @@ export default {
       })
     },
     change(res) {
-      // console.log(res);
     },
     error(res) {
       Message({

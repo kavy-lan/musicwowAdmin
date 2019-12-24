@@ -67,10 +67,10 @@
         <template slot-scope="scope">
           <el-button plain class="caozuoButton" @click="goClassList(scope.row)">
             <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />查看
+              <svg-icon class-name="search-icon" icon-class="check" />教材
             </span>
           </el-button>
-          <el-button
+          <!-- <el-button
             plain
             class="caozuoButton"
             @click="dialogVisibleReset=true,editId=scope.row.id"
@@ -78,7 +78,7 @@
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="power" />重置
             </span>
-          </el-button>
+          </el-button> -->
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑

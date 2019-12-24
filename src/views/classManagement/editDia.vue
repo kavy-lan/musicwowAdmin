@@ -50,7 +50,12 @@
                 class="laji"
                 @click="deleteKnowledge(index)"
               />
-              <div class="total">{{ index+1 }}</div>
+              <!-- <div class="total">{{ items.knowledge_no }}</div> -->
+              <el-input
+                v-model="items.knowledge_no"
+                class="total konwtotal"
+                maxlength="20"
+              />
               <el-select
                 v-model="items.Templatevalue"
                 placeholder="请选择"
@@ -520,6 +525,31 @@ export default {
 
       const Know = this.Knowledge
       for (let i = 0; i < Know.length; i++) {
+        if (Know[i].template_type == 1 && !Know[i].images) {
+          Message({
+            message: '知识点图片素材不能为空',
+            type: 'success',
+            duration: 5 * 1000
+          })
+          return false
+        } else if (Know[i].template_type == 2 && (!Know[i].images || !Know[i].negative_image)) {
+          Message({
+            message: '知识点图片素材和底图素材不能为空',
+            type: 'success',
+            duration: 5 * 1000
+          })
+          return false
+        }
+      }
+      if (this.afters.images.length < 1) {
+        Message({
+          message: '课后拓展图片素材不能为空',
+          type: 'success',
+          duration: 5 * 1000
+        })
+        return false
+      }
+      for (let i = 0; i < Know.length; i++) {
         delete Know[i].Knowledgebox1
         delete Know[i].Knowledgebox2
         delete Know[i].Template
@@ -537,6 +567,7 @@ export default {
         // ['Knowledgebox1', 'Knowledgebox2', 'Template', 'Templatevalue', 'clear', 'show', 'audiolist1', 'audiolist2', 'imageslist1', 'imageslist2', 'negative_imagelist', 'videoslist1', 'videoslist2']
       }
 
+      console.log(this.afters)
       const params = {
         knowledges: Know,
         afters: this.afters,
@@ -546,18 +577,22 @@ export default {
         class_no: this.classNum,
         title: this.className
       }
-      return new Promise((resolve, reject) => {
-        editclassManagementList(this.id, params).then(res => {
-          console.log(res)
-          if (res.error_code == 0) {
-            Message({
-              message: '编辑成功',
-              type: 'success',
-              duration: 5 * 1000
-            })
-          }
-        })
-      })
+
+      // return new Promise((resolve, reject) => {
+      //   editclassManagementList(this.id, params).then(res => {
+      //     console.log(res)
+      //     if (res.error_code == 0) {
+      //       Message({
+      //         message: '编辑成功',
+      //         type: 'success',
+      //         duration: 5 * 1000
+      //       })
+      //       this.$emit('close', true)
+      //     }
+      //   }).catch(error => {
+      //     reject(error)
+      //   })
+      // })
       // const knowledges = []
       // this.Knowledge.map(item => {
       //   knowledges.push({ knowledge_no: item.knowledge_no, template_type: item.template_type, images: item.images, negative_image: item.negative_image, videos: item.videos, audios: item.audios })
@@ -782,27 +817,26 @@ export default {
                       knowledges[i].images += `${knowledges[i].material.images[m].url},`
                     }
                     knowledges[i].images = knowledges[i].images.substring(0, knowledges[i].images.length - 1)
-                  } else if (knowledges[i].material.videos.length > 0) {
+                  } if (knowledges[i].material.videos.length > 0) {
                     knowledges[i].Knowledgebox2.push('视频素材')
                     knowledges[i].show.knowledgeVideo = true
                     for (let m = 0; m < knowledges[i].material.videos.length; m++) {
                       knowledges[i].videoslist2.push({ url: knowledges[i].material.videos[m].url, name: knowledges[i].material.videos[m].title })
                       knowledges[i].videos.push({ url: knowledges[i].material.videos[m].url, title: knowledges[i].material.videos[m].title })
                     }
-                  } else if (knowledges[i].material.audios.length > 0) {
+                  } if (knowledges[i].material.audios.length > 0) {
                     knowledges[i].Knowledgebox2.push('音频素材')
                     knowledges[i].show.knowledgeAudio = true
                     for (let m = 0; m < knowledges[i].material.audios.length; m++) {
                       knowledges[i].audioslist2.push({ url: knowledges[i].material.audios[m].url, name: knowledges[i].material.audios[m].title })
                       knowledges[i].audios.push({ url: knowledges[i].material.audios[m].url, title: knowledges[i].material.audios[m].title })
                     }
-                  } else if (knowledges[i].material.negative_image.length > 0) {
+                  } if (knowledges[i].material.negative_image.length > 0) {
                     knowledges[i].Knowledgebox2.push('底图素材')
                     knowledges[i].show.baseImage = true
-                    for (let m = 0; m < knowledges[i].negative_image.length; m++) {
-                      knowledges[i].negative_imagelist.push({ url: knowledges[i].material.negative_image[m].url })
-                      knowledges[i].negative_image += `${knowledges[i].material.negative_image[m].url},`
-                    }
+                    knowledges[i].negative_imagelist.push({ url: knowledges[i].material.negative_image })
+                    knowledges[i].negative_image += `${knowledges[i].material.negative_image},`
+
                     knowledges[i].negative_image = knowledges[i].negative_image.substring(0, knowledges[i].negative_image.length - 1)
                   }
                 }
@@ -812,7 +846,7 @@ export default {
                 }, {
                   value: '2',
                   label: '模板2[交互]'
-                }], Templatevalue: knowledges[i].Templatevalue, show: knowledges[i].show, Knowledgebox1: knowledges[i].Knowledgebox1, Knowledgebox2: knowledges[i].Knowledgebox2, imageslist1: knowledges[i].imageslist1, videoslist1: knowledges[i].videoslist1, audiolist1: knowledges[i].audiolist1, imageslist2: knowledges[i].imageslist2, videoslist2: knowledges[i].videoslist2, audiolist2: knowledges[i].audioslist2, negative_imagelist: knowledges[i].negative_image })
+                }], Templatevalue: knowledges[i].Templatevalue, show: knowledges[i].show, Knowledgebox1: knowledges[i].Knowledgebox1, Knowledgebox2: knowledges[i].Knowledgebox2, imageslist1: knowledges[i].imageslist1, videoslist1: knowledges[i].videoslist1, audiolist1: knowledges[i].audiolist1, imageslist2: knowledges[i].imageslist2, videoslist2: knowledges[i].videoslist2, audiolist2: knowledges[i].audioslist2, negative_imagelist: knowledges[i].negative_imagelist })
               }
             }
           })
@@ -824,7 +858,7 @@ export default {
     newKnowledge() {
       this.KnowledgeNum = this.KnowledgeNum + 1
       // this.Knowledgebox.push(['图片素材'])
-      this.Knowledge.push({ knowledge_no: `${this.KnowledgeNum}`, template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
+      this.Knowledge.push({ knowledge_no: '', template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
         label: '模板1[知识点]'
       }, {
         value: '2',
@@ -948,6 +982,15 @@ export default {
         this.workV2 = true
       } else {
         this.workV2 = false
+      }
+    },
+    arrayTirm(array) {
+      for (let i = 0; i < array.length; i++) {
+        for (const key in array[i]) {
+          if (array[i][key].length < 1) {
+            delete array[i][key]
+          }
+        }
       }
     }
   }
@@ -1106,5 +1149,12 @@ label {
 }
 .upload-demo {
   margin-bottom: 13px;
+}
+.konwtotal{
+  >>>.el-input__inner{
+    padding: 0;
+    border: none;
+    text-align: center
+  }
 }
 </style>
