@@ -6,7 +6,7 @@
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="tableInit(1)">重置</el-button>
+      <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
     <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
@@ -15,6 +15,7 @@
       size="medium"
       class="deletebutton"
       :disabled="deleteShow"
+      @click="someDelete"
     >删除</el-button>
     <el-button size="medium" type="info" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
@@ -32,16 +33,26 @@
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
       <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="角色权限ID" prop="auth_ids" />
-      <el-table-column align="center" label="头像" prop="head_img">
+      <el-table-column align="center" label="教材名称" prop="title" />
+      <el-table-column align="center" label="图表标" prop="icon">
         <template slot-scope="scope">
-          <img :src="scope.row.head_img" width="40" height="40" style="vertical-align:middle">
+          <img :src="scope.row.icon" width="40" height="40" style="vertical-align:middle">
         </template>
       </el-table-column>
-      <el-table-column align="center" label="用户登录名" prop="username" />
-      <el-table-column align="center" label="联系手机号" prop="phone" />
+      <el-table-column align="center" label="单价课价格" prop="class_price" />
+      <el-table-column align="center" label="是否单价课价格">
+        <template slot-scope="scope">
+          <el-switch
+            v-model="scope.row.is_class_price"
+            active-color="#07D1AA"
+            inactive-color="#D9D9D9"
+            @change="handleChange(scope.row)"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="目录数" prop="directory_count" />
+      <el-table-column align="center" label="课时数" prop="class_count" />
       <el-table-column align="center" label="备注说明" prop="remark" />
-      <el-table-column align="center" label="登陆次数" prop="login_num" />
       <el-table-column align="center" label="状态">
         <template slot-scope="scope">
           <el-switch
@@ -54,16 +65,20 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button plain class="caozuoButton" @click="goGetRole">
+          <el-button plain class="caozuoButton" @click="goClassList(scope.row)">
             <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />查看
+              <svg-icon class-name="search-icon" icon-class="check" />教材
             </span>
           </el-button>
-          <el-button plain class="caozuoButton" @click="dialogVisibleReset=true,editId=scope.row.id">
+          <!-- <el-button
+            plain
+            class="caozuoButton"
+            @click="dialogVisibleReset=true,editId=scope.row.id"
+          >
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="power" />重置
             </span>
-          </el-button>
+          </el-button> -->
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -86,23 +101,19 @@
     />
     <!-- 添加课时弹窗 -->
     <add-dia :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
-    <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" />
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
 </template>
 <script>
-// import SingleImage from "@/components/Upload/SingleImage3"
 import AddDia from './addDia'
 import EditDia from './editDia'
-import reset from './resetDia'
-import {
-  administratorsList,
-  deleteAdministrators
-} from '../../api/Administrators'
+// import reset from "./resetDia";
+import { teachingManagementList, deleteteachingManagement } from '../../../../api/teachingManagement'
 import { MessageBox, Message } from 'element-ui'
 
 export default {
-  components: { AddDia, EditDia, reset },
+  components: { AddDia, EditDia },
   data() {
     return {
       rolesList: [],
@@ -116,46 +127,32 @@ export default {
       total: 0,
       editId: '',
       searchShow: false,
+      somedelete: '',
       searchList: [
         { label: 'ID', value: this.id, name: 'id', ops: '=' },
-        { label: '联系手机号', value: this.mobile, name: 'mobile', ops: '=' },
         {
-          label: '用户登录名',
-          value: this.username,
-          name: 'username',
+          label: '单价课价格',
+          value: this.class_price,
+          name: 'class_price',
+          ops: '='
+        },
+        {
+          label: '目录数',
+          value: this.directory_count,
+          name: 'directory_count',
+          ops: '='
+        },
+        {
+          label: '课时数',
+          value: this.class_count,
+          name: 'class_count',
           ops: '='
         }
       ],
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
-      items: [
-        { id: 0, content: '选项一', disabled: false, checked: true },
-        { id: 1, content: '选项二', disabled: true, checked: false },
-        { id: 2, content: '选项三', disabled: false, checked: false }
-      ],
       test: [],
       message: '测试',
-      deleteShow: true
+      deleteShow: true,
+      searchModel: false
     }
   },
   computed: {
@@ -175,7 +172,7 @@ export default {
   methods: {
     tableInit(page, filters, ops) {
       return new Promise((resolve, reject) => {
-        administratorsList(page, filters, ops)
+        teachingManagementList(page, filters, ops)
           .then(res => {
             const { data } = res
             this.rolesList = data.list
@@ -186,6 +183,11 @@ export default {
                 item.status = true
               } else {
                 item.status = false
+              }
+              if (item.is_class_price == 1) {
+                item.is_class_price = true
+              } else {
+                item.is_class_prices = false
               }
             })
           })
@@ -201,7 +203,7 @@ export default {
       })
         .then(() => {
           return new Promise((resolve, reject) => {
-            deleteAdministrators(row.id)
+            deleteteachingManagement(row.id)
               .then(res => {
                 console.log(res)
                 if (res.error_code == 0) {
@@ -220,8 +222,17 @@ export default {
         })
         .catch(action => {})
     },
-    goGetRole() {
-      this.$router.push({ path: '/getROLE' })
+    someDelete() {
+      const allId = { id: '' }
+      const allId1 = { id: '' }
+      for (let i = 0; i < this.somedelete.length; i++) {
+        allId.id += `${this.somedelete[i].id},`
+      }
+      allId1.id = allId.id.substring(0, allId.id.length - 1)
+      this.deleteA(allId1)
+    },
+    goClassList(row) {
+      this.$router.push({ path: '/classManagement/lists', query: { id: row.id }})
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -236,6 +247,7 @@ export default {
     handleSelectionChange(row) {
       if (row.length > 0) {
         this.deleteShow = false
+        this.somedelete = row
       } else {
         this.deleteShow = true
       }
@@ -243,6 +255,7 @@ export default {
     handleSelectAll(row) {
       if (row.length > 0) {
         this.deleteShow = false
+        this.somedelete = row
       } else {
         this.deleteShow = true
       }
@@ -251,7 +264,11 @@ export default {
       console.log(this.test)
     },
     nextPage(val) {
-      this.tableInit(val)
+      if (this.searchModel) {
+        this.tableInit(val, this.filters, this.ops)
+      } else {
+        this.tableInit(val)
+      }
     },
     closr(val) {
       if (val == false) {
@@ -269,7 +286,7 @@ export default {
       const obj = {}
       const ops = {}
       for (let i = 0; i < this.searchList.length; i++) {
-        if (this.searchList[i].value != undefined) {
+        if (this.searchList[i].value != undefined && this.searchList[i].value.trim()) {
           obj[this.searchList[i].name] = `${this.searchList[i].value}`
           ops[this.searchList[i].name] = `${this.searchList[i].ops}`
         }
@@ -279,6 +296,11 @@ export default {
     },
     submitSearch() {
       this.tableInit(1, this.filters, this.ops)
+      this.searchModel = true
+    },
+    resetSearch() {
+      this.tableInit(1)
+      this.searchModel = false
     }
   }
 }
@@ -369,6 +391,7 @@ export default {
   > div {
     display: inline-block;
     margin-right: 20px;
+    margin-bottom: 15px
   }
   .input {
     width: 200px;
@@ -390,7 +413,7 @@ export default {
   }
   >>> .el-input__inner,
   >>> .el-input__inner::placeholder {
-    // background: #d9d9d9;
+    background: #EBEBEB;
     font-size: 15px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;

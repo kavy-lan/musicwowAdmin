@@ -13,7 +13,7 @@
       <div>
         <label>教材名称:</label>
         <el-input
-          v-model="materialName"
+          v-model="detailMsg.title"
           placeholder="请输入教材名称，字数最多20字内"
           class="input"
           maxlength="20"
@@ -26,6 +26,7 @@
           size="2097152"
           type=".jpg,.png"
           :limit="1"
+          :filelist="materialCoverI"
           @files="materialCover"
         />
       </div>
@@ -36,6 +37,7 @@
           type=".jpg,.png"
           size="2097152"
           :limit="1"
+          :filelist="materialClassCoverI"
           @files="materialClassCover"
         />
       </div>
@@ -46,13 +48,14 @@
           type=".png"
           :limit="1"
           size="1048576"
+          :filelist="iconI"
           @files="icon"
         />
       </div>
       <div>
         <label style="vertical-align:top">教材目标:</label>
         <el-input
-          v-model="materialTarget"
+          v-model="detailMsg.goal"
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
@@ -62,7 +65,7 @@
       <div>
         <label style="vertical-align:top">备注说明:</label>
         <el-input
-          v-model="remark"
+          v-model="detailMsg.remark"
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
@@ -72,12 +75,19 @@
     </div>
     <div class="right">
       <div>
-        <single-image msg="视频格式为mp4" label="教材介绍视频:" type=".mp4" :limit="1" @files="materialVideo" />
+        <single-image
+          msg="视频格式为mp4"
+          label="教材介绍视频:"
+          type=".mp4"
+          :limit="1"
+          :filelist="materialVideoV"
+          @files="materialVideo"
+        />
       </div>
       <div>
         <label style="vertical-align:top">教材文字详情:</label>
         <el-input
-          v-model="materialDetail"
+          v-model="detailMsg.details"
           placeholder="请输入教材文字详情，字数最多600字内"
           class="input textarea"
           type="textarea"
@@ -90,25 +100,27 @@
           label="教材详情图:"
           type=".jpg,.png"
           size="2097152"
+          :filelist="materialDetailedI"
           @files="materialDetailed"
         />
       </div>
-      <div>
+      <div v-if="detailMsg.directory_list">
+        <!--这里是为了不让报错增加的v-if -->
         <label style="vertical-align:top">教材目录：</label>
-        <div v-if="Catalogue.length>0" class="allCatalogue">
+        <div v-if="detailMsg.directory_list.length>0" class="allCatalogue">
           <span>共</span>
-          <div style="margin:0 5px 0 5px;text-align:center">{{ Catalogue.length }}</div>
+          <div style="margin:0 5px 0 5px;text-align:center">{{ detailMsg.directory_list.length }}</div>
           <span>个目录</span>
         </div>
-        <div v-if="Catalogue.length>0" class="materialCatalogue">
-          <div v-for="(item,index) in Catalogue" :key="index" class="oneCatalogue">
+        <div v-if="detailMsg.directory_list.length>0" class="materialCatalogue">
+          <div v-for="(item,index) in detailMsg.directory_list" :key="index" class="oneCatalogue">
             <svg-icon
               class-name="search-icon"
               icon-class="laji"
               class="laji"
               @click="deleCatalogue(index)"
             />
-            <!-- <div style="text-align:center">{{ index+1 }}</div> -->
+            <!-- <div style="text-align:center">{{ item.directory_no || index }}</div> -->
             <el-input
               v-model="item.directory_no"
               class="No"
@@ -133,13 +145,17 @@
       </div>
       <div style="width:630px">
         <label style="vertical-align:top">单价课价格：</label>
-        <el-radio-group v-model="radio" text-color="#585B63" @change="radioChange">
+        <el-radio-group
+          v-model="detailMsg.is_class_price"
+          text-color="#585B63"
+          @change="radioChange"
+        >
           <el-radio :label="0" style="display:block">关闭</el-radio>
           <el-radio :label="1">开启</el-radio>
         </el-radio-group>
-        <div v-if="priceShow" style="display:inline-block;vertical-align:bottom">
+        <div v-if="detailMsg.is_class_price==1" style="display:inline-block;vertical-align:bottom">
           <el-input
-            v-model="price"
+            v-model="detailMsg.class_price"
             style="width:106px"
             placeholder="请输入价格"
             class="input"
@@ -158,18 +174,21 @@
 </template>
 
 <script>
-import { addteachingManagement } from '../../api/teachingManagement'
+import {
+  teachingManagementDetail,
+  editteachingManagement
+} from '../../../../api/teachingManagement'
 import SingleImage from '@/components/Upload/SingleImage3'
 import { MessageBox, Message } from 'element-ui'
 export default {
   components: {
     SingleImage
   },
-  props: ['dialogVisible'],
+  props: ['dialogVisible', 'id'],
   data() {
     return {
       dialogVisibleii: this.dialogVisible,
-      radio: 0,
+      radio: 1,
       materialName: '',
       materialTarget: '',
       materialDetail: '',
@@ -177,14 +196,21 @@ export default {
       remark: '',
       Catalogue: [],
       CatalogueNum: 0,
-      openPrice: 0,
-      priceShow: false,
-      materialCoverI: '',
-      materialClassCoverI: '',
-      iconI: '',
-      materialVideoV: '',
-      materialDetailedI: ''
+      materialCoverI: [],
+      materialClassCoverI: [],
+      iconI: [],
+      materialVideoV: [],
+      materialDetailedI: [],
+      detailMsg: {}
     }
+  },
+  watch: {
+    id(newval, oldval) {
+      // this.getDetail(newval)
+    }
+  },
+  mounted() {
+    this.getDetail(this.id)
   },
   methods: {
     close() {
@@ -192,96 +218,93 @@ export default {
     },
     file(res) {
       console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     handleClose() {
       this.$emit('close', false)
     },
     materialCover(res) {
-      this.materialCoverI = res[0].url
+      this.detailMsg.cover = res[0].url
     },
     materialClassCover(res) {
-      this.materialClassCoverI = res[0].url
+      this.detailMsg.class_cover = res[0].url
     },
     icon(res) {
-      this.iconI = res[0].url
+      this.detailMsg.icon = res[0].url
     },
     materialVideo(res) {
-      this.materialVideoV = res[0].url
+      this.detailMsg.video = res[0].url
     },
     materialDetailed(res) {
-      this.materialDetailedI = res[0].url
-    },
-    newCatalogue() {
-      // this.CatalogueNum = this.CatalogueNum + 1
-      // if (this.CatalogueNum <= 9) {
-      //   this.Catalogue.push({
-      //     directory_no: parseInt(`0${this.CatalogueNum}`),
-      //     title: ''
-      //   })
-      // } else {
-      //   this.Catalogue.push({
-      //     directory_no: parseInt(`${this.CatalogueNum}`),
-      //     title: ''
-      //   })
-      // }
-      this.Catalogue.push({
-        directory_no: '',
-        title: ''
-      })
+      this.detailMsg.details_image = res[0].url
     },
     deleCatalogue(index) {
-      this.Catalogue.splice(index, 1)
-      console.log(this.Catalogue)
+      this.detailMsg.directory_list.splice(index, 1)
     },
     radioChange(res) {
       if (res == 1) {
-        this.priceShow = true
-        this.openPrice = 1
+        this.detailMsg.is_class_price = 1
       } else {
-        this.priceShow = false
-        this.openPrice = 0
-        this.price = 0
+        this.detailMsg.is_class_price = 0
+        this.detailMsg.class_price = 0
       }
       console.log(res)
     },
     addA() {
-      const directory_list = []
-      for (let i = 0; i < this.Catalogue.length; i++) {
-        if (this.Catalogue[i].title.trim()) {
-          directory_list.push(this.Catalogue[i])
-        }
-      }
-      const params = {
-        title: this.materialName,
-        cover: this.materialCoverI,
-        class_cover: this.materialClassCoverI,
-        icon: this.iconI,
-        goal: this.materialTarget,
-        video: this.materialVideoV,
-        details: this.materialDetail,
-        details_image: this.materialDetailedI,
-        is_class_price: this.openPrice,
-        directory_list: directory_list,
-        class_price: this.price,
-        remark: this.remark
-      }
-      addteachingManagement(params)
-        .then(res => {
-          console.log(res)
-          if (res.error_code == 0) {
-            Message({
-              message: '添加成功',
-              type: 'success',
-              duration: 5 * 1000
-            })
-          }
-          this.$emit('close', true)
-        })
-        .catch(error => {
-          reject(error)
-        })
+      return new Promise((resolve, reject) => {
+        editteachingManagement(this.id, this.detailMsg)
+          .then(res => {
+            if (res.error_code == 0) {
+              Message({
+                message: '编辑成功',
+                type: 'success',
+                duration: 5 * 1000
+              })
+              this.$emit('close', true)
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    getDetail(id) {
+      return new Promise((resolve, reject) => {
+        teachingManagementDetail(id)
+          .then(res => {
+            console.log(res)
+            if (res.error_code == 0) {
+              this.detailMsg = res.data
+              this.materialCoverI = [{ url: this.detailMsg.cover }]
+              this.materialClassCoverI = [{ url: this.detailMsg.class_cover }]
+              this.iconI = [{ url: this.detailMsg.icon }]
+              this.materialVideoV = [{ url: this.detailMsg.video }]
+              this.materialDetailedI = [{ url: this.detailMsg.details_image }]
+              // this.Catalogue = [...res.data.directory_list]
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    newCatalogue() {
+      // this.CatalogueNum = this.CatalogueNum + 1
+      // if (this.CatalogueNum <= 9) {
+      //   this.detailMsg.directory_list.push({
+      //     directory_no: parseInt(`0${this.CatalogueNum}`),
+      //     title: ''
+      //   })
+      // } else {
+      //   this.detailMsg.directory_list.push({
+      //     directory_no: parseInt(`${this.CatalogueNum}`),
+      //     title: ''
+      //   })
+      // }
+      this.detailMsg.directory_list.push({
+        directory_no: '',
+        title: ''
+      })
+      console.log(this.Catalogue)
     }
   }
 }
@@ -332,14 +355,14 @@ export default {
 }
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #c1c2c6;
 }
 >>> .el-textarea__inner {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -367,7 +390,7 @@ export default {
   margin-bottom: 40px;
 }
 .allCatalogue div,
-.oneCatalogue >.No {
+.oneCatalogue > .No {
   width: 50px;
   height: 40px;
   background: rgba(235, 235, 235, 1);

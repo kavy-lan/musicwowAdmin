@@ -60,18 +60,35 @@ export const constantRoutes = [
     component: () => import('@/views/login/auth-redirect'),
     hidden: true
   },
-  {
-    path: 'Administrators',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/getROLE',
-        component: () => import('@/views/Administrators/getROLE')
+  // {
+  //   path: 'Administrators',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '/getROLE',
+  //       component: () => import('@/views/Administrators/getROLE')
 
-      }
-    ]
-  },
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/system',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '/system/Administrators',
+  //       component: () => import('@/views/system/Administrators'),
+  //       children: [
+  //         {
+  //           path: '/system/Administrators/list',
+  //           component: () => import('@/views/system/Administrators/list')
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/401',
   //   component: () => import('@/views/error-page/401'),

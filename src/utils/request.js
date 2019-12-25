@@ -89,11 +89,15 @@ service.interceptors.response.use(
             message: 'token过期,请重新登陆',
             type: 'error',
             duration: 5 * 1000
+          }).then(() => {
+            store.dispatch('user/resetToken').then(() => {
+              location.reload()
+            })
           })
           break
         case 10001:
           Message({
-            message: '参数异常',
+            message: error.response.data.message,
             type: 'error',
             duration: 5 * 1000
           })

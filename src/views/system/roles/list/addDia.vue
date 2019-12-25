@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { addRoles } from '../../api/roles'
+import { addRoles } from '../../../../api/roles'
 import { MessageBox, Message } from 'element-ui'
 export default {
   props: ['dialogVisible'],

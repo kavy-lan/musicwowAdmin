@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { editRoles, getRolesDetail } from '../../api/roles'
+import { editRoles, getRolesDetail } from '../../../../api/roles'
 import { MessageBox, Message } from 'element-ui'
 import { array } from 'jszip/lib/support'
 import { join } from 'path'

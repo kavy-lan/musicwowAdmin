@@ -96,7 +96,7 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { editAdministrators,getEditAdministrators } from '../../api/Administrators'
+import { editAdministrators, getEditAdministrators } from '../../../../api/Administrators'
 import { MessageBox, Message } from 'element-ui'
 import { array } from 'jszip/lib/support'
 import { join } from 'path'
@@ -117,7 +117,7 @@ export default {
       img: '',
       ifExist: 0,
       Exist: true,
-      headImg:[]
+      headImg: []
     }
   },
   computed: {
@@ -187,23 +187,23 @@ export default {
           })
       })
     },
-    getDetail(id){
-return new Promise((resolve, reject) => {
-  getEditAdministrators(id).then(res=>{
-    if(res.error_code==0){
-      const {data}=res
-      this.username=data.username
-      this.auth_ids=data.auth_ids
-      this.remark=data.remark
-      this.mobile=data.mobile
-      this.headImg=[{url:data.head_img}]
-      this.img=data.head_img
-      console.log(this.headImg)
-    }
-  }).catch(error => {
-            reject(error)
-          })
-})
+    getDetail(id) {
+      return new Promise((resolve, reject) => {
+        getEditAdministrators(id).then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
+            this.username = data.username
+            this.auth_ids = data.auth_ids
+            this.remark = data.remark
+            this.mobile = data.mobile
+            this.headImg = [{ url: data.head_img }]
+            this.img = data.head_img
+            console.log(this.headImg)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
     test() {
       console.log(this.id)
@@ -255,14 +255,14 @@ return new Promise((resolve, reject) => {
 }
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #c1c2c6;
 }
 >>> .el-textarea__inner {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;

@@ -25,7 +25,7 @@
 
 <script>
 // import SingleImage from "@/components/Upload/SingleImage3";
-import { resetAdministrators } from '../../api/Administrators'
+import { resetAdministrators } from '../../../../api/Administrators'
 import { MessageBox, Message } from 'element-ui'
 import { array } from 'jszip/lib/support'
 

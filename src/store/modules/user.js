@@ -80,29 +80,26 @@ const actions = {
         for (let i = 0; i < data.length; i++) {
           data[i].component = Layout
         }
-        // const routerPach = (data) => {
-        //   for (var i in data) {
-        //     if (data[i].children) {
-        //       for (var b in data[i].children) {
-        //         data[i].children[b].component = () => import(`../../views${data[i].children[b].path}`)
-        //         // console.log(`${data[i].children[b].path}`)
-        //         // data[1].children[0].component = () => import(`../../views${data[1].children[0].path}`)
-        //         // routerPach(data[i].children[b])
-        //       }
-        //     }
-        //   }
-        //   return data
-        // }
         const routerPach = (data) => {
           for (let i = 0; i < data.length; i++) {
             if (data[i].children) {
               for (let b = 0; b < data[i].children.length; b++) {
                 data[i].children[b].component = () => import(`../../views${data[i].children[b].path}`)
-                routerPach(data[i].children[b])
+                routerPach(data[i].children)
               }
             }
           }
         }
+        // const routerPach = (data) => {
+        //   data.foreach(item => {
+        //     if (item.children) {
+        //       item.children.foreach(items => {
+        //         items.component = () => import(`../../views${items.path}`)
+        //         routerPach(items.children)
+        //       })
+        //     }
+        //   })
+        // }
         routerPach(data)
         if (!data) {
           reject('Verification failed, please Login again.')
@@ -124,9 +121,9 @@ const actions = {
         reject(error)
       })
       return new Promise((resolve, reject) => {
-        getAdminDetail().then(res=>{
-          if(res.error_code==0){
-            const {data}=res
+        getAdminDetail().then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
             commit('SET_NAME', data.username)
           }
         }).catch(error => {

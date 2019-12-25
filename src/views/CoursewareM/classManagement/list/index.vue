@@ -1,14 +1,26 @@
 <template>
   <div class="app-container">
     <div v-if="searchShow" class="search">
-      <div v-for="(item, index) in searchList" :key="index">
+      <!-- <div v-for="(item, index) in searchList" :key="index">
         <label>{{ item.label }}</label>
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
+      </div> -->
+      <div v-for="(item, index) in searchList" :key="index">
+        <label>{{ item.label }}</label>
+        <el-select v-model="item.value" placeholder="请选择">
+          <el-option
+            v-for="items in item.array"
+            :key="items"
+            :label="items"
+            :value="items"
+          />
+        </el-select>
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="resetSearch">重置</el-button>
+      <el-button type="danger" @click="resetList">重置</el-button>
     </div>
-    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
+    <el-button round icon="el-icon-arrow-left" @click="back">返回上一页</el-button>
+    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true , addId=bookID">添加</el-button>
     <el-button
       type="danger"
       icon="el-icon-delete"
@@ -33,25 +45,12 @@
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
       <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="教材名称" prop="title" />
-      <el-table-column align="center" label="图表标" prop="icon">
-        <template slot-scope="scope">
-          <img :src="scope.row.icon" width="40" height="40" style="vertical-align:middle">
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="单价课价格" prop="class_price" />
-      <el-table-column align="center" label="是否单价课价格">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.is_class_price"
-            active-color="#07D1AA"
-            inactive-color="#D9D9D9"
-            @change="handleChange(scope.row)"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="目录数" prop="directory_count" />
-      <el-table-column align="center" label="课时数" prop="class_count" />
+      <el-table-column align="center" label="教材ID" prop="book_id" />
+      <el-table-column align="center" label="目录ID" prop="book_directory_id" />
+      <el-table-column align="center" label="课时编号" prop="class_no" />
+      <el-table-column align="center" label="目录信息" prop="directory" />
+      <el-table-column align="center" label="目录标题" prop="title" />
+      <el-table-column align="center" label="知识点数" prop="knowledge_count" />
       <el-table-column align="center" label="备注说明" prop="remark" />
       <el-table-column align="center" label="状态">
         <template slot-scope="scope">
@@ -65,11 +64,11 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button plain class="caozuoButton" @click="goClassList(scope.row)">
+          <!-- <el-button plain class="caozuoButton">
             <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />教材
+              <svg-icon class-name="search-icon" icon-class="check" />查看
             </span>
-          </el-button>
+          </el-button> -->
           <!-- <el-button
             plain
             class="caozuoButton"
@@ -79,7 +78,7 @@
               <svg-icon class-name="search-icon" icon-class="power" />重置
             </span>
           </el-button> -->
-          <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
+          <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id,editBookId=bookID">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
             </span>
@@ -100,20 +99,25 @@
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
-    <add-dia :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <add-dia :id="addId" :dialog-visible="dialogVisible" @close="closr" />
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :bookid="editBookId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
 </template>
 <script>
+// import SingleImage from "@/components/Upload/SingleImage3"
 import AddDia from './addDia'
-import EditDia from './editDia'
+import editDia from './editDia'
+// import EditDia from "./editDia";
 // import reset from "./resetDia";
-import { teachingManagementList, deleteteachingManagement } from '../../api/teachingManagement'
+import {
+  classManagementList,
+  deleteclassManagementList
+} from '../../../../api/classManagement'
 import { MessageBox, Message } from 'element-ui'
 
 export default {
-  components: { AddDia, EditDia },
+  components: { AddDia, editDia },
   data() {
     return {
       rolesList: [],
@@ -126,33 +130,47 @@ export default {
       ops: {},
       total: 0,
       editId: '',
+      addId: '',
+      bookID: '',
+      editBookId: '',
       searchShow: false,
       somedelete: '',
       searchList: [
-        { label: 'ID', value: this.id, name: 'id', ops: '=' },
-        {
-          label: '单价课价格',
-          value: this.class_price,
-          name: 'class_price',
-          ops: '='
-        },
-        {
-          label: '目录数',
-          value: this.directory_count,
-          name: 'directory_count',
-          ops: '='
-        },
-        {
-          label: '课时数',
-          value: this.class_count,
-          name: 'class_count',
-          ops: '='
-        }
+        { label: '课时编号', value: this.classNum, name: 'title', ops: '=', array: this.classNum }
+        // { label: '目录ID', value: this.book_directory_id, name: 'book_directory_id', ops: '=' },
+        // {
+        //   label: '教材ID',
+        //   value: this.book_id,
+        //   name: 'book_id',
+        //   ops: '='
+        // },
+        // {
+        //   label: '课时编号',
+        //   value: this.class_no,
+        //   name: 'class_no',
+        //   ops: '='
+        // },
+        // {
+        //   label: '目录标题',
+        //   value: this.title,
+        //   name: 'title',
+        //   ops: '%*%'
+        // },
+        // {
+        //   label: '知识点数',
+        //   value: this.knowledge_count,
+        //   name: 'knowledge_count',
+        //   ops: '='
+        // }
       ],
       test: [],
-      message: '测试',
       deleteShow: true,
-      searchModel: false
+      searchModel: false,
+      priceSearch: [],
+      classSearch: [],
+      classNameSearch: [],
+      chapterSearch: [],
+      classNum: []
     }
   },
   computed: {
@@ -164,30 +182,29 @@ export default {
     // Mock: get all routes and roles list from server
   },
   mounted() {
-    // administratorsList().then(res=>{
-    //   console.log(res)
-    // })
-    this.tableInit(1)
+    const that = this
+    that.bookID = this.$route.query.id
+    that.tableInit(this.bookID, 1)
+    console.log(this.searchList)
   },
   methods: {
-    tableInit(page, filters, ops) {
+    tableInit(bookID, page, filters, ops) {
       return new Promise((resolve, reject) => {
-        teachingManagementList(page, filters, ops)
+        classManagementList(bookID, page, filters, ops)
           .then(res => {
             const { data } = res
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
+            data.list.map(item => {
+              this.classNum.push(item.class_no)
+              console.log(item)
+            })
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
               } else {
                 item.status = false
-              }
-              if (item.is_class_price == 1) {
-                item.is_class_price = true
-              } else {
-                item.is_class_prices = false
               }
             })
           })
@@ -203,7 +220,7 @@ export default {
       })
         .then(() => {
           return new Promise((resolve, reject) => {
-            deleteteachingManagement(row.id)
+            deleteclassManagementList(row.id)
               .then(res => {
                 console.log(res)
                 if (res.error_code == 0) {
@@ -212,7 +229,7 @@ export default {
                     type: 'success',
                     duration: 5 * 1000
                   })
-                  this.tableInit(1)
+                  this.tableInit(this.bookID, 1)
                 }
               })
               .catch(error => {
@@ -230,9 +247,6 @@ export default {
       }
       allId1.id = allId.id.substring(0, allId.id.length - 1)
       this.deleteA(allId1)
-    },
-    goClassList(row) {
-      this.$router.push({ path: '/classManagement/lists', query: { id: row.id }})
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -265,9 +279,9 @@ export default {
     },
     nextPage(val) {
       if (this.searchModel) {
-        this.tableInit(val, this.filters, this.ops)
+        this.tableInit(this.bookID, val, this.filters, this.ops)
       } else {
-        this.tableInit(val)
+        this.tableInit(this.bookID, val)
       }
     },
     closr(val) {
@@ -279,14 +293,15 @@ export default {
         this.dialogVisible = false
         this.dialogVisibleEdit = false
         this.dialogVisibleReset = false
-        this.tableInit(1)
+        this.tableInit(this.bookID, 1)
       }
     },
     six(e) {
       const obj = {}
       const ops = {}
       for (let i = 0; i < this.searchList.length; i++) {
-        if (this.searchList[i].value != undefined && this.searchList[i].value.trim()) {
+        if (this.searchList[i].value != undefined &&
+          this.searchList[i].value.trim()) {
           obj[this.searchList[i].name] = `${this.searchList[i].value}`
           ops[this.searchList[i].name] = `${this.searchList[i].ops}`
         }
@@ -295,12 +310,15 @@ export default {
       this.ops = JSON.stringify(ops)
     },
     submitSearch() {
-      this.tableInit(1, this.filters, this.ops)
+      this.tableInit(this.booID, 1, this.filters, this.ops)
       this.searchModel = true
     },
-    resetSearch() {
-      this.tableInit(1)
+    resetList() {
+      this.this.tableInit(this.booID, 1)
       this.searchModel = false
+    },
+    back() {
+      this.$router.go(-1)
     }
   }
 }
@@ -413,7 +431,7 @@ export default {
   }
   >>> .el-input__inner,
   >>> .el-input__inner::placeholder {
-    // background: #d9d9d9;
+    background: #EBEBEB;
     font-size: 15px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;

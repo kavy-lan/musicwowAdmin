@@ -69,7 +69,7 @@ label {
 }
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;

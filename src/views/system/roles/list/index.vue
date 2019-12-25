@@ -6,10 +6,9 @@
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="resetList">重置</el-button>
+      <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
-    <el-button round icon="el-icon-arrow-left" @click="back">返回上一页</el-button>
-    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true , addId=bookID">添加</el-button>
+    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
       type="danger"
       icon="el-icon-delete"
@@ -34,12 +33,8 @@
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
       <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="教材ID" prop="book_id" />
-      <el-table-column align="center" label="目录ID" prop="book_directory_id" />
-      <el-table-column align="center" label="课时编号" prop="class_no" />
-      <el-table-column align="center" label="目录信息" prop="directory" />
-      <el-table-column align="center" label="目录标题" prop="title" />
-      <el-table-column align="center" label="知识点数" prop="knowledge_count" />
+      <el-table-column align="center" label="角色名称" prop="titie" />
+      <el-table-column align="center" label="规则列表" prop="rules" />
       <el-table-column align="center" label="备注说明" prop="remark" />
       <el-table-column align="center" label="状态">
         <template slot-scope="scope">
@@ -53,12 +48,12 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <!-- <el-button plain class="caozuoButton">
+          <el-button plain class="caozuoButton" @click="goGetRole">
             <span class="caozuo">
               <svg-icon class-name="search-icon" icon-class="check" />查看
             </span>
-          </el-button> -->
-          <!-- <el-button
+          </el-button>
+          <el-button
             plain
             class="caozuoButton"
             @click="dialogVisibleReset=true,editId=scope.row.id"
@@ -66,8 +61,8 @@
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="power" />重置
             </span>
-          </el-button> -->
-          <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id,editBookId=bookID">
+          </el-button>
+          <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
             </span>
@@ -88,25 +83,23 @@
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
-    <add-dia :id="addId" :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia v-if="dialogVisibleEdit" :id="editId" :bookid="editBookId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <add-dia :dialog-visible="dialogVisible" @close="closr" />
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
 </template>
 <script>
 // import SingleImage from "@/components/Upload/SingleImage3"
 import AddDia from './addDia'
-import editDia from './editDia'
-// import EditDia from "./editDia";
+import EditDia from './editDia'
 // import reset from "./resetDia";
 import {
-  classManagementList,
-  deleteclassManagementList
-} from '../../api/classManagement'
-import { MessageBox, Message } from 'element-ui'
+  rolesList
+} from '../../../../api/roles'
+import { Message } from 'element-ui'
 
 export default {
-  components: { AddDia, editDia },
+  components: { EditDia, AddDia },
   data() {
     return {
       rolesList: [],
@@ -119,41 +112,20 @@ export default {
       ops: {},
       total: 0,
       editId: '',
-      addId: '',
-      bookID: '',
-      editBookId: '',
       searchShow: false,
       somedelete: '',
+      test: [],
+      deleteShow: true,
       searchList: [
         { label: 'ID', value: this.id, name: 'id', ops: '=' },
-        { label: '目录ID', value: this.book_directory_id, name: 'book_directory_id', ops: '=' },
+        { label: '规则列表', value: this.rules, name: 'rules', ops: '=' },
         {
-          label: '教材ID',
-          value: this.book_id,
-          name: 'book_id',
-          ops: '='
-        },
-        {
-          label: '课时编号',
-          value: this.class_no,
-          name: 'class_no',
-          ops: '='
-        },
-        {
-          label: '目录标题',
+          label: '角色名称',
           value: this.title,
           name: 'title',
-          ops: '%*%'
-        },
-        {
-          label: '知识点数',
-          value: this.knowledge_count,
-          name: 'knowledge_count',
           ops: '='
         }
       ],
-      test: [],
-      deleteShow: true,
       searchModel: false
     }
   },
@@ -166,14 +138,15 @@ export default {
     // Mock: get all routes and roles list from server
   },
   mounted() {
-    const that = this
-    that.bookID = this.$route.query.id
-    that.tableInit(this.bookID, 1)
+    // administratorsList().then(res=>{
+    //   console.log(res)
+    // })
+    this.tableInit(1)
   },
   methods: {
-    tableInit(bookID, page, filters, ops) {
+    tableInit(page, filters, ops) {
       return new Promise((resolve, reject) => {
-        classManagementList(bookID, page, filters, ops)
+        rolesList(page, filters, ops)
           .then(res => {
             const { data } = res
             this.rolesList = data.list
@@ -199,7 +172,7 @@ export default {
       })
         .then(() => {
           return new Promise((resolve, reject) => {
-            deleteclassManagementList(row.id)
+            deleteAdministrators(row.id)
               .then(res => {
                 console.log(res)
                 if (res.error_code == 0) {
@@ -208,7 +181,7 @@ export default {
                     type: 'success',
                     duration: 5 * 1000
                   })
-                  this.tableInit(this.bookID, 1)
+                  this.tableInit(1)
                 }
               })
               .catch(error => {
@@ -226,6 +199,9 @@ export default {
       }
       allId1.id = allId.id.substring(0, allId.id.length - 1)
       this.deleteA(allId1)
+    },
+    goGetRole() {
+      this.$router.push({ path: '/getROLE' })
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -258,9 +234,9 @@ export default {
     },
     nextPage(val) {
       if (this.searchModel) {
-        this.tableInit(this.bookID, val, this.filters, this.ops)
+        this.tableInit(val, this.filters, this.ops)
       } else {
-        this.tableInit(this.bookID, val)
+        this.tableInit(val)
       }
     },
     closr(val) {
@@ -272,15 +248,14 @@ export default {
         this.dialogVisible = false
         this.dialogVisibleEdit = false
         this.dialogVisibleReset = false
-        this.tableInit(this.bookID, 1)
+        this.tableInit(1)
       }
     },
     six(e) {
       const obj = {}
       const ops = {}
       for (let i = 0; i < this.searchList.length; i++) {
-        if (this.searchList[i].value != undefined &&
-          this.searchList[i].value.trim()) {
+        if (this.searchList[i].value != undefined && this.searchList[i].value.trim()) {
           obj[this.searchList[i].name] = `${this.searchList[i].value}`
           ops[this.searchList[i].name] = `${this.searchList[i].ops}`
         }
@@ -289,15 +264,12 @@ export default {
       this.ops = JSON.stringify(ops)
     },
     submitSearch() {
-      this.tableInit(this.booID, 1, this.filters, this.ops)
+      this.tableInit(1, this.filters, this.ops)
       this.searchModel = true
     },
-    resetList() {
-      this.this.tableInit(this.booID, 1)
+    resetSearch() {
+      this.tableInit(1)
       this.searchModel = false
-    },
-    back() {
-      this.$router.go(-1)
     }
   }
 }

@@ -53,7 +53,7 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { addAdministrators } from '../../api/Administrators'
+import { addAdministrators } from '../../../../api/Administrators'
 import { MessageBox, Message } from 'element-ui'
 
 export default {
@@ -183,14 +183,14 @@ export default {
 }
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #c1c2c6;
 }
 >>> .el-textarea__inner {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;

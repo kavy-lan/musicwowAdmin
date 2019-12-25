@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="添加课时"
+    title="编辑课时"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"
@@ -98,6 +98,7 @@
                 type=".jpg,.png,.gif"
                 size="3145728"
                 :limit="1"
+                :filelist="items.negative_imagelist"
                 :clear="items.clear"
                 @files="templateBase2($event,index)"
               />
@@ -108,6 +109,7 @@
                 type=".jpg,.png,.gif"
                 size="1048576"
                 :limit="7"
+                :filelist="items.imageslist2"
                 :clear="items.clear"
                 @files="templateOther2($event,index)"
               />
@@ -117,15 +119,17 @@
                 label="视频素材:"
                 type=".mp4"
                 :limit="4"
+                :filelist="items.videolist2"
                 :clear="items.clear"
                 @files="templateVideo2($event,index)"
               />
               <single-image
                 v-if="items.show.knowledgeAudio"
-                msg="素材音频格式为 mp4，视频最多4个"
+                msg="素材音频格式为 mp4，音频最多4个"
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
+                :filelist="items.audiolist2"
                 :clear="items.clear"
                 @files="templateAudio2($event,index)"
               />
@@ -134,10 +138,11 @@
               <single-image
                 v-if="items.show.knowledgeImage"
                 msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
-                label="图片素材:"
+                label="头像:"
                 type=".jpg,.png,.gif"
                 size="3145728"
                 :limit="4"
+                :filelist="items.imageslist1"
                 :clear="items.clear"
                 @files="templateImage1($event,index)"
               />
@@ -146,7 +151,9 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 label="视频素材:"
                 type=".mp4"
+                size="2097152"
                 :limit="4"
+                :filelist="items.videoslist1"
                 :clear="items.clear"
                 @files="templateVideo1($event,index)"
               />
@@ -156,6 +163,7 @@
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
+                :filelist="items.audioslist1"
                 :clear="items.clear"
                 @files="templateAudio1($event,index)"
               />
@@ -169,7 +177,7 @@
     </div>
     <div class="right">
       <div class="Expand">
-        <label>课后拓展：</label>
+        <label>课后拓展</label>
         <div class="c_right">
           <div>
             <el-select
@@ -200,6 +208,7 @@
               type=".jpg,.png,.gif"
               size="3145728"
               :limit="4"
+              :filelist="aftersImagesList"
               @files="tuozhanImage1"
             />
             <single-image
@@ -208,14 +217,17 @@
               label="视频素材"
               type=".mp4"
               :limit="4"
+              :filelist="aftersVideosList"
+
               @files="tuozhanVideo1"
             />
             <single-image
               v-if="tuozhanAudio"
-              msg="素材音频格式为 mp4，视频最多4个"
+              msg="素材音频格式为 mp4，音频最多4个"
               label="音频素材"
               type=".mp3"
               :limit="4"
+              :filelist="aftersAudiosList"
               @files="tuozhanAudio1"
             />
           </div>
@@ -249,6 +261,7 @@
                 label="图片素材"
                 type=".jpg,.png"
                 :limit="6"
+                :filelist="workImageList1"
                 @files="homeWorkI1"
               />
               <single-image
@@ -257,6 +270,7 @@
                 label="视频素材"
                 type=".mp4"
                 :limit="1"
+                :filelist="workVideoList1"
                 @files="homeWorkV1"
               />
             </div>
@@ -286,6 +300,7 @@
                 label="图片素材"
                 type=".jpg,.png"
                 :limit="6"
+                :filelist="workImageList2"
                 @files="homeWorkI2"
               />
               <single-image
@@ -294,6 +309,7 @@
                 label="视频素材"
                 type=".mp4"
                 :limit="1"
+                :filelist="workVideoList2"
                 @files="homeWorkV2"
               />
             </div>
@@ -310,18 +326,17 @@
 </template>
 
 <script>
-import { getDirectory_list, addclassManagementList } from '../../api/classManagement'
+import { getclassManagementDetail, getDirectory_list, editclassManagementList } from '../../../../api/classManagement'
 import SingleImage from '@/components/Upload/SingleImage3'
 import { MessageBox, Message } from 'element-ui'
 export default {
   components: {
     SingleImage
   },
-  props: ['dialogVisible', 'id'],
+  props: ['dialogVisible', 'id', 'bookid'],
   data() {
     return {
       dialogVisibleii: this.dialogVisible,
-      checkList: ['复选框 A'],
       checked: true,
       Knowledgebox: [],
       knowledgeVideo: false,
@@ -340,8 +355,8 @@ export default {
       CatalogueId: '',
       tuozhanSelete: [{ value: 1, label: '模版一[知识点]' }],
       tuozhanSeleteValue: '模版一[知识点]',
-      tuozhanList: ['图片素材'],
-      tuozhanImage: true,
+      tuozhanList: [],
+      tuozhanImage: false,
       tuozhanVideo: false,
       tuozhanAudio: false,
       afters: { template_type: 1, images: '', videos: [], audios: [] },
@@ -353,19 +368,32 @@ export default {
       workT2: true,
       workI2: false,
       workV2: false,
-      works1: {},
-      works2: {},
+      works1: { },
+      works2: { },
+      aftersVideosList: [],
+      aftersImagesList: [],
+      aftersAudiosList: [],
+      workImageList1: [],
+      workVideoList1: [],
+      workImageList2: [],
+      workVideoList2: [],
       works1images: '',
       works2images: '',
       works1videos: '',
       works2videos: ''
-
     }
   },
   watch: {
     id(newval, oldval) {
-      this.getDirectoryList(newval)
+      // this.getClassDetail(newval)
+    },
+    bookid(newval, oldval) {
+      // this.getDirectoryList(newval)
     }
+  },
+  mounted() {
+    this.getClassDetail(this.id)
+    this.getDirectoryList(this.bookid)
   },
   methods: {
     close() {
@@ -376,6 +404,7 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].images += `${res[i].url},`
       }
+      // console.log(this.Knowledge[index].images.length)
       this.Knowledge[index].images = this.Knowledge[index].images.substring(0, this.Knowledge[index].images.length - 1)
     },
     templateVideo1(res, index) {
@@ -480,48 +509,27 @@ export default {
       console.log(this.Catalogue)
     },
     addA() {
-      const knowledges = []
-      this.Knowledge.map(item => {
-        knowledges.push({ knowledge_no: item.knowledge_no, template_type: item.template_type, images: item.images, negative_image: item.negative_image, videos: item.videos, audios: item.audios })
-      })
-      this.works1.classwork_no = 1
-      this.works2.classwork_no = 2
+      console.log(this.Knowledge)
+      console.log(this.CatalogueId)
+      console.log(this.afters)
+
       this.works1.images = this.works1images
       this.works2.images = this.works2images
       this.works1.video = this.works1videos
       this.works2.video = this.works2videos
       this.works1.describe = this.workText1
       this.works2.describe = this.workText2
-      const works = [this.works1, this.works2]
-      this.arrayTirm(knowledges)
-      this.objectTirm(this.afters)
-      // this.arrayTirm(works)
-      // knowledges.map(item => {
-      //   if (item.template_type == 1 && !item.images) {
-      //     Message({
-      //       message: '知识点图片素材不能为空',
-      //       type: 'success',
-      //       duration: 5 * 1000
-      //     })
-      //     return false
-      //   } else if (item.template_type == 2 && (!item.images || !item.negative_image)) {
-      //     Message({
-      //       message: '知识点图片素材和底图素材不能为空',
-      //       type: 'success',
-      //       duration: 5 * 1000
-      //     })
-      //     return false
-      //   }
-      // })
-      for (let i = 0; i < knowledges.length; i++) {
-        if (knowledges[i].template_type == 1 && !knowledges[i].images) {
+
+      const Know = this.Knowledge
+      for (let i = 0; i < Know.length; i++) {
+        if (Know[i].template_type == 1 && !Know[i].images) {
           Message({
             message: '知识点图片素材不能为空',
             type: 'success',
             duration: 5 * 1000
           })
           return false
-        } else if (knowledges[i].template_type == 2 && (!knowledges[i].images || !knowledges[i].negative_image)) {
+        } else if (Know[i].template_type == 2 && (!Know[i].images || !Know[i].negative_image)) {
           Message({
             message: '知识点图片素材和底图素材不能为空',
             type: 'success',
@@ -530,13 +538,7 @@ export default {
           return false
         }
       }
-      // if (!works[0].describe.trim()) {
-      //   works.splice(0, 1)
-      // }
-      // if (!works[0].describe.trim()) {
-      //   works.splice(0, 1)
-      // }
-      if (!this.afters.images) {
+      if (this.afters.images.length < 1) {
         Message({
           message: '课后拓展图片素材不能为空',
           type: 'success',
@@ -544,30 +546,83 @@ export default {
         })
         return false
       }
+      for (let i = 0; i < Know.length; i++) {
+        delete Know[i].Knowledgebox1
+        delete Know[i].Knowledgebox2
+        delete Know[i].Template
+        delete Know[i].Templatevalue
+        delete Know[i].clear
+        delete Know[i].show
+        delete Know[i].audiolist1
+        delete Know[i].audiolist2
+        delete Know[i].imageslist1
+        delete Know[i].imageslist2
+        delete Know[i].negative_imagelist
+        delete Know[i].videoslist1
+        delete Know[i].videoslist2
+
+        // ['Knowledgebox1', 'Knowledgebox2', 'Template', 'Templatevalue', 'clear', 'show', 'audiolist1', 'audiolist2', 'imageslist1', 'imageslist2', 'negative_imagelist', 'videoslist1', 'videoslist2']
+      }
+
+      console.log(this.afters)
       const params = {
-        book_id: this.id,
+        knowledges: Know,
+        afters: this.afters,
+        works: [this.works1, this.works2],
+        book_id: this.bookid,
         book_directory_id: this.CatalogueId,
         class_no: this.classNum,
-        title: this.className,
-        knowledges: knowledges,
-        afters: this.afters,
-        works: works
+        title: this.className
       }
+
       return new Promise((resolve, reject) => {
-        addclassManagementList(params).then(res => {
+        editclassManagementList(this.id, params).then(res => {
+          console.log(res)
           if (res.error_code == 0) {
             Message({
-              message: '添加成功',
+              message: '编辑成功',
               type: 'success',
               duration: 5 * 1000
             })
             this.$emit('close', true)
           }
+        }).catch(error => {
+          reject(error)
         })
-          .catch(error => {
-            reject(error)
-          })
       })
+      // const knowledges = []
+      // this.Knowledge.map(item => {
+      //   knowledges.push({ knowledge_no: item.knowledge_no, template_type: item.template_type, images: item.images, negative_image: item.negative_image, videos: item.videos, audios: item.audios })
+      // })
+      // this.works1.classwork_no = 1
+      // this.works2.classwork_no = 2
+      // this.works1.describe = this.workText1
+      // this.works2.describe = this.workText2
+      // console.log(this.works1)
+      // const params = {
+      //   book_id: this.id,
+      //   book_directory_id: this.CatalogueId,
+      //   class_no: this.classNum,
+      //   title: this.className,
+      //   knowledges: knowledges,
+      //   afters: this.afters,
+      //   works: [this.works1, this.works2]
+      // }
+      // return new Promise((resolve, reject) => {
+      //   addclassManagementList(params).then(res => {
+      //     if (res.error_code == 0) {
+      //       Message({
+      //         message: '添加成功',
+      //         type: 'success',
+      //         duration: 5 * 1000
+      //       })
+      //       this.$emit('close', true)
+      //     }
+      //   })
+      //     .catch(error => {
+      //       reject(error)
+      //     })
+      // })
       // const directory_list = []
       // for (let i = 0; i < this.Catalogue.length; i++) {
       //   if (this.Catalogue[i].title.trim()) {
@@ -610,6 +665,186 @@ export default {
           .then(res => {
             if (res.error_code == 0) {
               this.options = res.data
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    getClassDetail(id) {
+      return new Promise((resolve, reject) => {
+        getclassManagementDetail(id)
+          .then(res => {
+            if (res.error_code == 0) {
+              const knowledges = res.data.knowledges
+              const afters = res.data.afters
+              const directory = res.data.directory
+              const works = res.data.works
+              this.className = res.data.title
+              this.classNum = res.data.class_no
+              // 以下是目录
+              for (let i = 0; i < this.options.length; i++) {
+                if (this.options[i].id == directory.id) {
+                  this.CatalogueId = this.options[i].id
+                }
+              }
+              // 以下是课后拓展
+              this.afters.id = afters[0].id
+              this.afters.material_id = afters[0].material_id
+              for (let i = 0; i < afters.length; i++) {
+                if (afters[i].material.videos.length > 0) {
+                  this.tuozhanList.push('视频素材')
+                  this.tuozhanVideo = true
+                  for (let m = 0; m < afters[i].material.videos.length; m++) {
+                    this.aftersVideosList.push({ url: afters[i].material.videos[m].url, name: afters[i].material.videos[m].title })
+                    this.afters.videos.push({ url: afters[i].material.videos[m].url, title: afters[i].material.videos[m].title })
+                  }
+                }
+                if (afters[i].material.audios.length > 0) {
+                  this.tuozhanList.push('音频素材')
+                  this.tuozhanAudio = true
+                  for (let m = 0; m < afters[i].material.audios.length; m++) {
+                    this.aftersAudiosList.push({ url: afters[i].material.audios[m].url, name: afters[i].material.audios[m].title })
+                    this.afters.audios.push({ url: afters[i].material.audios[m].url, title: afters[i].material.audios[m].title })
+                  }
+                }
+                if (afters[i].material.images.length > 0) {
+                  this.tuozhanList.push('图片素材')
+                  this.tuozhanImage = true
+                  for (let m = 0; m < afters[i].material.images.length; m++) {
+                    this.aftersImagesList.push({ url: afters[i].material.images[m].url })
+                    this.afters.images += `${afters[i].material.images[m].url},`
+                  }
+                  this.afters.images = this.afters.images.substring(0, this.afters.images.length - 1)
+                }
+              }
+              // 以下是作业
+              this.workText1 = works[0].describe
+              this.workText2 = works[1].describe
+              this.works1.id = works[0].id
+              this.works2.id = works[1].id
+              this.works1.classwork_no = works[0].classwork_no
+              this.works2.classwork_no = works[1].classwork_no
+              if (works[0].images.length > 0) {
+                this.workList1.push('作业图片')
+                this.workI1 = true
+                for (let m = 0; m < works[0].images.length; m++) {
+                  this.workImageList1.push({ url: works[0].images[m] })
+                  this.works1images += `${works[0].images[m]},`
+                  console.log('llalala')
+                }
+                this.works1images = this.works1images.substring(0, this.works1images.length - 1)
+              }
+              if (works[0].video != null) {
+                this.workList1.push('作业视频')
+                this.workV1 = true
+                this.workVideoList1.push({ url: works[0].video })
+                this.works1videos = works[0].video
+              }
+              if (works[1].images.length > 0) {
+                this.workList2.push('作业图片')
+                this.workI2 = true
+                for (let m = 0; m < works[1].images.length; m++) {
+                  this.workImageList2.push({ url: works[1].images[m] })
+                  this.works2.images += `${works[1].images[m]},`
+                }
+                this.works2images = this.works2images.substring(0, this.works2images.length - 1)
+              }
+              if (works[1].video != null) {
+                this.workList2.push('作业视频')
+                this.workV2 = true
+                this.workVideoList2.push({ url: works[1].video })
+                this.works2videos = works[1].video
+              }
+              // 以下是知识点
+              for (let i = 0; i < knowledges.length; i++) {
+                knowledges[i].show = { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }
+                if (knowledges[i].material.template_type == 1) {
+                  knowledges[i].Templatevalue = '模板1[知识点]'
+                  knowledges[i].imageslist1 = []
+                  knowledges[i].videoslist1 = []
+                  knowledges[i].audioslist1 = []
+                  knowledges[i].Knowledgebox1 = []
+                  knowledges[i].videos = []
+                  knowledges[i].audios = []
+                  knowledges[i].images = ''
+                  if (knowledges[i].material.images.length > 0) {
+                    knowledges[i].Knowledgebox1.push('图片素材')
+                    knowledges[i].show.knowledgeImage = true
+                    for (let m = 0; m < knowledges[i].material.images.length; m++) {
+                      knowledges[i].imageslist1.push({ url: knowledges[i].material.images[m].url })
+                      knowledges[i].images += `${knowledges[i].material.images[m].url},`
+                    }
+                    knowledges[i].images = knowledges[i].images.substring(0, knowledges[i].images.length - 1)
+                  }
+                  if (knowledges[i].material.videos.length > 0) {
+                    console.log('视频')
+                    knowledges[i].Knowledgebox1.push('视频素材')
+                    knowledges[i].show.knowledgeVideo = true
+                    for (let m = 0; m < knowledges[i].material.videos.length; m++) {
+                      knowledges[i].videoslist1.push({ url: knowledges[i].material.videos[m].url, name: knowledges[i].material.videos[m].title })
+                      knowledges[i].videos.push({ url: knowledges[i].material.videos[m].url, title: knowledges[i].material.videos[m].title })
+                    }
+                  }
+                  if (knowledges[i].material.audios.length > 0) {
+                    knowledges[i].Knowledgebox1.push('音频素材')
+                    knowledges[i].show.knowledgeAudio = true
+                    for (let m = 0; m < knowledges[i].material.audios.length; m++) {
+                      knowledges[i].audioslist1.push({ url: knowledges[i].material.audios[m].url, name: knowledges[i].material.audios[m].title })
+                      knowledges[i].audios.push({ url: knowledges[i].material.audios[m].url, title: knowledges[i].material.audios[m].title })
+                    }
+                  }
+                } else if (knowledges[i].material.template_type == 2) {
+                  knowledges[i].Templatevalue = '模板2[交互]'
+                  knowledges[i].imageslist2 = []
+                  knowledges[i].videoslist2 = []
+                  knowledges[i].negative_imagelist = []
+                  knowledges[i].audioslist2 = []
+                  knowledges[i].Knowledgebox2 = []
+                  knowledges[i].videos = []
+                  knowledges[i].audios = []
+                  knowledges[i].images = ''
+                  knowledges[i].negative_image = ''
+                  if (knowledges[i].material.images.length > 0) {
+                    knowledges[i].Knowledgebox2.push('其他素材')
+                    knowledges[i].show.otherImage = true
+                    for (let m = 0; m < knowledges[i].material.images.length; m++) {
+                      knowledges[i].imageslist2.push({ url: knowledges[i].material.images[m].url })
+                      knowledges[i].images += `${knowledges[i].material.images[m].url},`
+                    }
+                    knowledges[i].images = knowledges[i].images.substring(0, knowledges[i].images.length - 1)
+                  } if (knowledges[i].material.videos.length > 0) {
+                    knowledges[i].Knowledgebox2.push('视频素材')
+                    knowledges[i].show.knowledgeVideo = true
+                    for (let m = 0; m < knowledges[i].material.videos.length; m++) {
+                      knowledges[i].videoslist2.push({ url: knowledges[i].material.videos[m].url, name: knowledges[i].material.videos[m].title })
+                      knowledges[i].videos.push({ url: knowledges[i].material.videos[m].url, title: knowledges[i].material.videos[m].title })
+                    }
+                  } if (knowledges[i].material.audios.length > 0) {
+                    knowledges[i].Knowledgebox2.push('音频素材')
+                    knowledges[i].show.knowledgeAudio = true
+                    for (let m = 0; m < knowledges[i].material.audios.length; m++) {
+                      knowledges[i].audioslist2.push({ url: knowledges[i].material.audios[m].url, name: knowledges[i].material.audios[m].title })
+                      knowledges[i].audios.push({ url: knowledges[i].material.audios[m].url, title: knowledges[i].material.audios[m].title })
+                    }
+                  } if (knowledges[i].material.negative_image.length > 0) {
+                    knowledges[i].Knowledgebox2.push('底图素材')
+                    knowledges[i].show.baseImage = true
+                    knowledges[i].negative_imagelist.push({ url: knowledges[i].material.negative_image })
+                    knowledges[i].negative_image += `${knowledges[i].material.negative_image},`
+
+                    knowledges[i].negative_image = knowledges[i].negative_image.substring(0, knowledges[i].negative_image.length - 1)
+                  }
+                }
+
+                this.Knowledge.push({ id: knowledges[i].id, material_id: knowledges[i].material_id, knowledge_no: knowledges[i].knowledge_no, template_type: knowledges[i].material.template_type, images: knowledges[i].images, videos: knowledges[i].videos, audios: knowledges[i].audios, negative_image: knowledges[i].negative_image, Template: [{ value: '1',
+                  label: '模板1[知识点]'
+                }, {
+                  value: '2',
+                  label: '模板2[交互]'
+                }], Templatevalue: knowledges[i].Templatevalue, show: knowledges[i].show, Knowledgebox1: knowledges[i].Knowledgebox1, Knowledgebox2: knowledges[i].Knowledgebox2, imageslist1: knowledges[i].imageslist1, videoslist1: knowledges[i].videoslist1, audiolist1: knowledges[i].audiolist1, imageslist2: knowledges[i].imageslist2, videoslist2: knowledges[i].videoslist2, audiolist2: knowledges[i].audioslist2, negative_imagelist: knowledges[i].negative_imagelist })
+              }
             }
           })
           .catch(error => {
@@ -661,6 +896,7 @@ export default {
     },
     TemplateSelete(res, index) {
       this.Knowledge[index].clear = !this.Knowledge[index].clear
+
       if (res == 2) {
         this.Knowledge[index].show.baseImage = true
         this.Knowledge[index].show.otherImage = true
@@ -683,6 +919,14 @@ export default {
       this.Knowledge[index].negative_image = ''
       this.Knowledge[index].audios = []
       this.Knowledge[index].videos = []
+      this.Knowledge[index].videolist1 = []
+      this.Knowledge[index].videolist2 = []
+      this.Knowledge[index].audiolist1 = []
+      this.Knowledge[index].audiolist2 = []
+      this.Knowledge[index].imageslist1 = []
+      this.Knowledge[index].imageslist2 = []
+      this.Knowledge[index].negative_imagelist = []
+
       // }
     },
     tuozhanChange(res) {
@@ -743,13 +987,6 @@ export default {
           if (array[i][key].length < 1) {
             delete array[i][key]
           }
-        }
-      }
-    },
-    objectTirm(obj) {
-      for (const key in obj) {
-        if (obj[key].length < 1) {
-          delete obj[key]
         }
       }
     }
@@ -887,7 +1124,7 @@ label {
 
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -895,7 +1132,7 @@ label {
 }
 
 >>> .el-textarea__inner {
-  background: #d9d9d9;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
