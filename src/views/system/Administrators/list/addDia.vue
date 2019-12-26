@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="添加课时"
+    title="添加用户"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"

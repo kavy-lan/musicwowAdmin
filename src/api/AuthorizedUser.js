@@ -14,3 +14,16 @@ export function deleteAuthorizedUserList(ids) {
     params: { ids: ids }
   })
 }
+export function addAuthorizedUser(username, area_code, mobile, remark, img) {
+  return request({
+    url: 'user',
+    method: 'post',
+    data: { username: username, area_code: area_code, mobile: mobile, remark: remark, head_image: img }
+  })
+}
+export function getAuthorizedUserDetail(id) {
+  return request({
+    url: `user/${id}`,
+    method: 'get'
+  })
+}

@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
     <div v-if="searchShow" class="search">
-      <!-- <div v-for="(item, index) in searchList" :key="index">
+      <div v-for="(item, index) in inputSearch" :key="item.name">
         <label>{{ item.label }}</label>
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
-      </div> -->
-      <div v-for="(item, index) in searchList" :key="index">
+      </div>
+      <div v-for="(item, index) in seleteSearch" :key="index">
         <label>{{ item.label }}</label>
-        <el-select v-model="item.value" placeholder="请选择">
+        <el-select v-model="item.value" placeholder="请选择" clearable @change="seleteChange" @clear="clearSelete(index)">
           <el-option
-            v-for="items in item.array"
-            :key="items"
+            v-for="(items,indexs) in item.array"
+            :key="indexs"
             :label="items"
             :value="items"
           />
@@ -44,15 +44,15 @@
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
-      <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="教材ID" prop="book_id" />
-      <el-table-column align="center" label="目录ID" prop="book_directory_id" />
+      <!-- <el-table-column align="left" label="ID" prop="id" /> -->
+      <!-- <el-table-column align="center" label="教材ID" prop="book_id" /> -->
+      <!-- <el-table-column align="center" label="目录ID" prop="book_directory_id" /> -->
       <el-table-column align="center" label="课时编号" prop="class_no" />
-      <el-table-column align="center" label="目录信息" prop="directory" />
-      <el-table-column align="center" label="目录标题" prop="title" />
+      <el-table-column align="center" label="课时名称" prop="title" />
+      <el-table-column align="center" label="所属目录" prop="directory" />
       <el-table-column align="center" label="知识点数" prop="knowledge_count" />
-      <el-table-column align="center" label="备注说明" prop="remark" />
-      <el-table-column align="center" label="状态">
+      <!-- <el-table-column align="center" label="备注说明" prop="remark" /> -->
+      <!-- <el-table-column align="center" label="状态">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.status"
@@ -61,23 +61,9 @@
             @change="handleChange(scope.row)"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <!-- <el-button plain class="caozuoButton">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />查看
-            </span>
-          </el-button> -->
-          <!-- <el-button
-            plain
-            class="caozuoButton"
-            @click="dialogVisibleReset=true,editId=scope.row.id"
-          >
-            <span plain class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="power" />重置
-            </span>
-          </el-button> -->
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id,editBookId=bookID">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -126,7 +112,7 @@ export default {
       dialogVisibleReset: false,
       length: 1,
       imgUrl: [],
-      filterS: {},
+      filters: {},
       ops: {},
       total: 0,
       editId: '',
@@ -135,42 +121,14 @@ export default {
       editBookId: '',
       searchShow: false,
       somedelete: '',
-      searchList: [
-        { label: '课时编号', value: this.classNum, name: 'title', ops: '=', array: this.classNum }
-        // { label: '目录ID', value: this.book_directory_id, name: 'book_directory_id', ops: '=' },
-        // {
-        //   label: '教材ID',
-        //   value: this.book_id,
-        //   name: 'book_id',
-        //   ops: '='
-        // },
-        // {
-        //   label: '课时编号',
-        //   value: this.class_no,
-        //   name: 'class_no',
-        //   ops: '='
-        // },
-        // {
-        //   label: '目录标题',
-        //   value: this.title,
-        //   name: 'title',
-        //   ops: '%*%'
-        // },
-        // {
-        //   label: '知识点数',
-        //   value: this.knowledge_count,
-        //   name: 'knowledge_count',
-        //   ops: '='
-        // }
-      ],
       test: [],
       deleteShow: true,
       searchModel: false,
-      priceSearch: [],
-      classSearch: [],
-      classNameSearch: [],
-      chapterSearch: [],
-      classNum: []
+      seleteSearch: [
+        { label: '课时编号:', value: '', name: 'class_no', ops: '=', array: [] },
+        { label: '所属目录:', value: '', name: 'directory', ops: '=', array: [] }
+      ],
+      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }]
     }
   },
   computed: {
@@ -196,15 +154,15 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
-            data.list.map(item => {
-              this.classNum.push(item.class_no)
-              console.log(item)
-            })
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
               } else {
                 item.status = false
+              }
+              if (this.seleteSearch[0].array.length < 1) {
+                this.seleteSearch[0].array.push(String(item.class_no))
+                this.seleteSearch[1].array.push(String(item.directory))
               }
             })
           })
@@ -297,24 +255,35 @@ export default {
       }
     },
     six(e) {
-      const obj = {}
-      const ops = {}
-      for (let i = 0; i < this.searchList.length; i++) {
-        if (this.searchList[i].value != undefined &&
-          this.searchList[i].value.trim()) {
-          obj[this.searchList[i].name] = `${this.searchList[i].value}`
-          ops[this.searchList[i].name] = `${this.searchList[i].ops}`
+      for (let i = 0; i < this.inputSearch.length; i++) {
+        if (this.inputSearch[i].value != undefined &&
+          this.inputSearch[i].value.trim()) {
+          this.filters[this.inputSearch[i].name] = `${this.inputSearch[i].value}`
+          this.ops[this.inputSearch[i].name] = `${this.inputSearch[i].ops}`
         }
       }
-      this.filters = JSON.stringify(obj)
-      this.ops = JSON.stringify(ops)
+    },
+    seleteChange(res) {
+      for (let i = 0; i < this.seleteSearch.length; i++) {
+        if (this.seleteSearch[i].value != undefined &&
+          this.seleteSearch[i].value.trim()) {
+          this.filters[this.seleteSearch[i].name] = `${this.seleteSearch[i].value}`
+          this.ops[this.seleteSearch[i].name] = `${this.seleteSearch[i].ops}`
+        }
+      }
+    },
+    clearSelete(index) {
+      delete this.filters[this.seleteSearch[index].name]
+      delete this.ops[this.seleteSearch[index].name]
     },
     submitSearch() {
-      this.tableInit(this.booID, 1, this.filters, this.ops)
+      // this.filters = JSON.stringify(this.filters)
+      // this.ops = JSON.stringify(this.ops)
+      this.tableInit(this.bookID, 1, this.filters, this.ops)
       this.searchModel = true
     },
     resetList() {
-      this.this.tableInit(this.booID, 1)
+      this.tableInit(this.bookID, 1)
       this.searchModel = false
     },
     back() {

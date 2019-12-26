@@ -1,9 +1,16 @@
 <template>
   <div class="app-container">
     <div v-if="searchShow" class="search">
-      <div v-for="(item, index) in searchList" :key="index">
+      <div v-for="(item, index) in seleteSearch" :key="index">
         <label>{{ item.label }}</label>
-        <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
+        <el-select v-model="item.value" placeholder="请选择" clearable @change="seleteChange" @clear="clearSelete(index)">
+          <el-option
+            v-for="(items,indexs) in item.array"
+            :key="indexs"
+            :label="items"
+            :value="items"
+          />
+        </el-select>
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
       <el-button type="danger" @click="resetSearch">重置</el-button>
@@ -32,15 +39,15 @@
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
-      <el-table-column align="left" label="ID" prop="id" />
+      <!-- <el-table-column align="left" label="ID" prop="id" /> -->
       <el-table-column align="center" label="教材名称" prop="title" />
-      <el-table-column align="center" label="图表标" prop="icon">
+      <el-table-column align="center" label="图标" prop="icon">
         <template slot-scope="scope">
           <img :src="scope.row.icon" width="40" height="40" style="vertical-align:middle">
         </template>
       </el-table-column>
       <el-table-column align="center" label="单价课价格" prop="class_price" />
-      <el-table-column align="center" label="是否单价课价格">
+      <!-- <el-table-column align="center" label="是否单价课价格">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.is_class_price"
@@ -49,10 +56,9 @@
             @change="handleChange(scope.row)"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column align="center" label="目录数" prop="directory_count" />
       <el-table-column align="center" label="课时数" prop="class_count" />
-      <el-table-column align="center" label="备注说明" prop="remark" />
       <el-table-column align="center" label="状态">
         <template slot-scope="scope">
           <el-switch
@@ -122,35 +128,19 @@ export default {
       dialogVisibleReset: false,
       length: 1,
       imgUrl: [],
-      filterS: {},
+      filters: {},
       ops: {},
       total: 0,
       editId: '',
       searchShow: false,
       somedelete: '',
-      searchList: [
-        { label: 'ID', value: this.id, name: 'id', ops: '=' },
-        {
-          label: '单价课价格',
-          value: this.class_price,
-          name: 'class_price',
-          ops: '='
-        },
-        {
-          label: '目录数',
-          value: this.directory_count,
-          name: 'directory_count',
-          ops: '='
-        },
-        {
-          label: '课时数',
-          value: this.class_count,
-          name: 'class_count',
-          ops: '='
-        }
+      seleteSearch: [
+        { label: '教材名称:', value: '', name: 'title', ops: '=', array: [] },
+        { label: '单价课价格:', value: '', name: 'class_price', ops: '=', array: [] },
+        { label: '目录数:', value: '', name: 'directory_count', ops: '=', array: [] },
+        { label: '课时数:', value: '', name: 'class_count', ops: '=', array: [] }
       ],
       test: [],
-      message: '测试',
       deleteShow: true,
       searchModel: false
     }
@@ -188,6 +178,12 @@ export default {
                 item.is_class_price = true
               } else {
                 item.is_class_prices = false
+              }
+              if (this.seleteSearch[0].array.length < 1) {
+                this.seleteSearch[0].array.push(String(item.title))
+                this.seleteSearch[1].array.push(String(item.class_price))
+                this.seleteSearch[2].array.push(String(item.directory_count))
+                this.seleteSearch[3].array.push(String(item.class_count))
               }
             })
           })
@@ -232,7 +228,7 @@ export default {
       this.deleteA(allId1)
     },
     goClassList(row) {
-      this.$router.push({ path: '/classManagement/lists', query: { id: row.id }})
+      this.$router.push({ path: '/CoursewareM/classManagement/list', query: { id: row.id }})
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -282,17 +278,18 @@ export default {
         this.tableInit(1)
       }
     },
-    six(e) {
-      const obj = {}
-      const ops = {}
-      for (let i = 0; i < this.searchList.length; i++) {
-        if (this.searchList[i].value != undefined && this.searchList[i].value.trim()) {
-          obj[this.searchList[i].name] = `${this.searchList[i].value}`
-          ops[this.searchList[i].name] = `${this.searchList[i].ops}`
+    seleteChange(res) {
+      for (let i = 0; i < this.seleteSearch.length; i++) {
+        if (this.seleteSearch[i].value != undefined &&
+          this.seleteSearch[i].value.trim()) {
+          this.filters[this.seleteSearch[i].name] = `${this.seleteSearch[i].value}`
+          this.ops[this.seleteSearch[i].name] = `${this.seleteSearch[i].ops}`
         }
       }
-      this.filters = JSON.stringify(obj)
-      this.ops = JSON.stringify(ops)
+    },
+    clearSelete(index) {
+      delete this.filters[this.seleteSearch[index].name]
+      delete this.ops[this.seleteSearch[index].name]
     },
     submitSearch() {
       this.tableInit(1, this.filters, this.ops)

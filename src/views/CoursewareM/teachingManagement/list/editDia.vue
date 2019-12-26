@@ -120,12 +120,12 @@
               class="laji"
               @click="deleCatalogue(index)"
             />
-            <!-- <div style="text-align:center">{{ item.directory_no || index }}</div> -->
-            <el-input
+            <div style="text-align:center" class="No">{{ index+1 }}</div>
+            <!-- <el-input
               v-model="item.directory_no"
               class="No"
               maxlength="20"
-            />
+            /> -->
             <el-input
               v-model="item.title"
               placeholder="请输入目录名称，字数最多20字内"
@@ -279,7 +279,7 @@ export default {
               this.iconI = [{ url: this.detailMsg.icon }]
               this.materialVideoV = [{ url: this.detailMsg.video }]
               this.materialDetailedI = [{ url: this.detailMsg.details_image }]
-              // this.Catalogue = [...res.data.directory_list]
+              this.CatalogueNum = this.detailMsg.directory_list[this.detailMsg.directory_list.length - 1].directory_no
             }
           })
           .catch(error => {
@@ -288,22 +288,22 @@ export default {
       })
     },
     newCatalogue() {
-      // this.CatalogueNum = this.CatalogueNum + 1
-      // if (this.CatalogueNum <= 9) {
-      //   this.detailMsg.directory_list.push({
-      //     directory_no: parseInt(`0${this.CatalogueNum}`),
-      //     title: ''
-      //   })
-      // } else {
-      //   this.detailMsg.directory_list.push({
-      //     directory_no: parseInt(`${this.CatalogueNum}`),
-      //     title: ''
-      //   })
-      // }
-      this.detailMsg.directory_list.push({
-        directory_no: '',
-        title: ''
-      })
+      this.CatalogueNum = this.CatalogueNum + 1
+      if (this.CatalogueNum <= 9) {
+        this.detailMsg.directory_list.push({
+          directory_no: parseInt(`0${this.CatalogueNum}`),
+          title: ''
+        })
+      } else {
+        this.detailMsg.directory_list.push({
+          directory_no: parseInt(`${this.CatalogueNum}`),
+          title: ''
+        })
+      }
+      // this.detailMsg.directory_list.push({
+      //   directory_no: '',
+      //   title: ''
+      // })
       console.log(this.Catalogue)
     }
   }

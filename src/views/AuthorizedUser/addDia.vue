@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="添加课时"
+    title="授权用户"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"
@@ -15,19 +15,24 @@
         <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="20" />
       </div>
       <div>
-        <label>手机:</label>
+        <label>用户手机:</label>
+        <el-select v-model="areaValue" placeholder="请选择区号" class="el-selete">
+          <el-option
+            v-for="item in areaCode"
+            :key="item.value"
+            :label="item.value"
+            :value="item.value"
+          />
+        </el-select>
         <el-input v-model="mobile" placeholder="请输入手机号码(必选)" class="input" maxlength="20" />
       </div>
       <div>
-        <label>授权角色:</label>
-        <el-input v-model="auth_ids" placeholder="请输入授权角色，字数最多20字内" class="input" maxlength="20" />
-      </div>
-      <div>
         <single-image
-          msg="图片小于2M，格式为jpg、png(必选)"
+          msg="图片小于1M，格式为jpg、png(必选)"
+          label="用户头像:"
           type=".jpg,.png"
-          size="2097152"
-          :limit="3"
+          size="1048576"
+          :limit="1"
           @files="file"
         />
       </div>
@@ -35,7 +40,7 @@
         <label style="vertical-align:top">备注信息:</label>
         <el-input
           v-model="remark"
-          placeholder="请输入教材备注信息，字数最多300字内"
+          placeholder="请输入授权教材备注信息，字数最多300字内"
           class="input textarea"
           type="textarea"
           maxlength="300"
@@ -52,8 +57,8 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { addAdministrators } from '../../api/Administrators'
-import { MessageBox, Message } from 'element-ui'
+import { addAuthorizedUser } from '../../api/AuthorizedUser'
+import { Message } from 'element-ui'
 
 export default {
   components: {
@@ -63,14 +68,14 @@ export default {
   data() {
     return {
       dialogVisibleii: this.dialogVisible,
-      radio: '1',
       username: '',
       mobile: '',
-      auth_ids: '',
       remark: '',
       img: '',
       ifExist: 0,
-      Exist: true
+      Exist: true,
+      areaCode: [{ value: 86 }, { value: 852 }, { value: 853 }, { value: 886 }],
+      areaValue: ''
     }
   },
   computed: {
@@ -78,12 +83,13 @@ export default {
       this.ifExist =
         Number(Boolean(this.username)) +
         Number(Boolean(this.mobile)) +
+        Number(Boolean(this.areaValue)) +
         Number(Boolean(this.img))
     }
   },
   watch: {
     ifExist(newval, oldval) {
-      if (Number(newval) == 3) {
+      if (Number(newval) == 4) {
         this.Exist = false
       } else {
         this.Exist = true
@@ -93,11 +99,6 @@ export default {
   methods: {
     close() {
       this.$emit('close', false)
-    },
-    file(res) {
-      console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     file(res) {
       if (res.length > 0) {
@@ -111,14 +112,12 @@ export default {
     },
     addA() {
       return new Promise((resolve, reject) => {
-        const index1 = this.auth_ids.split('')
-        const index2 = index1.join(',')
-        addAdministrators(
+        addAuthorizedUser(
           this.username,
+          this.areaValue,
           this.mobile,
-          this.img,
           this.remark,
-          index2
+          this.img
         )
           .then(res => {
             console.log(res)
@@ -151,7 +150,7 @@ export default {
 .left,
 .right {
   display: inline-block;
-  width: 530px;
+  // width: 530px;
   height: 100%;
   vertical-align: top;
   > div {
@@ -203,17 +202,8 @@ export default {
 >>> .el-input__inner:focus {
   border-color: #07d1aa;
 }
->>> .el-radio__input.is-checked + .el-radio__label {
-  color: #585b63;
-}
->>> .el-radio__input.is-checked .el-radio__inner {
-  background: #07d1aa;
-  border-color: #d9d9d9;
-}
->>> .el-radio {
-  display: block;
-}
->>> .el-radio:nth-child(1) {
-  margin-bottom: 40px;
+
+>>>.el-select{
+  width: 125px
 }
 </style>

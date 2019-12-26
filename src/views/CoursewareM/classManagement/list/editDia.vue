@@ -50,12 +50,12 @@
                 class="laji"
                 @click="deleteKnowledge(index)"
               />
-              <!-- <div class="total">{{ items.knowledge_no }}</div> -->
-              <el-input
+              <div class="total">{{ index+1 }}</div>
+              <!-- <el-input
                 v-model="items.knowledge_no"
                 class="total konwtotal"
                 maxlength="20"
-              />
+              /> -->
               <el-select
                 v-model="items.Templatevalue"
                 placeholder="请选择"
@@ -845,6 +845,7 @@ export default {
                   label: '模板2[交互]'
                 }], Templatevalue: knowledges[i].Templatevalue, show: knowledges[i].show, Knowledgebox1: knowledges[i].Knowledgebox1, Knowledgebox2: knowledges[i].Knowledgebox2, imageslist1: knowledges[i].imageslist1, videoslist1: knowledges[i].videoslist1, audiolist1: knowledges[i].audiolist1, imageslist2: knowledges[i].imageslist2, videoslist2: knowledges[i].videoslist2, audiolist2: knowledges[i].audioslist2, negative_imagelist: knowledges[i].negative_imagelist })
               }
+              this.KnowledgeNum = this.Knowledge[this.Knowledge.length - 1].knowledge_no
             }
           })
           .catch(error => {
@@ -855,7 +856,7 @@ export default {
     newKnowledge() {
       this.KnowledgeNum = this.KnowledgeNum + 1
       // this.Knowledgebox.push(['图片素材'])
-      this.Knowledge.push({ knowledge_no: '', template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
+      this.Knowledge.push({ knowledge_no: this.KnowledgeNum, template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
         label: '模板1[知识点]'
       }, {
         value: '2',

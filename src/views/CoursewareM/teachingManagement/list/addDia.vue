@@ -59,16 +59,6 @@
           maxlength="300"
         />
       </div>
-      <div>
-        <label style="vertical-align:top">备注说明:</label>
-        <el-input
-          v-model="remark"
-          placeholder="请输入教材目标，字数最多300字内"
-          class="input Target"
-          type="textarea"
-          maxlength="300"
-        />
-      </div>
     </div>
     <div class="right">
       <div>
@@ -108,12 +98,12 @@
               class="laji"
               @click="deleCatalogue(index)"
             />
-            <!-- <div style="text-align:center">{{ index+1 }}</div> -->
-            <el-input
+            <div style="text-align:center" class="No">{{ index+1 }}</div>
+            <!-- <el-input
               v-model="item.directory_no"
               class="No"
               maxlength="20"
-            />
+            /> -->
             <el-input
               v-model="item.title"
               placeholder="请输入目录名称，字数最多20字内"
@@ -214,22 +204,22 @@ export default {
       this.materialDetailedI = res[0].url
     },
     newCatalogue() {
-      // this.CatalogueNum = this.CatalogueNum + 1
-      // if (this.CatalogueNum <= 9) {
-      //   this.Catalogue.push({
-      //     directory_no: parseInt(`0${this.CatalogueNum}`),
-      //     title: ''
-      //   })
-      // } else {
-      //   this.Catalogue.push({
-      //     directory_no: parseInt(`${this.CatalogueNum}`),
-      //     title: ''
-      //   })
-      // }
-      this.Catalogue.push({
-        directory_no: '',
-        title: ''
-      })
+      this.CatalogueNum = this.CatalogueNum + 1
+      if (this.CatalogueNum <= 9) {
+        this.Catalogue.push({
+          directory_no: parseInt(`0${this.CatalogueNum}`),
+          title: ''
+        })
+      } else {
+        this.Catalogue.push({
+          directory_no: parseInt(`${this.CatalogueNum}`),
+          title: ''
+        })
+      }
+      // this.Catalogue.push({
+      //   directory_no: '',
+      //   title: ''
+      // })
     },
     deleCatalogue(index) {
       this.Catalogue.splice(index, 1)

@@ -120,6 +120,18 @@ export default {
         })
         return false
       }
+      let uploadType = res.type.substring(res.type.indexOf('/') + 1, res.type.length)
+      if (uploadType == 'jpeg') {
+        uploadType = 'jpg'
+      }
+      if (this.type.indexOf(uploadType) < 0) {
+        Message({
+          message: '请选择正确格式的文件',
+          type: 'error',
+          duration: 5 * 1000
+        })
+        return false
+      }
       const timestamp = new Date().getTime()
       const num = Math.random()
         .toString(36)
@@ -128,7 +140,7 @@ export default {
       const index2 = res.name.length
       const suffix1 = res.name.substring(index1 + 1, index2)
       let type
-      if (res.name.indexOf('jpg') > -1 || res.name.indexOf('png') > -1) {
+      if (res.name.indexOf('jpg') > -1 || res.name.indexOf('png') > -1 || res.name.indexOf('gif')) {
         type = 'images'
       } else if (res.name.indexOf('mp4') > -1) {
         type = 'video'

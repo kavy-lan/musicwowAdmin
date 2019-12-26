@@ -50,12 +50,12 @@
                 class="laji"
                 @click="deleteKnowledge(index)"
               />
-              <!-- <div class="total">{{ items.knowledge_no }}</div> -->
-              <el-input
+              <div class="total">{{ index+1 }}</div>
+              <!-- <el-input
                 v-model="items.knowledge_no"
                 class="total konwtotal"
                 maxlength="20"
-              />
+              /> -->
               <el-select
                 v-model="items.Templatevalue"
                 placeholder="请选择"
@@ -212,7 +212,7 @@
             />
             <single-image
               v-if="tuozhanAudio"
-              msg="素材音频格式为 mp4，视频最多4个"
+              msg="素材音频格式为 mp4，音频最多4个"
               label="音频素材"
               type=".mp3"
               :limit="4"
@@ -620,7 +620,7 @@ export default {
     newKnowledge() {
       this.KnowledgeNum = this.KnowledgeNum + 1
       // this.Knowledgebox.push(['图片素材'])
-      this.Knowledge.push({ knowledge_no: '', template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
+      this.Knowledge.push({ knowledge_no: this.KnowledgeNum, template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
         label: '模板1[知识点]'
       }, {
         value: '2',

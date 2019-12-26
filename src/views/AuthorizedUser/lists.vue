@@ -17,16 +17,6 @@
       :disabled="deleteShow"
       @click="someDelete"
     >删除</el-button>
-    <!-- <el-button size="medium" class="noneColor" icon="el-icon-tickets">课程详情</el-button> -->
-    <!-- <el-button size="medium" class="noneColor" icon="el-icon-food">
-      <svg-icon class-name="search-icon" icon-class="shop" />授权机构
-    </el-button>-->
-    <!-- <el-button size="medium" class="noneColor">
-      <svg-icon class-name="search-icon" icon-class="user" />授权用户
-    </el-button>-->
-    <!-- <el-button size="medium" class="noneColor">
-      <svg-icon class-name="search-icon" icon-class="edit" />编辑
-    </el-button>-->
     <el-button size="medium" type="info" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
     </el-button>
@@ -46,7 +36,7 @@
       <el-table-column align="center" label="用户名称" prop="username" />
       <el-table-column align="center" label="用户头像" prop="head_image">
         <template slot-scope="scope">
-          <img :src="scope.row.head_img" width="40" height="40" style="vertical-align:middle">
+          <img :src="scope.row.head_image" width="40" height="40" style="vertical-align:middle">
         </template>
       </el-table-column>
       <el-table-column align="center" label="区域编号" prop="area_code" />
