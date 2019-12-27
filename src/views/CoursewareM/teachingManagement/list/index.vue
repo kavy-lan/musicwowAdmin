@@ -3,7 +3,7 @@
     <div v-if="searchShow" class="search">
       <div v-for="(item, index) in seleteSearch" :key="index">
         <label>{{ item.label }}</label>
-        <el-select v-model="item.value" placeholder="请选择" clearable @change="seleteChange" @clear="clearSelete(index)">
+        <el-select v-model="item.value" placeholder="请选择" clearable filterable @change="seleteChange" @clear="clearSelete(index)">
           <el-option
             v-for="(items,indexs) in item.array"
             :key="indexs"

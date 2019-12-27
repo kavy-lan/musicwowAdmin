@@ -223,19 +223,29 @@ export default {
       this.$emit('close', false)
     },
     materialCover(res) {
-      this.detailMsg.cover = res[0].url
+      if (res.length > 0) {
+        this.detailMsg.cover = res[0].url
+      }
     },
     materialClassCover(res) {
-      this.detailMsg.class_cover = res[0].url
+      if (res.length > 0) {
+        this.detailMsg.class_cover = res[0].url
+      }
     },
     icon(res) {
-      this.detailMsg.icon = res[0].url
+      if (res.length > 0) {
+        this.detailMsg.icon = res[0].url
+      }
     },
     materialVideo(res) {
-      this.detailMsg.video = res[0].url
+      if (res.length > 0) {
+        this.detailMsg.video = res[0].url
+      }
     },
     materialDetailed(res) {
-      this.detailMsg.details_image = res[0].url
+      if (res.length > 0) {
+        this.detailMsg.details_image = res[0].url
+      }
     },
     deleCatalogue(index) {
       this.detailMsg.directory_list.splice(index, 1)

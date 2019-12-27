@@ -32,17 +32,17 @@
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
-      <el-table-column align="left" label="ID" prop="id" />
+      <!-- <el-table-column align="left" label="ID" prop="id" /> -->
       <el-table-column align="center" label="用户名称" prop="username" />
-      <el-table-column align="center" label="用户头像" prop="head_image">
+      <!-- <el-table-column align="center" label="用户头像" prop="head_image">
         <template slot-scope="scope">
           <img :src="scope.row.head_image" width="40" height="40" style="vertical-align:middle">
         </template>
-      </el-table-column>
-      <el-table-column align="center" label="区域编号" prop="area_code" />
+      </el-table-column> -->
+      <!-- <el-table-column align="center" label="区域编号" prop="area_code" /> -->
       <el-table-column align="center" label="用户手机" prop="mobile" />
       <el-table-column align="center" label="备注说明" prop="remark" />
-      <el-table-column align="center" label="状态">
+      <!-- <el-table-column align="center" label="状态">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.status"
@@ -51,23 +51,10 @@
             @change="handleChange(scope.row)"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button plain class="caozuoButton" @click="goGetRole">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />查看
-            </span>
-          </el-button>
-          <el-button
-            plain
-            class="caozuoButton"
-            @click="dialogVisibleReset=true,editId=scope.row.id"
-          >
-            <span plain class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="power" />重置
-            </span>
-          </el-button>
+
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -90,23 +77,23 @@
     />
     <!-- 添加课时弹窗 -->
     <add-dia :dialog-visible="dialogVisible" @close="closr" />
-    <!-- <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" /> -->
+    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" /> -->
   </div>
 </template>
 <script>
 // import SingleImage from "@/components/Upload/SingleImage3"
 import AddDia from './addDia'
-// import EditDia from './editDia'
+import EditDia from './editDia'
 // import reset from './resetDia'
 import {
   AuthorizedUserList,
   deleteAuthorizedUserList
 } from '../../api/AuthorizedUser'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 
 export default {
-  components: { AddDia },
+  components: { AddDia, EditDia },
   data() {
     return {
       rolesList: [],
@@ -121,15 +108,10 @@ export default {
       editId: '',
       searchShow: false,
       somedelete: '',
-      searchList: [
-        { label: 'ID', value: this.id, name: 'id', ops: '=' },
-        { label: '用户手机', value: this.mobile, name: 'mobile', ops: '=' },
-        {
-          label: '用户名称',
-          value: this.username,
-          name: 'username',
-          ops: '='
-        }
+      seleteSearch: [
+        { label: '用户名称:', value: '', name: 'username', ops: '=', array: [] },
+        { label: '用户手机:', value: '', name: 'mobile', ops: '=', array: [] },
+        { label: '授权教材:', value: '', name: 'directory_count', ops: '=', array: [] }
       ],
       test: [],
       deleteShow: true,

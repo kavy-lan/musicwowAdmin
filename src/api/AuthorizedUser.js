@@ -27,3 +27,10 @@ export function getAuthorizedUserDetail(id) {
     method: 'get'
   })
 }
+export function editAuthorizedUser(id, username, area_code, mobile, remark, img) {
+  return request({
+    url: `user/${id}`,
+    method: 'put',
+    params: { username: username, area_code: area_code, mobile: mobile, remark: remark, head_image: img }
+  })
+}
