@@ -142,7 +142,8 @@ export default {
       ],
       test: [],
       deleteShow: true,
-      searchModel: false
+      searchModel: false,
+      searchNum: 1
     }
   },
   computed: {
@@ -179,13 +180,14 @@ export default {
               } else {
                 item.is_class_prices = false
               }
-              if (this.seleteSearch[0].array.length < 1) {
+              if (this.searchNum > 0) {
                 this.seleteSearch[0].array.push(String(item.title))
                 this.seleteSearch[1].array.push(String(item.class_price))
                 this.seleteSearch[2].array.push(String(item.directory_count))
                 this.seleteSearch[3].array.push(String(item.class_count))
               }
             })
+            this.searchNum--
           })
           .catch(error => {
             reject(error)
@@ -292,6 +294,7 @@ export default {
       delete this.ops[this.seleteSearch[index].name]
     },
     submitSearch() {
+      console.log(this.seleteSearch)
       this.tableInit(1, this.filters, this.ops)
       this.searchModel = true
     },

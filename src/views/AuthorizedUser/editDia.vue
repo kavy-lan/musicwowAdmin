@@ -229,4 +229,5 @@ export default {
 >>>.el-select{
   width: 125px
 }
+
 </style>

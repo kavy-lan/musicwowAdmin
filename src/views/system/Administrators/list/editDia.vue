@@ -289,4 +289,5 @@ export default {
 >>> .el-radio:nth-child(1) {
   margin-bottom: 40px;
 }
+
 </style>

@@ -206,5 +206,10 @@ label {
   color: rgba(179, 179, 179, 1);
   margin-left: 17px;
 }
+.el-button--info{
+  background: #07D1AA;
+  border-color: #07D1AA;
+  color: #fff
+}
 </style>
 

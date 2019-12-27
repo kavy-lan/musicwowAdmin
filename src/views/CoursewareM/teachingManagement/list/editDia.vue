@@ -450,4 +450,5 @@ export default {
   vertical-align: middle;
   cursor: pointer;
 }
+
 </style>

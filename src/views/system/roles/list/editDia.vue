@@ -166,14 +166,14 @@ export default {
 }
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #d9d9d9;
+  background: #ebebeb;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #c1c2c6;
 }
 >>> .el-textarea__inner {
-  background: #d9d9d9;
+  background: #ebebeb;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -200,4 +200,12 @@ export default {
 >>> .el-radio:nth-child(1) {
   margin-bottom: 40px;
 }
+.caozuoButton {
+  height: 0;
+  width: 0;
+  padding: 0;
+  border: none;
+  margin-right: 36px;
+}
+
 </style>

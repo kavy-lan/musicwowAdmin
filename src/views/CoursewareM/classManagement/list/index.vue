@@ -128,7 +128,8 @@ export default {
         { label: '课时编号:', value: '', name: 'class_no', ops: '=', array: [] },
         { label: '所属目录:', value: '', name: 'directory', ops: '=', array: [] }
       ],
-      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }]
+      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }],
+      searchNum: 1
     }
   },
   computed: {
@@ -160,11 +161,12 @@ export default {
               } else {
                 item.status = false
               }
-              if (this.seleteSearch[0].array.length < 1) {
+              if (this.searchNum > 0) {
                 this.seleteSearch[0].array.push(String(item.class_no))
                 this.seleteSearch[1].array.push(String(item.directory))
               }
             })
+            this.searchNum--
           })
           .catch(error => {
             reject(error)
