@@ -69,11 +69,16 @@
           />
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="220">
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button plain class="caozuoButton" @click="goClassList(scope.row)">
             <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />教材
+              <svg-icon class-name="search-icon" icon-class="check" />课时
+            </span>
+          </el-button>
+          <el-button plain class="caozuoButton" @click="packCourseware(scope.row)">
+            <span class="caozuo">
+              <svg-icon class-name="search-icon" icon-class="check" />打包课件
             </span>
           </el-button>
           <!-- <el-button
@@ -115,7 +120,7 @@
 import AddDia from './addDia'
 import EditDia from './editDia'
 // import reset from "./resetDia";
-import { teachingManagementList, deleteteachingManagement } from '../../../../api/teachingManagement'
+import { teachingManagementList, deleteteachingManagement, packCourseware } from '../../../../api/teachingManagement'
 import { MessageBox, Message } from 'element-ui'
 
 export default {
@@ -233,6 +238,21 @@ export default {
     },
     goClassList(row) {
       this.$router.push({ path: '/CoursewareM/classManagement/list', query: { id: row.id }})
+    },
+    packCourseware(row) {
+      return new Promise((resolve, reject) => {
+        packCourseware(row.id).then(res => {
+          if (res.error_code == 0) {
+            Message({
+              message: `${res.message}`,
+              type: 'success',
+              duration: 5 * 1000
+            })
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -432,11 +452,12 @@ export default {
   color: #585b63;
 }
 .caozuoButton {
-  height: 0;
-  width: 0;
   padding: 0;
   border: none;
-  margin-right: 36px;
+  background: none
+}
+.caozuoButton:hover,.caozuoButton.is-plain:focus{
+  background: none
 }
 </style>
 

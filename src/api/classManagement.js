@@ -46,3 +46,9 @@ export function editclassManagementList(id, params) {
     data: params
   })
 }
+export function packClass(id) {
+  return request({
+    url: `cs/book/pack_class/${id}`,
+    method: 'post'
+  })
+}

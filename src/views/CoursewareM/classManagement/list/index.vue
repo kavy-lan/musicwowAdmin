@@ -74,6 +74,11 @@
               <svg-icon class-name="search-icon" icon-class="delete" />删除
             </span>
           </el-button>
+          <el-button plain class="caozuoButton" @click="packClass(scope.row)">
+            <span class="caozuo">
+              <svg-icon class-name="search-icon" icon-class="delete" />打包课时
+            </span>
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -98,7 +103,8 @@ import editDia from './editDia'
 // import reset from "./resetDia";
 import {
   classManagementList,
-  deleteclassManagementList
+  deleteclassManagementList,
+  packClass
 } from '../../../../api/classManagement'
 import { MessageBox, Message } from 'element-ui'
 
@@ -208,6 +214,21 @@ export default {
       }
       allId1.id = allId.id.substring(0, allId.id.length - 1)
       this.deleteA(allId1)
+    },
+    packClass(row) {
+      return new Promise((resolve, reject) => {
+        packClass(row.id).then(res => {
+          if (res.error_code == 0) {
+            Message({
+              message: `${res.message}`,
+              type: 'success',
+              duration: 5 * 1000
+            })
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -420,11 +441,12 @@ export default {
   color: #585b63;
 }
 .caozuoButton {
-  height: 0;
-  width: 0;
   padding: 0;
   border: none;
-  margin-right: 36px;
+ background: none;
+}
+.caozuoButton:hover,.caozuoButton.is-plain:focus{
+  background: none
 }
 </style>
 

@@ -40,3 +40,9 @@ export function editteachingManagement(id, params) {
     data: params
   })
 }
+export function packCourseware(id) {
+  return request({
+    url: `cs/book/pack_book/${id}`,
+    method: 'post'
+  })
+}

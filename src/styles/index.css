@@ -192,7 +192,6 @@
 #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title,
 #app .sidebar-container .el-submenu .el-menu-item {
   min-width: 210px !important;
-  background-color: #1f2d3d !important;
 }
 
 #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title:hover,

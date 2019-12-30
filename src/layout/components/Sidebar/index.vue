@@ -2,6 +2,7 @@
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-input v-model="search" placeholder="搜索菜单..." class="input" />
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
@@ -26,6 +27,11 @@ import variables from '@/styles/variables.scss'
 
 export default {
   components: { SidebarItem, Logo },
+  data() {
+    return {
+      search: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'permission_routes',
@@ -49,11 +55,34 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     }
+  },
+  mounted() {
+    //  const routerPach = (data) => {
+    //       for (let i = 0; i < data.length; i++) {
+    //         if (data[i].children) {
+    //           for (let b = 0; b < data[i].children.length; b++) {
+    //             data[i].children[b].component = () => import(`../../views${data[i].children[b].path}`)
+    //             routerPach(data[i].children)
+    //           }
+    //         }
+    //       }
+    //     }
+    this.$store.commit('searchRouter', [])
+    console.log(this.permission_routes)
   }
 }
 </script>
 <style lang="scss" scoped>
 >>>.el-menu-item.is-active{
   background: #D9D9D9 !important
+}
+.input{
+width:189px;
+height:39px;
+margin:24px 0;
+margin-left: 10px;
+}
+>>>.el-input__inner{
+border-radius:23px;
 }
 </style>
