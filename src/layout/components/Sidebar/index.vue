@@ -52,3 +52,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+>>>.el-menu-item.is-active{
+  background: #D9D9D9 !important
+}
+</style>

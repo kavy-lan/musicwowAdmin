@@ -19,6 +19,7 @@
     <label>{{ label }}</label>
     <el-button size="medium" type="info" @click="upload">上传</el-button>
     <span slot="tip" class="el-upload__tip">{{ msg }}</span>
+    <video ref="noneVideo" src="" style="display:none" />
   </el-upload>
 </template>
 
@@ -28,9 +29,10 @@ import { watch } from 'fs'
 import { MessageBox, Message } from 'element-ui'
 import { getUploadConfig } from '@/api/upload'
 import { config } from '@vue/test-utils'
+import { log } from 'util'
 export default {
   name: 'SingleImageUpload3',
-  props: ['msg', 'label', 'size', 'type', 'limit', 'filelist', 'clear'],
+  props: ['msg', 'label', 'size', 'type', 'limit', 'filelist', 'clear', 'time'],
   data() {
     return {
       formdata: {},
@@ -40,7 +42,8 @@ export default {
       removeFile: [],
       successFile: [],
       keybox: [],
-      num: 0
+      num: 0,
+      videoDuratime: true
     }
   },
   watch: {
@@ -111,7 +114,7 @@ export default {
     handlePreview(file) {
       console.log(file)
     },
-    before(res) {
+    async before(res) {
       if (res.size > this.size) {
         Message({
           message: '请选择正确尺寸的文件',
@@ -131,6 +134,27 @@ export default {
           duration: 5 * 1000
         })
         return false
+      }
+      if (uploadType == 'mp4') {
+      // 获取视频时长
+        var url = URL.createObjectURL(res)
+        var audioElement = new Audio(url)
+        var time = this.time
+
+        var p = new Promise((resolve, reject) => {
+          audioElement.addEventListener('loadedmetadata', function(e) {
+            resolve(audioElement.duration) // 时长为秒，小数，182.36
+          })
+        })
+        const flag = await p
+        if (flag > time) {
+          Message({
+            message: `视频时长不能大于${time / 60} 分钟`,
+            type: 'error',
+            duration: 5 * 1000
+          })
+          return false
+        }
       }
       const timestamp = new Date().getTime()
       const num = Math.random()

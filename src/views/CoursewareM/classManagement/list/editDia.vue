@@ -257,18 +257,20 @@
               />
               <single-image
                 v-if="workI1"
-                msg="素材图片格式为.jpg,.png，图片最多6个"
+                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
                 label="图片素材"
+                size="2097152"
                 type=".jpg,.png"
-                :limit="6"
+                :limit="5"
                 :filelist="workImageList1"
                 @files="homeWorkI1"
               />
               <single-image
                 v-if="workV1"
-                msg="素材视频格式为 mp4，视频最多1个"
+                msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
+                time="300"
                 :limit="1"
                 :filelist="workVideoList1"
                 @files="homeWorkV1"
@@ -296,18 +298,20 @@
               />
               <single-image
                 v-if="workI2"
-                msg="素材图片格式为.jpg.png，图片最多6个"
+                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
                 label="图片素材"
                 type=".jpg,.png"
-                :limit="6"
+                size="2097152"
+                :limit="5"
                 :filelist="workImageList2"
                 @files="homeWorkI2"
               />
               <single-image
                 v-if="workV2"
-                msg="素材视频格式为 mp4，视频最多1个"
+                msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
+                time="300"
                 :limit="1"
                 :filelist="workVideoList2"
                 @files="homeWorkV2"

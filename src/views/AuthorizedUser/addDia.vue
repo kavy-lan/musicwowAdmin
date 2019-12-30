@@ -12,7 +12,7 @@
     <div class="left">
       <div>
         <label>用户名:</label>
-        <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="20" />
+        <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="19" />
       </div>
       <div>
         <label>用户手机:</label>
@@ -24,7 +24,7 @@
             :value="item.value"
           />
         </el-select>
-        <el-input v-model="mobile" placeholder="请输入手机号码(必选)" class="input" maxlength="20" />
+        <el-input v-model="mobile" placeholder="请输入手机号码(必选)" class="input" maxlength="11" />
       </div>
       <div>
         <single-image
@@ -43,7 +43,7 @@
           placeholder="请输入授权教材备注信息，字数最多300字内"
           class="input textarea"
           type="textarea"
-          maxlength="300"
+          maxlength="299"
         />
       </div>
     </div>

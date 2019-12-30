@@ -181,6 +181,7 @@ export default {
                     type: 'success',
                     duration: 5 * 1000
                   })
+                  this.deleteShow = true
                   this.tableInit(1)
                 }
               })

@@ -16,7 +16,7 @@
           v-model="detailMsg.title"
           placeholder="请输入教材名称，字数最多20字内"
           class="input"
-          maxlength="20"
+          maxlength="19"
         />
       </div>
       <div>
@@ -59,7 +59,7 @@
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
-          maxlength="300"
+          maxlength="299"
         />
       </div>
       <div>
@@ -69,7 +69,7 @@
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
-          maxlength="300"
+          maxlength="299"
         />
       </div>
     </div>
@@ -88,10 +88,10 @@
         <label style="vertical-align:top">教材文字详情:</label>
         <el-input
           v-model="detailMsg.details"
-          placeholder="请输入教材文字详情，字数最多600字内"
+          placeholder="请输入教材文字详情，字数最多300字内"
           class="input textarea"
           type="textarea"
-          maxlength="600"
+          maxlength="299"
         />
       </div>
       <div>
@@ -377,7 +377,7 @@ export default {
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #c1c2c6;
-  min-height: 376px !important;
+  min-height: 232px !important;
 }
 >>> .Target .el-textarea__inner {
   min-height: 232px !important;

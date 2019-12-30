@@ -31,7 +31,7 @@
             v-model="className"
             placeholder="请输入课时名称，字数最多20字内"
             class="input"
-            maxlength="20"
+            maxlength="19"
           />
         </div>
       </div>
@@ -122,7 +122,7 @@
               />
               <single-image
                 v-if="items.show.knowledgeAudio"
-                msg="素材音频格式为 mp4，视频最多4个"
+                msg="素材音频格式为 mp3，音频最多4个"
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
@@ -239,22 +239,24 @@
                 v-model="workText1"
                 placeholder="作业文字，字数为300以内"
                 class="input"
-                maxlength="300"
+                maxlength="299"
                 type="textarea"
                 style="margin-bottom:13px"
               />
               <single-image
                 v-if="workI1"
-                msg="素材图片格式为.jpg,.png，图片最多6个"
+                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
                 label="图片素材"
+                size="2097152"
                 type=".jpg,.png"
-                :limit="6"
+                :limit="5"
                 @files="homeWorkI1"
               />
               <single-image
                 v-if="workV1"
-                msg="素材视频格式为 mp4，视频最多1个"
+                msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
+                time="300"
                 type=".mp4"
                 :limit="1"
                 @files="homeWorkV1"
@@ -276,23 +278,25 @@
                 v-model="workText2"
                 placeholder="作业文字，字数为300以内"
                 class="input"
-                maxlength="300"
+                maxlength="299"
                 type="textarea"
                 style="margin-bottom:13px"
               />
               <single-image
                 v-if="workI2"
-                msg="素材图片格式为.jpg.png，图片最多6个"
+                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
                 label="图片素材"
                 type=".jpg,.png"
-                :limit="6"
+                size="2097152"
+                :limit="5"
                 @files="homeWorkI2"
               />
               <single-image
                 v-if="workV2"
-                msg="素材视频格式为 mp4，视频最多1个"
+                msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
+                time="300"
                 :limit="1"
                 @files="homeWorkV2"
               />
@@ -453,11 +457,14 @@ export default {
       this.$emit('close', false)
     },
     homeWorkV1(res) {
-      this.works1videos = res[0].url
-      console.log(this.works1)
+      if (res.length > 1) {
+        this.works1videos = res[0].url
+      }
     },
     homeWorkV2(res) {
-      this.works2videos = res[0].url
+      if (res.length > 1) {
+        this.works2videos = res[0].url
+      }
     },
     newCatalogue() {
       this.CatalogueNum = this.CatalogueNum + 1

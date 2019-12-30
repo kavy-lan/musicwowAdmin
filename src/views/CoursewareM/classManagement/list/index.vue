@@ -155,16 +155,16 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
+            this.seleteSearch[0].array = []
+            this.seleteSearch[1].array = []
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
               } else {
                 item.status = false
               }
-              if (this.searchNum > 0) {
-                this.seleteSearch[0].array.push(String(item.class_no))
-                this.seleteSearch[1].array.push(String(item.directory))
-              }
+              this.seleteSearch[0].array.push(String(item.class_no))
+              this.seleteSearch[1].array.push(String(item.directory))
             })
             this.searchNum--
           })
@@ -189,6 +189,7 @@ export default {
                     type: 'success',
                     duration: 5 * 1000
                   })
+                  this.deleteShow = true
                   this.tableInit(this.bookID, 1)
                 }
               })

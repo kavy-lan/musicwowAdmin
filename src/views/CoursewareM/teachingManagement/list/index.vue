@@ -142,8 +142,7 @@ export default {
       ],
       test: [],
       deleteShow: true,
-      searchModel: false,
-      searchNum: 1
+      searchModel: false
     }
   },
   computed: {
@@ -169,6 +168,10 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
+            this.seleteSearch[0].array = []
+            this.seleteSearch[1].array = []
+            this.seleteSearch[2].array = []
+            this.seleteSearch[3].array = []
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
@@ -180,12 +183,10 @@ export default {
               } else {
                 item.is_class_prices = false
               }
-              if (this.searchNum > 0) {
-                this.seleteSearch[0].array.push(String(item.title))
-                this.seleteSearch[1].array.push(String(item.class_price))
-                this.seleteSearch[2].array.push(String(item.directory_count))
-                this.seleteSearch[3].array.push(String(item.class_count))
-              }
+              this.seleteSearch[0].array.push(String(item.title))
+              this.seleteSearch[1].array.push(String(item.class_price))
+              this.seleteSearch[2].array.push(String(item.directory_count))
+              this.seleteSearch[3].array.push(String(item.class_count))
             })
             this.searchNum--
           })
@@ -210,6 +211,7 @@ export default {
                     type: 'success',
                     duration: 5 * 1000
                   })
+                  this.deleteShow = true
                   this.tableInit(1)
                 }
               })
