@@ -35,14 +35,17 @@
         </div>
       </div>
       <div>
-        ff
+        <div id="myChart" ref="echart" class="rate" style="width:450px;height:100%" />
+        <div ref="funnel" class="funnel" style="height:100%" />
       </div>
     </div>
     <div class="mudule2">
-      <div class="class">1</div>
-      <div class="shop">2</div>
-      <div class="student">3</div>
-      <div class="today">4</div>
+      <div class="class">
+        <div ref="pie" class="pie" style="width:100%;height:100%" />
+      </div>
+      <div class="shop"><div ref="pi" class="pie" style="width:100%;height:100%" /></div>
+      <div class="student"><div ref="pi" class="pie" style="width:100%;height:100%" /></div>
+      <div class="today"><div ref="pi" class="pie" style="width:100%;height:100%" /></div>
     </div>
     <div class="mudule3">
       授课课时
@@ -50,6 +53,8 @@
   </div>
 </template>
 <script>
+import echarts from 'echarts'
+import { color } from 'echarts/lib/export'
 import { mapGetters } from 'vuex'
 export default {
   computed: {
@@ -58,6 +63,399 @@ export default {
       'avatar',
       'roles'
     ])
+  },
+  mounted() {
+    this.echart()
+    this.funnel()
+    this.pie()
+  },
+  methods: {
+    echart() {
+      const myChart = echarts.init(this.$refs.echart)
+      myChart.setOption({
+        title: {
+          text: '学员转换率'
+        },
+        tooltip: {
+          backgroundColor: '#07D1AA',
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: 'pink'
+            }
+          }
+        },
+        legend: {
+          icon: 'roundRect',
+          itemWidth: 17, // 设置宽度
+          itemHeight: 5, // 设置高度
+          itemGap: 19,
+          textStyle: {
+            color: '#282D32',
+            fontSize: 12
+          },
+          data: ['已预约', '转化成功']
+        },
+        toolbox: {
+          feature: {
+            // saveAsImage: {}
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '5%',
+          top: '25%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            offset: 14,
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+            splitLine: {
+              show: false
+            },
+            axisLine: {
+              // y轴
+              show: false
+            },
+            axisTick: {
+              // y轴刻度线
+              show: false
+            },
+            axisLabel: {
+              textStyle: {
+                color: '#AAACAE',
+                fontSize: '12'
+              },
+              interval: 2
+            }
+          }
+        ],
+        yAxis: [
+          {
+            offset: 14,
+            name: '预约转化',
+            // nameLocation:'middle',
+            nameTextStyle: {
+              color: '#B8B9BB',
+              fontSize: 14,
+              padding: [20, 0, 0, 0]
+            },
+            type: 'value',
+            splitLine: {
+              show: false
+            },
+            axisLine: {
+              // y轴
+              show: false
+            },
+            axisTick: {
+              // y轴刻度线
+              show: false
+            },
+            axisLabel: {
+              textStyle: {
+                color: '#AAACAE',
+                fontSize: '12'
+              }
+            }
+          }
+        ],
+        series: [
+          {
+            name: '已预约',
+            type: 'line',
+            smooth: true, // 曲线平滑
+            symbol: 'none', // 去掉圆点
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: '#31D5C4'
+                  },
+                  {
+                    offset: 1,
+                    color: '#31D5C4'
+                  }
+                ])
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: 'pink',
+                lineStyle: {
+                  color: '#35D8C8'
+                }
+              }
+            },
+            data: [20, 40, 60, 100, 120, 140, 160]
+          },
+          {
+            name: '转化成功',
+            type: 'line',
+            smooth: true, // 曲线平滑
+            symbol: 'none', // 去掉圆点
+            areaStyle: { color: '#5298EF' },
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: '#5594F2'
+                  },
+                  {
+                    offset: 1,
+                    color: '#5594F2'
+                  }
+                ])
+              }
+            },
+            data: [10, 30, 50, 70, 90, 110, 130]
+          }
+        ]
+      })
+    },
+    funnel() {
+      const funnel = echarts.init(this.$refs.funnel)
+      funnel.setOption({
+        title: {
+          text: '转换漏斗',
+          textStyle: {
+            color: '#fff'
+          },
+          subtext: '转换漏斗',
+          subtextStyle: {
+            fontSize: 14,
+            color: '#B8B9BB'
+          }
+        },
+        color: [new echarts.graphic.LinearGradient(
+          0, 0, 1, 0,
+          [
+            { offset: 0, color: '#6F85FF' },
+            { offset: 1, color: '#879AFF' }
+          ]
+        ), new echarts.graphic.LinearGradient(
+          0, 0, 1, 0,
+          [
+            { offset: 0, color: '#68B5FF' },
+            { offset: 1, color: '#8CD2FF' }
+          ]
+        ), new echarts.graphic.LinearGradient(
+          0, 0, 1, 0,
+          [
+            { offset: 0, color: '#63D77B' },
+            { offset: 1, color: '#86E79E' }
+          ]
+        ), new echarts.graphic.LinearGradient(
+          0, 0, 1, 0,
+          [
+            { offset: 0, color: '#FFBB6C' },
+            { offset: 1, color: '#FFCB8C' }
+          ]
+        ), new echarts.graphic.LinearGradient(
+          0, 0, 1, 0,
+          [
+            { offset: 0, color: '#2DD2C0' },
+            { offset: 1, color: '#3EDFD1' }
+          ]
+        )],
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b} : {c}%',
+          backgroundColor: '#07D1AA'
+        },
+        toolbox: {
+          feature: {
+            // dataView: { readOnly: false },
+            // restore: {},
+            // saveAsImage: {}
+          }
+        },
+        legend: {
+          data: ['预览', '已预约', '已跟进', '已转化', '已缴费'],
+          right: 'right',
+          top: 'bottom',
+          itemWidth: 12,
+          itemHeight: 12,
+          textStyle: {
+            color: '#282D32',
+            fontSize: 12
+          }
+        },
+        calculable: true,
+        series: [
+          {
+            name: '漏斗图',
+            type: 'funnel',
+            left: '0%',
+            top: 60,
+            // x2: 80,
+            bottom: 0,
+            width: '100%',
+            // height: {totalHeight} - y - y2,
+            min: 0,
+            max: 100,
+            minSize: '0%',
+            maxSize: '80%',
+            sort: 'none',
+            gap: 2,
+            label: {
+              show: true,
+              position: 'inside',
+              formatter: '{c}%',
+              textStyle: {
+                color: '#FFFFFF',
+                fontSize: 12
+              }
+            },
+            labelLine: {
+              length: 10,
+              lineStyle: {
+                width: 1,
+                type: 'solid'
+              }
+            },
+            itemStyle: {
+              borderColor: '#fff',
+              borderWidth: 1
+
+            },
+            emphasis: {
+              label: {
+                fontSize: 20
+              }
+            },
+            data: [
+              { value: 100, name: '预览' },
+              { value: 80, name: '已预约' },
+              { value: 60, name: '已跟进' },
+              { value: 40, name: '已转化' },
+              { value: 20, name: '已缴费' }
+            ]
+          }
+        ]
+      })
+    },
+    pie() {
+      var data = [
+        { value: 335, name: '直接访问' },
+        { value: 310, name: '邮件营销' },
+        { value: 234, name: '联盟广告' },
+        { value: 135, name: '视频广告' },
+        { value: 1548, name: '搜索引擎' }
+      ]
+      const pie = echarts.init(this.$refs.pie)
+      pie.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        title: {
+          text: '70%',
+          x: 'center',
+          y: 'center',
+          textStyle: {
+            fontSize: 10,
+            fontWeight: 'normal',
+            color: '#666666'
+          },
+          subtextStyle: {
+            color: '#000000',
+            fontSize: 25,
+            fontWeight: 'normal'
+          }
+        },
+        legend: {
+          orient: 'vertical',
+          type: 'scroll',
+          right: 'right',
+          top: 'center',
+          itemWidth: 20,
+          itemHeight: 4,
+          itemGap: 2,
+          data: [
+            '直接访问',
+            '邮件营销',
+            '联盟广告',
+            '视频广告',
+            '搜索引擎'
+          ],
+          formatter: function(name) {
+            var total = 0
+            var target
+            for (var i = 0; i < data.length; i++) {
+              total += data[i].value
+              if (data[i].name == name) {
+                target = data[i].value
+              }
+            }
+            var arr = [
+              '{b|' + name + '}',
+              '{a|' + ((target / total) * 100).toFixed(2) + '%}'
+
+            ]
+            return arr.join('\n')
+          },
+          textStyle: {
+            rich: {
+              b: {
+                fontSize: 12,
+                verticalAlign: 'top',
+                align: 'center',
+                padding: [0, 0, 10, 0]
+              },
+              a: {
+                fontSize: 8,
+                color: '#999999',
+                align: 'center',
+                padding: [0, 10, 0, 0],
+                lineHeight: 10
+              }
+            }
+          }
+        },
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['30%', '40%'],
+            center: ['20%', '40%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                show: false,
+                textStyle: {
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+              { value: 335, name: '直接访问' },
+              { value: 310, name: '邮件营销' },
+              { value: 234, name: '联盟广告' },
+              { value: 135, name: '视频广告' },
+              { value: 1548, name: '搜索引擎' }
+            ]
+          }
+        ]
+      })
+    }
   }
 }
 </script>
@@ -151,21 +549,34 @@ box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
           color:rgba(255,255,255,1)
         }
       }
+      >div:hover{
+        background: #0FE5BC
+      }
       >div:nth-child(5){
         margin-right: 0
       }
       .xueyuan,.xiaoxi{
         background: #32C5FF
       }
+      .xueyuan:hover,.xiaoxi:hover{
+        background: #53CEFF
+      }
      .banji,.shenpi{
        background: #FFB940
+     }
+     .banji:hover,.shenpi:hover{
+       background: #FFC664
      }
     }
    }
    >div:nth-child(2){
      flex: 1;
+     display: flex;
      background:rgba(255,255,255,1);
     box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
+    .funnel{
+    flex: 1
+    }
    }
   }
   .mudule2{
@@ -217,5 +628,10 @@ color:rgba(40,45,50,1);
  cursor: pointer;
   }
   }
+}
+.rate,
+.funnel,
+.pie {
+  display: inline-block
 }
 </style>

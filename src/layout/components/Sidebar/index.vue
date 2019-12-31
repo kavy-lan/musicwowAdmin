@@ -2,7 +2,7 @@
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-input v-model="search" placeholder="搜索菜单..." class="input" />
+      <el-input v-model="search" placeholder="搜索菜单..." class="input" @input="searchMemu" />
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
@@ -13,7 +13,12 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item
+          v-for="route in router"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -29,14 +34,12 @@ export default {
   components: { SidebarItem, Logo },
   data() {
     return {
-      search: ''
+      search: '',
+      router: []
     }
   },
   computed: {
-    ...mapGetters([
-      'permission_routes',
-      'sidebar'
-    ]),
+    ...mapGetters(['permission_routes', 'sidebar']),
     activeMenu() {
       const route = this.$route
       const { meta, path } = route
@@ -67,22 +70,58 @@ export default {
     //         }
     //       }
     //     }
-    this.$store.commit('searchRouter', [])
-    console.log(this.permission_routes)
+    this.router = this.permission_routes
+    this.router2 = this.permission_routes
+    // this.$store.commit('searchRouter', [])
+  },
+  methods: {
+    searchMemu(res) {
+      let searchArr = []
+      const title = []
+      for (let i = 0; i < this.permission_routes.length; i++) {
+        if (this.permission_routes[i].meta) {
+          title.push(this.permission_routes[i])
+        }
+      }
+      if (res.length > 0) {
+        for (let i = 0; i < title.length; i++) {
+          if (title[i].meta.title.indexOf(res) > -1) {
+            searchArr.push(title[i])
+          }
+        }
+      } else {
+        searchArr = this.router2
+      }
+      console.log(searchArr)
+      this.router = searchArr
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
->>>.el-menu-item.is-active{
-  background: #D9D9D9 !important
+>>> .el-menu-item.is-active {
+  background: #d9d9d9 !important;
 }
-.input{
-width:189px;
-height:39px;
-margin:24px 0;
-margin-left: 10px;
+.input {
+  width: 189px;
+  height: 39px;
+  margin: 24px 0;
+  margin-left: 10px;
+  position: relative;
 }
->>>.el-input__inner{
-border-radius:23px;
+>>> .el-input__inner {
+  border-radius: 23px;
+  text-indent: 17px;
+}
+.input::before{
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+ background: url('../../../assets/images/searchicon.png') no-repeat  !important;
+  background-size:18px 18px !important;
+  left:10px;
+  top: 8px
 }
 </style>

@@ -56,27 +56,6 @@ export default {
     }
   },
   mounted() {
-    // return new Promise((resolve, reject) => {
-    //   getUploadConfig()
-    //     .then(response => {
-    //       const { data } = response
-    //       var config = JSON.parse(window.atob(data.config))
-    //       console.log(config)
-    //       this.config = config
-    //       this.action = config.domain
-    //       this.formdata = {
-    //         // key: `pulic/image`,
-    //         OSSAccessKeyId: config.access_key_id,
-    //         policy: config.policy,
-    //         Signature: config.signature,
-    //         success_action_status: '200'
-    //       }
-    //     })
-    //     .catch(error => {
-    //       reject(error)
-    //     })
-    // })
-    // this.file = this.filelist
     if (this.filelist != undefined) {
       this.file = this.filelist
     }
@@ -114,7 +93,7 @@ export default {
     handlePreview(file) {
       console.log(file)
     },
-    async before(res) {
+    before(res) {
       if (res.size > this.size) {
         Message({
           message: '请选择正确尺寸的文件',
@@ -135,27 +114,28 @@ export default {
         })
         return false
       }
-      if (uploadType == 'mp4') {
-      // 获取视频时长
-        var url = URL.createObjectURL(res)
-        var audioElement = new Audio(url)
-        var time = this.time
+      // if (uploadType == 'mp4') {
+      // // 获取视频时长
+      //   var url = URL.createObjectURL(res)
+      //   var audioElement = new Audio(url)
+      //   var time = this.time
 
-        var p = new Promise((resolve, reject) => {
-          audioElement.addEventListener('loadedmetadata', function(e) {
-            resolve(audioElement.duration) // 时长为秒，小数，182.36
-          })
-        })
-        const flag = await p
-        if (flag > time) {
-          Message({
-            message: `视频时长不能大于${time / 60} 分钟`,
-            type: 'error',
-            duration: 5 * 1000
-          })
-          return false
-        }
-      }
+      //   var p = new Promise((resolve, reject) => {
+      //     audioElement.addEventListener('loadedmetadata', function(e) {
+      //       resolve(audioElement.duration) // 时长为秒，小数，182.36
+      //     })
+      //   })
+      //   const flag = p
+      //   // if (flag > time) {
+      //   //   Message({
+      //   //     message: `视频时长不能大于${time / 60} 分钟`,
+      //   //     type: 'error',
+      //   //     duration: 5 * 1000
+      //   //   })
+      //   //   return false
+      //   // }
+      //   console.log(flag)
+      // }
       const timestamp = new Date().getTime()
       const num = Math.random()
         .toString(36)
