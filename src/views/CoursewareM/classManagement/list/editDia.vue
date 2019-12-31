@@ -151,7 +151,6 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 label="视频素材:"
                 type=".mp4"
-                size="2097152"
                 :limit="4"
                 :filelist="items.videoslist1"
                 :clear="items.clear"

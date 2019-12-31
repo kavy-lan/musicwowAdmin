@@ -22,16 +22,43 @@
     </div>
     <div class="mudule1">
       <div>
-        <div class="title"><div>快速访问</div><div>More ></div></div>
+        <div class="title">
+          <div>快速访问</div>
+          <div>More ></div>
+        </div>
         <div class="sudu">
-          <div class="yuyue"><img src="../../assets/images/yuyue.png" alt=""><span>添加预约</span></div>
-          <div class="xueyuan"><img src="../../assets/images/xueyuan.png" alt=""><span>新增学员</span></div>
-          <div class="kaoqin"><img src="../../assets/images/kaoqin.png" alt=""><span>考勤签到</span></div>
-          <div class="zuoye"><img src="../../assets/images/zuoye.png" alt=""><span>作业详情</span></div>
-          <div class="shenpi"><img src="../../assets/images/shenpi.png" alt=""><span>工作审批</span></div>
-          <div class="banji"><img src="../../assets/images/banji.png" alt=""><span>门店班级</span></div>
-          <div class="jifen"><img src="../../assets/images/jifen.png" alt=""><span>积分兑换</span></div>
-          <div class="xiaoxi"><img src="../../assets/images/xiaoxi.png" alt=""><span>消息管理</span></div>
+          <div class="yuyue">
+            <img src="../../assets/images/yuyue.png" alt>
+            <span>添加预约</span>
+          </div>
+          <div class="xueyuan">
+            <img src="../../assets/images/xueyuan.png" alt>
+            <span>新增学员</span>
+          </div>
+          <div class="kaoqin">
+            <img src="../../assets/images/kaoqin.png" alt>
+            <span>考勤签到</span>
+          </div>
+          <div class="zuoye">
+            <img src="../../assets/images/zuoye.png" alt>
+            <span>作业详情</span>
+          </div>
+          <div class="shenpi">
+            <img src="../../assets/images/shenpi.png" alt>
+            <span>工作审批</span>
+          </div>
+          <div class="banji">
+            <img src="../../assets/images/banji.png" alt>
+            <span>门店班级</span>
+          </div>
+          <div class="jifen">
+            <img src="../../assets/images/jifen.png" alt>
+            <span>积分兑换</span>
+          </div>
+          <div class="xiaoxi">
+            <img src="../../assets/images/xiaoxi.png" alt>
+            <span>消息管理</span>
+          </div>
         </div>
       </div>
       <div>
@@ -43,13 +70,90 @@
       <div class="class">
         <div ref="pie" class="pie" style="width:100%;height:100%" />
       </div>
-      <div class="shop"><div ref="pi" class="pie" style="width:100%;height:100%" /></div>
-      <div class="student"><div ref="pi" class="pie" style="width:100%;height:100%" /></div>
-      <div class="today"><div ref="pi" class="pie" style="width:100%;height:100%" /></div>
+      <div class="shop">
+        <div>
+          <span>门店动态</span>
+          <span>More ></span>
+        </div>
+        <div>
+          <ul id="timeline">
+            <li class="work">
+              <input id="work5" class="radio" name="works" type="radio" checked>
+              <div class="relative">
+                <label for="work5">Lorem ipsum dolor sit amet</label>
+
+                <span class="circle" />
+              </div>
+              <div class="content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+                </p>
+              </div>
+            </li>
+            <li class="work">
+              <input id="work4" class="radio" name="works" type="radio">
+              <div class="relative">
+                <label for="work4">Lorem ipsum dolor sit amet</label>
+
+                <span class="circle" />
+              </div>
+              <div class="content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+                </p>
+              </div>
+            </li>
+            <li class="work">
+              <input id="work3" class="radio" name="works" type="radio">
+              <div class="relative">
+                <label for="work3">Lorem ipsum dolor sit amet</label>
+
+                <span class="circle" />
+              </div>
+              <div class="content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+                </p>
+              </div>
+            </li>
+            <li class="work">
+              <input id="work2" class="radio" name="works" type="radio">
+              <div class="relative">
+                <label for="work2">Lorem ipsum dolor sit amet</label>
+
+                <span class="circle" />
+              </div>
+              <div class="content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+                </p>
+              </div>
+            </li>
+            <li class="work">
+              <input id="work1" class="radio" name="works" type="radio">
+              <div class="relative">
+                <label for="work1">Lorem ipsum dolor sit amet</label>
+
+                <span class="circle" />
+              </div>
+              <div class="content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+                </p>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="student">
+        <div ref="pi" class="pie" style="width:100%;height:100%" />
+      </div>
+      <div class="today">
+        <div ref="pi" class="pie" style="width:100%;height:100%" />
+      </div>
     </div>
-    <div class="mudule3">
-      授课课时
-    </div>
+    <div class="mudule3">授课课时</div>
   </div>
 </template>
 <script>
@@ -58,11 +162,11 @@ import { color } from 'echarts/lib/export'
 import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters([
-      'name',
-      'avatar',
-      'roles'
-    ])
+    ...mapGetters(['name', 'avatar', 'roles'])
+  },
+  data() {
+    return {
+    }
   },
   mounted() {
     this.echart()
@@ -234,37 +338,28 @@ export default {
             color: '#B8B9BB'
           }
         },
-        color: [new echarts.graphic.LinearGradient(
-          0, 0, 1, 0,
-          [
+        color: [
+          new echarts.graphic.LinearGradient(0, 0, 1, 0, [
             { offset: 0, color: '#6F85FF' },
             { offset: 1, color: '#879AFF' }
-          ]
-        ), new echarts.graphic.LinearGradient(
-          0, 0, 1, 0,
-          [
+          ]),
+          new echarts.graphic.LinearGradient(0, 0, 1, 0, [
             { offset: 0, color: '#68B5FF' },
             { offset: 1, color: '#8CD2FF' }
-          ]
-        ), new echarts.graphic.LinearGradient(
-          0, 0, 1, 0,
-          [
+          ]),
+          new echarts.graphic.LinearGradient(0, 0, 1, 0, [
             { offset: 0, color: '#63D77B' },
             { offset: 1, color: '#86E79E' }
-          ]
-        ), new echarts.graphic.LinearGradient(
-          0, 0, 1, 0,
-          [
+          ]),
+          new echarts.graphic.LinearGradient(0, 0, 1, 0, [
             { offset: 0, color: '#FFBB6C' },
             { offset: 1, color: '#FFCB8C' }
-          ]
-        ), new echarts.graphic.LinearGradient(
-          0, 0, 1, 0,
-          [
+          ]),
+          new echarts.graphic.LinearGradient(0, 0, 1, 0, [
             { offset: 0, color: '#2DD2C0' },
             { offset: 1, color: '#3EDFD1' }
-          ]
-        )],
+          ])
+        ],
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c}%',
@@ -322,9 +417,8 @@ export default {
               }
             },
             itemStyle: {
-              borderColor: '#fff',
+              // borderColor: '#fff',
               borderWidth: 1
-
             },
             emphasis: {
               label: {
@@ -357,13 +451,14 @@ export default {
           formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         title: {
-          text: '70%',
-          x: 'center',
-          y: 'center',
+          text: '课程占比',
+          // x: 'center',
+          // y: 'center',
+          top: 0,
           textStyle: {
-            fontSize: 10,
-            fontWeight: 'normal',
-            color: '#666666'
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#282D32'
           },
           subtextStyle: {
             color: '#000000',
@@ -371,20 +466,34 @@ export default {
             fontWeight: 'normal'
           }
         },
+        color: [
+          '#488AFE',
+          '#4880FF',
+          '#3972F5',
+          '#47D1FF',
+          '#48BEFF',
+          '#48ACFF',
+          '#48A0FF'
+        ],
         legend: {
           orient: 'vertical',
           type: 'scroll',
+          pageIconColor: '#488AFE',
+          pageIconSize: [10, 10],
+          bottom: 0,
           right: 'right',
           top: 'center',
           itemWidth: 20,
           itemHeight: 4,
           itemGap: 2,
           data: [
-            '直接访问',
-            '邮件营销',
-            '联盟广告',
-            '视频广告',
-            '搜索引擎'
+            '爵士鼓课程',
+            '声乐课程',
+            '钢琴课程',
+            '电吉他课程',
+            '民谣吉他课程',
+            '非洲鼓课程',
+            '尤克里里课程'
           ],
           formatter: function(name) {
             var total = 0
@@ -398,7 +507,6 @@ export default {
             var arr = [
               '{b|' + name + '}',
               '{a|' + ((target / total) * 100).toFixed(2) + '%}'
-
             ]
             return arr.join('\n')
           },
@@ -424,8 +532,8 @@ export default {
           {
             name: '访问来源',
             type: 'pie',
-            radius: ['30%', '40%'],
-            center: ['20%', '40%'],
+            radius: ['30%', '50%'],
+            center: ['30%', '40%'],
             avoidLabelOverlap: false,
             label: {
               normal: {
@@ -433,9 +541,9 @@ export default {
                 position: 'center'
               },
               emphasis: {
-                show: false,
+                show: true,
                 textStyle: {
-                  fontSize: '30',
+                  fontSize: '20',
                   fontWeight: 'bold'
                 }
               }
@@ -446,11 +554,13 @@ export default {
               }
             },
             data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 234, name: '联盟广告' },
-              { value: 135, name: '视频广告' },
-              { value: 1548, name: '搜索引擎' }
+              { value: 335, name: '爵士鼓课程' },
+              { value: 310, name: '声乐课程' },
+              { value: 234, name: '钢琴课程' },
+              { value: 135, name: '电吉他课程' },
+              { value: 1548, name: '民谣吉他课程' },
+              { value: 135, name: '非洲鼓课程' },
+              { value: 1548, name: '尤克里里课程' }
             ]
           }
         ]
@@ -460,20 +570,20 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-*{
-  box-sizing: border-box
+* {
+  box-sizing: border-box;
 }
 .bigBox {
   padding: 38px 80px 0 90px;
-  >div{
+  > div {
     margin-top: 40px;
   }
   .userinfo {
     padding: 35px 33px;
     display: flex;
     justify-content: space-between;
-    background:rgba(255,255,255,1);
-box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
     .name {
       > div:nth-child(1) {
         font-size: 28px;
@@ -490,148 +600,278 @@ box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
       }
     }
     .Statistics {
-      >div{
+      > div {
         text-align: center;
         display: inline-block;
-        margin-left:80px;
+        margin-left: 80px;
+        > div:nth-child(1) {
+          font-size: 36px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: rgba(7, 209, 170, 1);
+        }
+        > div:nth-child(2) {
+          font-size: 13px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: rgba(88, 91, 99, 1);
+        }
+      }
+    }
+  }
+  .mudule1 {
+    display: flex;
+    > div {
+      padding: 32px 37px 37px 40px;
+    }
+    > div:nth-child(1) {
+      width: 607px;
+      height: 330px;
+      background: rgba(255, 255, 255, 1);
+      box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
+      .sudu {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 36px;
+        > div {
+          width: 78px;
+          height: 78px;
+          margin-right: 32px;
+          margin-bottom: 33px;
+          padding-top: 10px;
+          background: #07d1aa;
+          cursor: pointer;
+          box-shadow: 0px 5px 10px 0px rgba(7, 194, 209, 0.3);
+          border-radius: 16px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          > img {
+            width: 32px;
+            height: 32px;
+          }
+          > span {
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+        > div:hover {
+          background: #0fe5bc;
+        }
+        > div:nth-child(5) {
+          margin-right: 0;
+        }
+        .xueyuan,
+        .xiaoxi {
+          background: #32c5ff;
+        }
+        .xueyuan:hover,
+        .xiaoxi:hover {
+          background: #53ceff;
+        }
+        .banji,
+        .shenpi {
+          background: #ffb940;
+        }
+        .banji:hover,
+        .shenpi:hover {
+          background: #ffc664;
+        }
+      }
+    }
+    > div:nth-child(2) {
+      flex: 1;
+      display: flex;
+      background: rgba(255, 255, 255, 1);
+      box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
+      .funnel {
+        flex: 1;
+      }
+    }
+  }
+  .mudule2 {
+    > div {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
+      border-radius: 3px;
+      margin-right: 20px;
+      padding: 20px 11px 0 24px;
+      height: 304px;
+      display: inline-block;
+    }
+    .class {
+      width: 332px;
+    }
+    .shop {
+      width: 293px;
       > div:nth-child(1) {
-        font-size: 36px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: rgba(7, 209, 170, 1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        > span:nth-child(1) {
+          font-size: 20px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: bold;
+          color: rgba(40, 45, 50, 1);
+        }
+        > span:nth-child(2) {
+          font-size: 12px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(179, 179, 179, 1);
+          cursor: pointer;
+        }
       }
       > div:nth-child(2) {
-        font-size: 13px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: rgba(88, 91, 99, 1);
+        // height: 92%;
+        padding-top: 34px;
+        overflow-y: scroll;
       }
+      > div:nth-child(2)::-webkit-scrollbar {
+        display: none;
       }
-
     }
-  };
-  .mudule1{
-    display: flex;
-   >div{
-     padding:32px 37px 37px 40px;
-   }
-   >div:nth-child(1){
-    width: 607px;
-    height: 330px;
-    background:rgba(255,255,255,1);
-    box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
-    .sudu{
-      display: flex;
-      flex-wrap: wrap;
-      padding-top: 36px;
-      >div{
-        width:78px;
-        height:78px;
-        margin-right: 32px;
-        margin-bottom: 33px;
-        padding-top: 10px;
-        background:#07D1AA;
-        cursor: pointer;
-        box-shadow:0px 5px 10px 0px rgba(7,194,209,0.3);
-        border-radius:16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        >img{
-          width:32px;
-          height:32px;
-        }
-        >span{
-          font-size:12px;
-          font-family:PingFangSC-Regular,PingFang SC;
-          font-weight:400;
-          color:rgba(255,255,255,1)
-        }
-      }
-      >div:hover{
-        background: #0FE5BC
-      }
-      >div:nth-child(5){
-        margin-right: 0
-      }
-      .xueyuan,.xiaoxi{
-        background: #32C5FF
-      }
-      .xueyuan:hover,.xiaoxi:hover{
-        background: #53CEFF
-      }
-     .banji,.shenpi{
-       background: #FFB940
-     }
-     .banji:hover,.shenpi:hover{
-       background: #FFC664
-     }
+    .student {
+      width: 445px;
     }
-   }
-   >div:nth-child(2){
-     flex: 1;
-     display: flex;
-     background:rgba(255,255,255,1);
-    box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
-    .funnel{
-    flex: 1
+    .today {
+      width: 379px;
+      margin-right: 0;
     }
-   }
   }
-  .mudule2{
-  >div{
-    background:rgba(255,255,255,1);
-box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
-border-radius:3px;
-margin-right: 20px;
-padding: 20px 11px 0 24px;
-height: 304px;
-display: inline-block;
-  }
-  .class{
-   width: 332px;
-  }
-  .shop{
-    width: 293px;
-  }
-  .student{
-    width: 445px;
-  }
-  .today{
-    width: 379px;
-    margin-right: 0;
-  }
-  }
-  .mudule3{
+  .mudule3 {
     padding: 36px 34px 0 34px;
     height: 300px;
-    background:rgba(255,255,255,1);
-box-shadow:-10px 10px 20px 0px rgba(30,30,30,0.05);
-margin-bottom: 60px
+    background: rgba(255, 255, 255, 1);
+    box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
+    margin-bottom: 60px;
   }
-  .title{
+  .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  >div:nth-child(1){
-    font-size:20px;
-font-family:PingFangSC-Medium,PingFang SC;
-font-weight:500;
-color:rgba(40,45,50,1);
-  }
-  >div:nth-child(2){
-    font-size:12px;
- font-family:PingFangSC-Medium,PingFang SC;
- font-weight:500;
- color:rgba(179,179,179,1);
- cursor: pointer;
-  }
+    > div:nth-child(1) {
+      font-size: 20px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(40, 45, 50, 1);
+    }
+    > div:nth-child(2) {
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(179, 179, 179, 1);
+      cursor: pointer;
+    }
   }
 }
 .rate,
 .funnel,
 .pie {
-  display: inline-block
+  display: inline-block;
 }
+  #timeline {
+  list-style: none;
+    margin: 0px 0 0px 7px;
+    padding: 0;
+    border-left: 1px solid #eee9dc;
+    height: 227px
+}
+#timeline li {
+  position: relative;
+}
+#timeline p {
+  margin: 0 0 15px;
+}
+
+// .date {
+//   margin-top: -10px;
+//   top: 50%;
+//   left: -158px;
+//   font-size: 0.95em;
+//   line-height: 20px;
+//   position: absolute;
+// }
+
+.circle {
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 2px solid #4880FF;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+}
+
+.content {
+  max-height: 20px;
+  padding: 50px 20px 0;
+  border-color: transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.5em;
+  position: relative;
+}
+// .content:before, .content:after {
+//   content: "";
+//   width: 0;
+//   height: 0;
+//   border: solid transparent;
+//   position: absolute;
+//   pointer-events: none;
+//   right: 100%;
+// }
+// .content:before {
+//   border-right-color: inherit;
+//   border-width: 20px;
+//   top: 50%;
+//   margin-top: -20px;
+// }
+// .content:after {
+//   border-right-color: #48b379;
+//   border-width: 17px;
+//   top: 50%;
+//   margin-top: -17px;
+// }
+.content p {
+  max-height: 0;
+  color: transparent;
+  text-align: justify;
+  word-break: break-word;
+  hyphens: auto;
+  overflow: hidden;
+}
+
+label {
+  font-size: 1.3em;
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  top: 20px;
+  transition: transform 0.2s linear;
+}
+
+.radio {
+  display: none;
+}
+
+// .radio:checked + .relative label {
+//   cursor: auto;
+//   transform: translateX(42px);
+// }
+.radio:checked + .relative .circle {
+  background: #f98262;
+}
+// .radio:checked ~ .content {
+//   max-height: 180px;
+//   border-color: #eee9dc;
+//   margin-right: 20px;
+//   transform: translateX(20px);
+//   transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
+// }
+
 </style>

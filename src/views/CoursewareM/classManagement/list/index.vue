@@ -49,7 +49,7 @@
       <!-- <el-table-column align="center" label="目录ID" prop="book_directory_id" /> -->
       <el-table-column align="center" label="课时编号" prop="class_no" />
       <el-table-column align="center" label="课时名称" prop="title" />
-      <el-table-column align="center" label="所属目录" prop="directory" />
+      <el-table-column align="center" label="所属目录" prop="directory.title" />
       <el-table-column align="center" label="知识点数" prop="knowledge_count" />
       <!-- <el-table-column align="center" label="备注说明" prop="remark" /> -->
       <!-- <el-table-column align="center" label="状态">
