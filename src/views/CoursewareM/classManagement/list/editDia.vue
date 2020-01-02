@@ -138,7 +138,7 @@
               <single-image
                 v-if="items.show.knowledgeImage"
                 msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
-                label="头像:"
+                label="图片素材:"
                 type=".jpg,.png,.gif"
                 size="3145728"
                 :limit="4"
@@ -235,6 +235,7 @@
       <div>
         <label class="classwork">课时作业：</label>
         <div class="c_right work">
+          <div class="tips">课时作业共两个,1未学完作业,2全部学完作业</div>
           <div>
             <div class="total">1</div>
             <div>
@@ -256,7 +257,7 @@
               />
               <single-image
                 v-if="workI1"
-                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
+                msg="素材图片小于2M，格式为 jpg、png，图片最多5个"
                 label="图片素材"
                 size="2097152"
                 type=".jpg,.png"
@@ -297,7 +298,7 @@
               />
               <single-image
                 v-if="workI2"
-                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
+                msg="素材图片小于2M，格式为 jpg、png，图片最多5个"
                 label="图片素材"
                 type=".jpg,.png"
                 size="2097152"
@@ -1076,6 +1077,15 @@ export default {
         vertical-align: middle;
       }
     }
+  }
+   .tips {
+    height: 21px;
+    font-size: 15px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(179, 179, 179, 1);
+    line-height: 21px;
+    margin-bottom: 23px;
   }
   .laji {
     font-size: 20px;

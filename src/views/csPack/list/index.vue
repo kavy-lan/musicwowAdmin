@@ -38,6 +38,8 @@
       <el-table-column align="center" label="打包类型" prop="pack_type" />
       <el-table-column align="center" label="日志内容" prop="content" />
       <el-table-column align="center" label="状态" prop="status" />
+      <el-table-column align="center" label="创建时间" prop="created_at" />
+      <el-table-column align="center" label="更新时间" prop="updated_at" />
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
           <el-button plain class="caozuoButton" @click="goDetail(scope.row)">
@@ -108,6 +110,13 @@ export default {
                 item.status = '则会那个在打包'
               } else {
                 item.status = '打包成功'
+              }
+              if (item.pack_type == 1) {
+                item.pack_type = '课件'
+              } else if (item.pack_type == 2) {
+                item.pack_type = '目录'
+              } else {
+                item.pack_type = '课时'
               }
             })
           })

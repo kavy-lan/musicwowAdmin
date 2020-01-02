@@ -14,12 +14,7 @@
         <label>教材目录：</label>
         <div class="c_right">
           <el-select v-model="CatalogueId" placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.id"
-              :value="item.id"
-              :label="item.title"
-            />
+            <el-option v-for="item in options" :key="item.id" :value="item.id" :label="item.title" />
           </el-select>
         </div>
       </div>
@@ -31,7 +26,7 @@
             v-model="className"
             placeholder="请输入课时名称，字数最多20字内"
             class="input"
-            maxlength="19"
+            maxlength="20"
           />
         </div>
       </div>
@@ -55,7 +50,7 @@
                 v-model="items.knowledge_no"
                 class="total konwtotal"
                 maxlength="20"
-              /> -->
+              />-->
               <el-select
                 v-model="items.Templatevalue"
                 placeholder="请选择"
@@ -172,10 +167,7 @@
         <label>课后拓展：</label>
         <div class="c_right">
           <div>
-            <el-select
-              v-model="tuozhanSeleteValue"
-              placeholder="请选择"
-            >
+            <el-select v-model="tuozhanSeleteValue" placeholder="请选择">
               <el-option
                 v-for="item in tuozhanSelete"
                 :key="item.value"
@@ -224,6 +216,7 @@
       <div>
         <label class="classwork">课时作业：</label>
         <div class="c_right work">
+          <div class="tips">课时作业共两个,1未学完作业,2全部学完作业</div>
           <div>
             <div class="total">1</div>
             <div>
@@ -239,13 +232,13 @@
                 v-model="workText1"
                 placeholder="作业文字，字数为300以内"
                 class="input"
-                maxlength="299"
+                maxlength="300"
                 type="textarea"
                 style="margin-bottom:13px"
               />
               <single-image
                 v-if="workI1"
-                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
+                msg="素材图片小于2M，格式为 jpg、png，图片最多5个"
                 label="图片素材"
                 size="2097152"
                 type=".jpg,.png"
@@ -278,13 +271,13 @@
                 v-model="workText2"
                 placeholder="作业文字，字数为300以内"
                 class="input"
-                maxlength="299"
+                maxlength="300"
                 type="textarea"
                 style="margin-bottom:13px"
               />
               <single-image
                 v-if="workI2"
-                msg="素材图片小于2M，格式为 jpg、png、gif，图片最多5个"
+                msg="素材图片小于2M，格式为 jpg、png，图片最多5个"
                 label="图片素材"
                 type=".jpg,.png"
                 size="2097152"
@@ -314,7 +307,10 @@
 </template>
 
 <script>
-import { getDirectory_list, addclassManagementList } from '../../../../api/classManagement'
+import {
+  getDirectory_list,
+  addclassManagementList
+} from '../../../../api/classManagement'
 import SingleImage from '@/components/Upload/SingleImage3'
 import { MessageBox, Message } from 'element-ui'
 export default {
@@ -363,7 +359,6 @@ export default {
       works2images: '',
       works1videos: '',
       works2videos: ''
-
     }
   },
   watch: {
@@ -380,30 +375,45 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].images += `${res[i].url},`
       }
-      this.Knowledge[index].images = this.Knowledge[index].images.substring(0, this.Knowledge[index].images.length - 1)
+      this.Knowledge[index].images = this.Knowledge[index].images.substring(
+        0,
+        this.Knowledge[index].images.length - 1
+      )
     },
     templateVideo1(res, index) {
       this.Knowledge[index].videos = []
       for (let i = 0; i < res.length; i++) {
-        this.Knowledge[index].videos.push({ url: res[i].url, title: res[i].name })
+        this.Knowledge[index].videos.push({
+          url: res[i].url,
+          title: res[i].name
+        })
       }
     },
     templateAudio1(res, index) {
       this.Knowledge[index].audios = []
       for (let i = 0; i < res.length; i++) {
-        this.Knowledge[index].audios.push({ url: res[i].url, title: res[i].name })
+        this.Knowledge[index].audios.push({
+          url: res[i].url,
+          title: res[i].name
+        })
       }
     },
     templateVideo2(res, index) {
       this.Knowledge[index].videos = []
       for (let i = 0; i < res.length; i++) {
-        this.Knowledge[index].videos.push({ url: res[i].url, title: res[i].name })
+        this.Knowledge[index].videos.push({
+          url: res[i].url,
+          title: res[i].name
+        })
       }
     },
     templateAudio2(res, index) {
       this.Knowledge[index].audios = []
       for (let i = 0; i < res.length; i++) {
-        this.Knowledge[index].audios.push({ url: res[i].url, title: res[i].name })
+        this.Knowledge[index].audios.push({
+          url: res[i].url,
+          title: res[i].name
+        })
       }
     },
     templateBase2(res, index) {
@@ -411,21 +421,32 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].negative_image += `${res[i].url},`
       }
-      this.Knowledge[index].negative_image = this.Knowledge[index].negative_image.substring(0, this.Knowledge[index].negative_image.length - 1)
+      this.Knowledge[index].negative_image = this.Knowledge[
+        index
+      ].negative_image.substring(
+        0,
+        this.Knowledge[index].negative_image.length - 1
+      )
     },
     templateOther2(res, index) {
       this.Knowledge[index].images = ''
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].images += `${res[i].url},`
       }
-      this.Knowledge[index].images = this.Knowledge[index].images.substring(0, this.Knowledge[index].images.length - 1)
+      this.Knowledge[index].images = this.Knowledge[index].images.substring(
+        0,
+        this.Knowledge[index].images.length - 1
+      )
     },
     tuozhanImage1(res) {
       this.afters.images = ''
       for (let i = 0; i < res.length; i++) {
         this.afters.images += `${res[i].url},`
       }
-      this.afters.images = this.afters.images.substring(0, this.afters.images.length - 1)
+      this.afters.images = this.afters.images.substring(
+        0,
+        this.afters.images.length - 1
+      )
     },
     tuozhanVideo1(res) {
       this.afters.videos = []
@@ -444,14 +465,20 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.works1images += `${res[i].url},`
       }
-      this.works1images = this.works1images.substring(0, this.works1images.length - 1)
+      this.works1images = this.works1images.substring(
+        0,
+        this.works1images.length - 1
+      )
     },
     homeWorkI2(res) {
       this.works2images = ''
       for (let i = 0; i < res.length; i++) {
         this.works2images += `${res[i].url},`
       }
-      this.works2images = this.works2images.substring(0, this.works2images.length - 1)
+      this.works2images = this.works2images.substring(
+        0,
+        this.works2images.length - 1
+      )
     },
     handleClose() {
       this.$emit('close', false)
@@ -489,7 +516,14 @@ export default {
     addA() {
       const knowledges = []
       this.Knowledge.map(item => {
-        knowledges.push({ knowledge_no: item.knowledge_no, template_type: item.template_type, images: item.images, negative_image: item.negative_image, videos: item.videos, audios: item.audios })
+        knowledges.push({
+          knowledge_no: item.knowledge_no,
+          template_type: item.template_type,
+          images: item.images,
+          negative_image: item.negative_image,
+          videos: item.videos,
+          audios: item.audios
+        })
       })
       this.works1.classwork_no = 1
       this.works2.classwork_no = 2
@@ -528,7 +562,10 @@ export default {
             duration: 5 * 1000
           })
           return false
-        } else if (knowledges[i].template_type == 2 && (!knowledges[i].images || !knowledges[i].negative_image)) {
+        } else if (
+          knowledges[i].template_type == 2 &&
+          (!knowledges[i].images || !knowledges[i].negative_image)
+        ) {
           Message({
             message: '知识点图片素材和底图素材不能为空',
             type: 'success',
@@ -561,16 +598,17 @@ export default {
         works: works
       }
       return new Promise((resolve, reject) => {
-        addclassManagementList(params).then(res => {
-          if (res.error_code == 0) {
-            Message({
-              message: '添加成功',
-              type: 'success',
-              duration: 5 * 1000
-            })
-            this.$emit('close', true)
-          }
-        })
+        addclassManagementList(params)
+          .then(res => {
+            if (res.error_code == 0) {
+              Message({
+                message: '添加成功',
+                type: 'success',
+                duration: 5 * 1000
+              })
+              this.$emit('close', true)
+            }
+          })
           .catch(error => {
             reject(error)
           })
@@ -627,12 +665,32 @@ export default {
     newKnowledge() {
       this.KnowledgeNum = this.KnowledgeNum + 1
       // this.Knowledgebox.push(['图片素材'])
-      this.Knowledge.push({ knowledge_no: this.KnowledgeNum, template_type: 1, images: '', videos: [], audios: [], negative_image: '', Knowledgebox1: ['图片素材'], Knowledgebox2: ['底图素材', '其他素材'], show: { knowledgeImage: true, knowledgeVideo: false, knowledgeAudio: false, baseImage: false, otherImage: false }, Template: [{ value: '1',
-        label: '模板1[知识点]'
-      }, {
-        value: '2',
-        label: '模板2[交互]'
-      }], Templatevalue: '模板1[知识点]', clear: false })
+      this.Knowledge.push({
+        knowledge_no: this.KnowledgeNum,
+        template_type: 1,
+        images: '',
+        videos: [],
+        audios: [],
+        negative_image: '',
+        Knowledgebox1: ['图片素材'],
+        Knowledgebox2: ['底图素材', '其他素材'],
+        show: {
+          knowledgeImage: true,
+          knowledgeVideo: false,
+          knowledgeAudio: false,
+          baseImage: false,
+          otherImage: false
+        },
+        Template: [
+          { value: '1', label: '模板1[知识点]' },
+          {
+            value: '2',
+            label: '模板2[交互]'
+          }
+        ],
+        Templatevalue: '模板1[知识点]',
+        clear: false
+      })
     },
     deleteKnowledge(index) {
       this.Knowledge.splice(index, 1)
@@ -848,6 +906,15 @@ export default {
     vertical-align: middle;
     cursor: pointer;
   }
+  .tips {
+    height: 21px;
+    font-size: 15px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(179, 179, 179, 1);
+    line-height: 21px;
+    margin-bottom: 23px;
+  }
 }
 .total {
   width: 50px;
@@ -894,7 +961,7 @@ label {
 
 >>> .el-input__inner,
 >>> .el-input__inner::placeholder {
-  background: #EBEBEB;
+  background: #ebebeb;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -902,7 +969,7 @@ label {
 }
 
 >>> .el-textarea__inner {
-  background: #EBEBEB;
+  background: #ebebeb;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -917,11 +984,11 @@ label {
 .upload-demo {
   margin-bottom: 13px;
 }
-.konwtotal{
-  >>>.el-input__inner{
+.konwtotal {
+  >>> .el-input__inner {
     padding: 0;
     border: none;
-    text-align: center
+    text-align: center;
   }
 }
 </style>

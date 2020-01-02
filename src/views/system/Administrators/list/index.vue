@@ -17,16 +17,6 @@
       :disabled="deleteShow"
       @click="someDelete"
     >删除</el-button>
-    <!-- <el-button size="medium" class="noneColor" icon="el-icon-tickets">课程详情</el-button> -->
-    <!-- <el-button size="medium" class="noneColor" icon="el-icon-food">
-      <svg-icon class-name="search-icon" icon-class="shop" />授权机构
-    </el-button>-->
-    <!-- <el-button size="medium" class="noneColor">
-      <svg-icon class-name="search-icon" icon-class="user" />授权用户
-    </el-button>-->
-    <!-- <el-button size="medium" class="noneColor">
-      <svg-icon class-name="search-icon" icon-class="edit" />编辑
-    </el-button>-->
     <el-button size="medium" type="info" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
     </el-button>
@@ -100,7 +90,7 @@
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
-    <add-dia :dialog-visible="dialogVisible" @close="closr" />
+    <add-dia v-if="dialogVisible" :dialog-visible="dialogVisible" @close="closr" />
     <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" />
   </div>
@@ -409,20 +399,19 @@ export default {
   }
 }
 .caozuo {
-  //  width:
   color: #bfbfbf;
   cursor: pointer;
-  // margin-right: 1px;
 }
 .caozuo:hover {
   color: #585b63;
 }
 .caozuoButton {
-  height: 0;
-  width: 0;
   padding: 0;
   border: none;
-  margin-right: 36px;
+ background: none;
+}
+.caozuoButton:hover,.caozuoButton.is-plain:focus{
+  background: none
 }
 </style>
 

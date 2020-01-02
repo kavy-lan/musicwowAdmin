@@ -16,7 +16,7 @@
           v-model="materialName"
           placeholder="请输入教材名称，字数最多20字内"
           class="input"
-          maxlength="19"
+          maxlength="20"
         />
       </div>
       <div>
@@ -56,7 +56,7 @@
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
-          maxlength="299"
+          maxlength="300"
         />
       </div>
     </div>
@@ -71,7 +71,7 @@
           placeholder="请输入教材文字详情，字数最多300字内"
           class="input textarea"
           type="textarea"
-          maxlength="299"
+          maxlength="300"
         />
       </div>
       <div>
@@ -80,6 +80,7 @@
           label="教材详情图:"
           type=".jpg,.png"
           size="2097152"
+          :limit="6"
           @files="materialDetailed"
         />
       </div>

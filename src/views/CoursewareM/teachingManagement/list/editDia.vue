@@ -16,7 +16,7 @@
           v-model="detailMsg.title"
           placeholder="请输入教材名称，字数最多20字内"
           class="input"
-          maxlength="19"
+          maxlength="20"
         />
       </div>
       <div>
@@ -59,7 +59,7 @@
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
-          maxlength="299"
+          maxlength="300"
         />
       </div>
       <div>
@@ -69,7 +69,7 @@
           placeholder="请输入教材目标，字数最多300字内"
           class="input Target"
           type="textarea"
-          maxlength="299"
+          maxlength="300"
         />
       </div>
     </div>
@@ -99,6 +99,7 @@
           msg="图片小于2M，格式为jpg、png"
           label="教材详情图:"
           type=".jpg,.png"
+          :limit="6"
           size="2097152"
           :filelist="materialDetailedI"
           @files="materialDetailed"

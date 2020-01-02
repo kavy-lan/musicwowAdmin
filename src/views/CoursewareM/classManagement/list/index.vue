@@ -90,7 +90,7 @@
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
-    <add-dia :id="addId" :dialog-visible="dialogVisible" @close="closr" />
+    <add-dia v-if="dialogVisible" :id="addId" :dialog-visible="dialogVisible" @close="closr" />
     <edit-dia v-if="dialogVisibleEdit" :id="editId" :bookid="editBookId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
@@ -432,10 +432,8 @@ export default {
   }
 }
 .caozuo {
-  //  width:
   color: #bfbfbf;
   cursor: pointer;
-  // margin-right: 1px;
 }
 .caozuo:hover {
   color: #585b63;

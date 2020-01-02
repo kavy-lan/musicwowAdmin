@@ -34,9 +34,7 @@
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
       <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="课件ID" prop="status" />
-      <el-table-column align="center" label="教材目录Id" prop="book_directory_id" />
-      <el-table-column align="center" label="课时ID" prop="book_class_id" />
+      <el-table-column align="center" label="创建时间" prop="created_at" />
       <el-table-column align="center" label="状态" prop="status" />
       <el-table-column align="center" label="批次号" prop="lot_no" />
       <el-table-column align="center" label="日志内容" prop="content" />
@@ -99,11 +97,9 @@ export default {
               if (item.status == 0) {
                 item.status = '打包失败'
               } else if (item.status == 1) {
-                item.status = '等待打包'
-              } else if (item.status == 2) {
-                item.status = '则会那个在打包'
+                item.status = '正在打包'
               } else {
-                item.status = '打包成功'
+                item.status = '打包完成'
               }
             })
           })

@@ -38,7 +38,7 @@
         <template slot-scope="scope">
           <img :src="scope.row.head_image" width="40" height="40" style="vertical-align:middle">
         </template>
-      </el-table-column> -->
+      </el-table-column>-->
       <!-- <el-table-column align="center" label="区域编号" prop="area_code" /> -->
       <el-table-column align="center" label="用户手机" prop="mobile" />
       <el-table-column align="center" label="备注说明" prop="remark" />
@@ -51,10 +51,9 @@
             @change="handleChange(scope.row)"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>-->
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -76,8 +75,13 @@
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
-    <add-dia :dialog-visible="dialogVisible" @close="closr" />
-    <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
+    <add-dia v-if="dialogVisible" :dialog-visible="dialogVisible" @close="closr" />
+    <edit-dia
+      v-if="dialogVisibleEdit"
+      :id="editId"
+      :dialog-visible="dialogVisibleEdit"
+      @close="closr"
+    />
     <!-- <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" /> -->
   </div>
 </template>
@@ -109,9 +113,21 @@ export default {
       searchShow: false,
       somedelete: '',
       seleteSearch: [
-        { label: '用户名称:', value: '', name: 'username', ops: '=', array: [] },
+        {
+          label: '用户名称:',
+          value: '',
+          name: 'username',
+          ops: '=',
+          array: []
+        },
         { label: '用户手机:', value: '', name: 'mobile', ops: '=', array: [] },
-        { label: '授权教材:', value: '', name: 'directory_count', ops: '=', array: [] }
+        {
+          label: '授权教材:',
+          value: '',
+          name: 'directory_count',
+          ops: '=',
+          array: []
+        }
       ],
       test: [],
       deleteShow: true,
@@ -350,7 +366,7 @@ export default {
   > div {
     display: inline-block;
     margin-right: 20px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
   }
   .input {
     width: 200px;
@@ -372,7 +388,7 @@ export default {
   }
   >>> .el-input__inner,
   >>> .el-input__inner::placeholder {
-    background: #EBEBEB;
+    background: #ebebeb;
     font-size: 15px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
@@ -380,20 +396,20 @@ export default {
   }
 }
 .caozuo {
-  //  width:
   color: #bfbfbf;
   cursor: pointer;
-  // margin-right: 1px;
 }
 .caozuo:hover {
   color: #585b63;
 }
 .caozuoButton {
-  height: 0;
-  width: 0;
   padding: 0;
   border: none;
-  margin-right: 36px;
+  background: none;
+}
+.caozuoButton:hover,
+.caozuoButton.is-plain:focus {
+  background: none;
 }
 </style>
 

@@ -112,7 +112,7 @@
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
-    <add-dia :dialog-visible="dialogVisible" @close="closr" />
+    <add-dia v-if="dialogVisible" :dialog-visible="dialogVisible" @close="closr" />
     <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
     <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
@@ -122,7 +122,7 @@ import AddDia from './addDia'
 import EditDia from './editDia'
 // import reset from "./resetDia";
 import { teachingManagementList, deleteteachingManagement, packCourseware } from '../../../../api/teachingManagement'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 
 export default {
   components: { AddDia, EditDia },
