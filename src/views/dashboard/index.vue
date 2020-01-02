@@ -79,81 +79,180 @@
           <ul id="timeline">
             <li class="work">
               <input id="work5" class="radio" name="works" type="radio" checked>
-              <div class="relative">
-                <label for="work5">Lorem ipsum dolor sit amet</label>
 
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>05:49AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                    </div>
+                    <div>李大柱</div>
+                    <div>《遇见》吉他弹唱</div>
+                  </div>
+                </div>
                 <span class="circle" />
-              </div>
-              <div class="content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
-                </p>
               </div>
             </li>
             <li class="work">
               <input id="work4" class="radio" name="works" type="radio">
               <div class="relative">
-                <label for="work4">Lorem ipsum dolor sit amet</label>
-
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>05:49AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                    </div>
+                    <div>李大柱</div>
+                    <div>《遇见》吉他弹唱</div>
+                  </div>
+                </div>
                 <span class="circle" />
-              </div>
-              <div class="content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
-                </p>
               </div>
             </li>
             <li class="work">
               <input id="work3" class="radio" name="works" type="radio">
               <div class="relative">
-                <label for="work3">Lorem ipsum dolor sit amet</label>
-
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>05:49AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                    </div>
+                    <div>李大柱</div>
+                    <div>《遇见》吉他弹唱</div>
+                  </div>
+                </div>
                 <span class="circle" />
-              </div>
-              <div class="content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
-                </p>
               </div>
             </li>
             <li class="work">
               <input id="work2" class="radio" name="works" type="radio">
               <div class="relative">
-                <label for="work2">Lorem ipsum dolor sit amet</label>
-
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>05:49AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                    </div>
+                    <div>李大柱</div>
+                    <div>《遇见》吉他弹唱</div>
+                  </div>
+                </div>
                 <span class="circle" />
-              </div>
-              <div class="content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
-                </p>
               </div>
             </li>
             <li class="work">
               <input id="work1" class="radio" name="works" type="radio">
               <div class="relative">
-                <label for="work1">Lorem ipsum dolor sit amet</label>
-
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>05:49AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                    </div>
+                    <div>李大柱</div>
+                    <div>《遇见》吉他弹唱</div>
+                  </div>
+                </div>
                 <span class="circle" />
-              </div>
-              <div class="content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
-                </p>
               </div>
             </li>
           </ul>
-
         </div>
       </div>
       <div class="student">
-        <div ref="pi" class="pie" style="width:100%;height:100%" />
+        <div class="studentTitle">
+          <el-button>当天</el-button>
+          <el-button>最近七天</el-button>
+        </div>
+        <div class="studentsub">
+          <div ref="student1" class="student1" />
+          <div class="studentText">
+            <div>
+              <div>定</div>
+              <span>学员签到率</span>
+            </div>
+            <div>已签到:22人</div>
+            <div>总人数:100人</div>
+          </div>
+        </div>
+        <div class="studentsub">
+          <div ref="student2" class="student1" />
+          <div class="studentText">
+            <div>
+              <div>定</div>
+              <span>学员签到率</span>
+            </div>
+            <div>已签到:22人</div>
+            <div>总人数:100人</div>
+          </div>
+        </div>
+        <div class="studentsub">
+          <div ref="student3" class="student1" />
+          <div class="studentText">
+            <div>
+              <div>定</div>
+              <span>学员签到率</span>
+            </div>
+            <div>已签到:22人</div>
+            <div>总人数:100人</div>
+          </div>
+        </div>
       </div>
       <div class="today">
-        <div ref="pi" class="pie" style="width:100%;height:100%" />
+        <div>
+          <span class="title">今日授课</span>
+          <span>1月1日</span>
+          <span>More ></span>
+        </div>
+        <div class="todayClass">
+          <div>
+            <img src="../../assets/images/dashboard/shangke.png" alt>
+          </div>
+          <div>
+            <div>
+              <div>定</div>
+              <div>吉他课程</div>
+              <div>已结课</div>
+            </div>
+            <div>教师：谢大脚</div>
+          </div>
+
+          <div>
+            <div>8:00-9:00</div>
+            <div>学员：1 人</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="mudule3">授课课时</div>
+    <div class="mudule3">
+      <div>
+        <span>授课课时</span>
+        <el-button>最近七天</el-button>
+        <el-button>最近十五天</el-button>
+        <el-button>最近三十天</el-button>
+      </div>
+      <div>
+        <div ref="Teaching" class="Teaching" />
+        <div ref="teachingPie" class="teachingPie" />
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -165,13 +264,17 @@ export default {
     ...mapGetters(['name', 'avatar', 'roles'])
   },
   data() {
-    return {
-    }
+    return {}
   },
   mounted() {
     this.echart()
     this.funnel()
     this.pie()
+    this.student1()
+    this.student2()
+    this.student3()
+    this.Teaching()
+    this.teachingPie()
   },
   methods: {
     echart() {
@@ -438,27 +541,30 @@ export default {
     },
     pie() {
       var data = [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
+        { value: 335, name: '爵士鼓课程' },
+        { value: 310, name: '声乐课程' },
+        { value: 234, name: '钢琴课程' },
+        { value: 135, name: '电吉他课程' },
+        { value: 1548, name: '民谣吉他课程' },
+        { value: 135, name: '非洲鼓课程' },
+        { value: 1548, name: '尤克里里课程' }
       ]
       const pie = echarts.init(this.$refs.pie)
       pie.setOption({
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
+          backgroundColor: '#488AFE',
+          formatter: '{b}',
+          color: '#fff'
         },
         title: {
           text: '课程占比',
           // x: 'center',
-          // y: 'center',
+          // y: 'center',q
           top: 0,
           textStyle: {
             fontSize: 20,
-            fontWeight: 'bold',
-            color: '#282D32'
+            fontWeight: 'bold'
           },
           subtextStyle: {
             color: '#000000',
@@ -480,9 +586,9 @@ export default {
           type: 'scroll',
           pageIconColor: '#488AFE',
           pageIconSize: [10, 10],
-          bottom: 0,
-          right: 'right',
-          top: 'center',
+          right: 10,
+          top: 20,
+          bottom: 20,
           itemWidth: 20,
           itemHeight: 4,
           itemGap: 2,
@@ -542,6 +648,7 @@ export default {
               },
               emphasis: {
                 show: true,
+                formatter: '{d}%',
                 textStyle: {
                   fontSize: '20',
                   fontWeight: 'bold'
@@ -561,6 +668,371 @@ export default {
               { value: 1548, name: '民谣吉他课程' },
               { value: 135, name: '非洲鼓课程' },
               { value: 1548, name: '尤克里里课程' }
+            ]
+          }
+        ]
+      })
+    },
+    student1() {
+      const student1 = echarts.init(this.$refs.student1)
+      var num = 90
+      var A = 80
+      student1.setOption({
+        title: {
+          text: A,
+          // formatter:A,
+          x: 'center',
+          y: 'center',
+          textStyle: {
+            fontSize: 20,
+            fontWeight: 'normal',
+            color: '#666666'
+          },
+          subtextStyle: {
+            color: '#000000',
+            fontSize: 25,
+            fontWeight: 'normal'
+          }
+        },
+        series: [
+          {
+            type: 'pie',
+            radius: ['55%', '80%'],
+            // center : ['0%', '0%'],
+            // silent: true,
+            labelLine: {
+              show: false
+            },
+            data: [
+              {
+                hoverOffset: 1,
+                value: num,
+                itemStyle: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    { offset: 0, color: '#4AE8DD' },
+                    { offset: 1, color: '#24CCB8' }
+                  ])
+                },
+                label: {
+                  show: false
+                }
+              },
+              {
+                markArea: {
+                  silent: true
+                },
+                value: 100 - num,
+                itemStyle: {
+                  color: '#E8E8E8'
+                },
+                label: {
+                  show: false
+                }
+              }
+            ]
+          }
+        ]
+      })
+    },
+    student2() {
+      const student2 = echarts.init(this.$refs.student2)
+      var num = 90
+      var A = 80
+      student2.setOption({
+        title: {
+          text: A,
+          // formatter:A,
+          x: 'center',
+          y: 'center',
+          textStyle: {
+            fontSize: 20,
+            fontWeight: 'normal',
+            color: '#666666'
+          },
+          subtextStyle: {
+            color: '#000000',
+            fontSize: 25,
+            fontWeight: 'normal'
+          }
+        },
+        series: [
+          {
+            type: 'pie',
+            radius: ['55%', '80%'],
+            // center : ['0%', '0%'],
+            // silent: true,
+            labelLine: {
+              show: false
+            },
+            data: [
+              {
+                hoverOffset: 1,
+                value: num,
+                itemStyle: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    { offset: 0, color: '#4AE8DD' },
+                    { offset: 1, color: '#24CCB8' }
+                  ])
+                },
+                label: {
+                  show: false
+                }
+              },
+              {
+                markArea: {
+                  silent: true
+                },
+                value: 100 - num,
+                itemStyle: {
+                  color: '#E8E8E8'
+                },
+                label: {
+                  show: false
+                }
+              }
+            ]
+          }
+        ]
+      })
+    },
+    student3() {
+      const student3 = echarts.init(this.$refs.student3)
+      var num = 90
+      var A = 80
+      student3.setOption({
+        title: {
+          text: A,
+          // formatter:A,
+          x: 'center',
+          y: 'center',
+          textStyle: {
+            fontSize: 20,
+            fontWeight: 'normal',
+            color: '#666666'
+          },
+          subtextStyle: {
+            color: '#000000',
+            fontSize: 25,
+            fontWeight: 'normal'
+          }
+        },
+        series: [
+          {
+            type: 'pie',
+            radius: ['55%', '80%'],
+            // center : ['0%', '0%'],
+            // silent: true,
+            labelLine: {
+              show: false
+            },
+            data: [
+              {
+                hoverOffset: 1,
+                value: num,
+                itemStyle: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                    { offset: 0, color: '#FF7880' },
+                    { offset: 1, color: '#FF5660' }
+                  ])
+                },
+                label: {
+                  show: false
+                }
+              },
+              {
+                markArea: {
+                  silent: true
+                },
+                value: 100 - num,
+                itemStyle: {
+                  color: '#E8E8E8'
+                },
+                label: {
+                  show: false
+                }
+              }
+            ]
+          }
+        ]
+      })
+    },
+    Teaching() {
+      const Teaching = echarts.init(this.$refs.Teaching)
+
+      Teaching.setOption(
+        {
+          color: ['#3398DB'],
+          tooltip: {
+            trigger: 'axis',
+            backgroundColor: '#B093E4',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          legend: {
+            icon: 'roundRect',
+            itemWidth: 24, // 设置宽度
+            itemHeight: 8, // 设置高度
+            itemGap: 19,
+            right: 0,
+            textStyle: {
+              color: '#282D32',
+              fontSize: 12
+
+            },
+            data: ['定制课', '集体课']
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {
+              axisTick: {
+                show: false
+              },
+              // offset: 12,
+              axisLine: {
+                show: false
+              },
+              axisLabel: {
+                textStyle: {
+                  color: '#AAACAE',
+                  fontSize: '12'
+                }
+              },
+              type: 'category',
+              data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+              // axisTick: {
+              //   alignWithLabel: true
+              // }
+            }
+          ],
+          yAxis: [
+            {
+              axisTick: {
+              // y轴刻度线
+                show: false
+              },
+              offset: 12,
+              splitLine: {
+                show: true,
+                color: '#F2F2F2',
+                width: 1
+              },
+              axisLine: {
+              // y轴
+                show: false
+              },
+              axisLabel: {
+                textStyle: {
+                  color: '#AAACAE',
+                  fontSize: '12'
+                }
+              },
+              type: 'value'
+            }
+          ],
+          series: [
+            {
+              name: '定制课',
+              type: 'bar',
+              barWidth: '10%',
+              barGap: 0,
+              itemStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                    { offset: 0, color: '#D8C5F3' },
+                    { offset: 1, color: '#B093E4' }
+                  ])
+                }
+              },
+              data: [10, 20, 52, 200, 334, 390, 330, 220]
+            },
+            {
+              name: '集体课',
+              type: 'bar',
+              barWidth: '10%',
+              itemStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                    { offset: 0, color: '#9ACBFF' },
+                    { offset: 1, color: '#76AAEB' }
+                  ])
+                }
+              },
+              data: [10, 20, 52, 200, 334, 390, 330, 220]
+            }
+          ]
+        }
+      )
+    },
+    teachingPie() {
+      const teachingPie = echarts.init(this.$refs.teachingPie)
+      teachingPie.setOption({
+        tooltip: {
+          trigger: 'item',
+          backgroundColor: '#488AFE',
+          formatter: '{c}',
+          color: '#fff'
+        },
+        title: {
+          text: '班级占比',
+          x: 'center',
+          y: 'bottom',
+          bottom: 0,
+          textStyle: {
+            fontSize: 14,
+            color: '#999999',
+            fontFamily: 'PingFangSC-Regular,PingFang SC',
+            fontWeight: 400
+          },
+          subtextStyle: {
+            color: '#000000',
+            fontSize: 25,
+            fontWeight: 'normal'
+          }
+        },
+        series: [
+          {
+            type: 'pie',
+            radius: ['40%', '60%'],
+            center: ['50%', '50%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                show: true,
+                formatter: '{d}%',
+                textStyle: {
+                  fontSize: '20',
+                  fontWeight: 'bold'
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+              { value: 335, name: '定制班', itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  { offset: 0, color: '#D8C5F3' },
+                  { offset: 1, color: '#B093E4' }
+                ])
+              }},
+              { value: 310, name: '集体班', itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  { offset: 0, color: '#9ACBFF' },
+                  { offset: 1, color: '#76AAEB' }
+                ])
+              }}
             ]
           }
         ]
@@ -693,6 +1165,7 @@ export default {
     }
   }
   .mudule2 {
+    height: 304px;
     > div {
       background: rgba(255, 255, 255, 1);
       box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
@@ -700,7 +1173,8 @@ export default {
       margin-right: 20px;
       padding: 20px 11px 0 24px;
       height: 304px;
-      display: inline-block;
+      // display: inline-block;
+      float: left;
     }
     .class {
       width: 332px;
@@ -727,8 +1201,9 @@ export default {
       }
       > div:nth-child(2) {
         // height: 92%;
-        padding-top: 34px;
+        margin-top: 34px;
         overflow-y: scroll;
+        height: 227px;
       }
       > div:nth-child(2)::-webkit-scrollbar {
         display: none;
@@ -736,10 +1211,180 @@ export default {
     }
     .student {
       width: 445px;
+      .studentTitle {
+        margin-bottom: 40px;
+      }
+      .studentTitle .el-button {
+        height: 25px;
+        line-height: 25px;
+        color: #9b9b9b;
+        padding: 0 20px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 13px;
+        border: 1px solid rgba(204, 204, 204, 1);
+      }
+      .studentTitle .el-button:focus {
+        color: #ffffff !important;
+        background: rgba(155, 155, 155, 1) !important;
+        border: 1px solid rgba(155, 155, 155, 1) !important;
+      }
+      .student1 {
+        width: 100px;
+        height: 100px;
+      }
+      .studentsub {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin-right: 31px;
+        > .studentText {
+          position: absolute;
+          bottom: -80px;
+          left: 12px;
+          width: 100%;
+          > div:nth-child(1) {
+            margin-bottom: 5px;
+            div {
+              display: inline-block;
+              width: 16px;
+              height: 16px;
+              line-height: 16px;
+              text-align: center;
+              background: #76aaeb;
+              font-size: 10px;
+              font-family: PingFangSC-Medium, PingFang SC;
+              font-weight: 500;
+              color: rgba(255, 255, 255, 1);
+              margin-right: 2px;
+            }
+            > span {
+              font-size: 14px;
+              font-family: PingFangSC-Regular, PingFang SC;
+              font-weight: 400;
+              color: rgba(50, 54, 67, 1);
+              line-height: 20px;
+            }
+          }
+          > div:nth-child(2),
+          div:nth-child(3) {
+            font-size: 12px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: rgba(204, 204, 204, 1);
+            height: 17px;
+            line-height: 17px;
+          }
+        }
+      }
     }
     .today {
       width: 379px;
       margin-right: 0;
+      > div:nth-child(1) {
+        margin-bottom: 30px;
+        .title {
+          font-size: 20px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(40, 45, 50, 1);
+          display: inline-block;
+          font-weight: bold;
+        }
+        > span:nth-child(2) {
+          font-size: 12px;
+          font-family: HelveticaNeue-Medium, HelveticaNeue;
+          font-weight: 500;
+          color: rgba(204, 204, 204, 1);
+          margin-left: 12px;
+          margin-right: 158px;
+        }
+        > span:nth-child(3) {
+          font-size: 12px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(179, 179, 179, 1);
+          cursor: pointer;
+        }
+      }
+      .todayClass {
+        display: flex;
+        //  justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        > div:nth-child(1) {
+          flex: 2;
+          img {
+            width: 35px;
+            height: 36px;
+            border-radius: 50%;
+          }
+        }
+        > div:nth-child(2) {
+          flex: 6;
+          > div:nth-child(1) {
+            div {
+              display: inline-block;
+            }
+            > div:nth-child(1) {
+              width: 16px;
+              height: 16px;
+              line-height: 16px;
+              background: rgba(118, 170, 235, 1);
+              border-radius: 2px;
+              font-size: 10px;
+              font-family: PingFangSC-Medium, PingFang SC;
+              font-weight: 500;
+              color: rgba(255, 255, 255, 1);
+              text-align: center;
+            }
+            > div:nth-child(2) {
+              font-size: 14px;
+              font-family: PingFangSC-Regular, PingFang SC;
+              font-weight: 400;
+              color: rgba(88, 91, 99, 1);
+              margin-left: 2px;
+              margin-right: 14px;
+            }
+            > div:nth-child(3) {
+              flex: 2;
+              font-size: 11px;
+              font-family: PingFangSC-Regular, PingFang SC;
+              font-weight: 400;
+              color: rgba(255, 255, 255, 1);
+              padding: 1px 5px;
+              background: #c1c2c6;
+              border-radius: 5px;
+            }
+          }
+          > div:nth-child(2) {
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(179, 179, 179, 1);
+            height: 17px;
+            line-height: 17px;
+          }
+        }
+        > div:nth-child(3) {
+          > div:nth-child(1) {
+            height: 20px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(50, 54, 67, 1);
+            line-height: 20px;
+          }
+          > div:nth-child(2) {
+            height: 17px;
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(193, 194, 198, 1);
+            line-height: 17px;
+          }
+        }
+      }
     }
   }
   .mudule3 {
@@ -748,6 +1393,41 @@ export default {
     background: rgba(255, 255, 255, 1);
     box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
     margin-bottom: 60px;
+    > div:nth-child(1) {
+      span {
+        height: 20px;
+        font-size: 20px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: bold;
+        color: rgba(40, 45, 50, 1);
+        line-height: 20px;
+        margin-right: 25px;
+      }
+       .el-button {
+      height: 25px;
+      line-height: 25px;
+      color: #9b9b9b;
+      padding: 0 20px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 13px;
+      border: 1px solid rgba(204, 204, 204, 1);
+    }
+    .el-button:focus {
+      color: #ffffff !important;
+      background: rgba(155, 155, 155, 1) !important;
+      border: 1px solid rgba(155, 155, 155, 1) !important;
+    }
+    }
+   .Teaching{
+     width: 80%;
+     height: 207px;
+     display: inline-block;
+   }
+   .teachingPie{
+     width: 19%;
+     display:inline-block;
+     height: 207px;
+   }
   }
   .title {
     display: flex;
@@ -773,12 +1453,11 @@ export default {
 .pie {
   display: inline-block;
 }
-  #timeline {
+#timeline {
   list-style: none;
-    margin: 0px 0 0px 7px;
-    padding: 0;
-    border-left: 1px solid #eee9dc;
-    height: 227px
+  margin: 0px 0 0px 7px;
+  padding: 0;
+  border-left: 1px solid #e8e8e8;
 }
 #timeline li {
   position: relative;
@@ -787,29 +1466,21 @@ export default {
   margin: 0 0 15px;
 }
 
-// .date {
-//   margin-top: -10px;
-//   top: 50%;
-//   left: -158px;
-//   font-size: 0.95em;
-//   line-height: 20px;
-//   position: absolute;
-// }
-
 .circle {
   left: -5px;
   width: 10px;
   height: 10px;
   background: #fff;
-  border: 2px solid #4880FF;
+  border: 2px solid #4880ff;
   border-radius: 50%;
   display: block;
   position: absolute;
+  top: 0;
 }
 
 .content {
   max-height: 20px;
-  padding: 50px 20px 0;
+  padding: 62px 20px 0;
   border-color: transparent;
   border-width: 2px;
   border-style: solid;
@@ -837,22 +1508,57 @@ export default {
 //   top: 50%;
 //   margin-top: -17px;
 // }
-.content p {
-  max-height: 0;
-  color: transparent;
-  text-align: justify;
-  word-break: break-word;
-  hyphens: auto;
-  overflow: hidden;
-}
 
-label {
-  font-size: 1.3em;
+.timeText,
+.timeThing {
+  display: inline-block;
+  top: 0;
+}
+.timeThing {
   position: absolute;
   z-index: 100;
   cursor: pointer;
-  top: 20px;
-  transition: transform 0.2s linear;
+  // top: 20px;
+  left: 120px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(155, 155, 155, 1);
+  > div {
+    height: 17px;
+    line-height: 17px;
+  }
+  > div:nth-child(1) {
+    img {
+      width: 11px;
+      height: 12px;
+      position: absolute;
+      left: -18px;
+    }
+  }
+  > div:nth-child(2) {
+    font-weight: 600;
+    color: rgba(74, 74, 74, 1);
+  }
+}
+.timeText {
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  // top: 20px;
+  left: 20px;
+  > div {
+    height: 14px;
+    line-height: 14px;
+  }
+  > div:nth-child(1) {
+    font-size: 12px;
+    font-family: HelveticaNeue;
+    color: rgba(74, 74, 74, 1);
+  }
+  > div:nth-child(2) {
+    color: rgba(204, 204, 204, 1);
+  }
 }
 
 .radio {
@@ -873,5 +1579,4 @@ label {
 //   transform: translateX(20px);
 //   transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
 // }
-
 </style>

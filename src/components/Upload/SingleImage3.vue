@@ -19,7 +19,7 @@
     <label>{{ label }}</label>
     <el-button size="medium" type="info" @click="upload">上传</el-button>
     <span slot="tip" class="el-upload__tip">{{ msg }}</span>
-    <video ref="noneVideo" src="" style="display:none" />
+    <video ref="noneVideo" src style="display:none" />
   </el-upload>
 </template>
 
@@ -66,11 +66,14 @@ export default {
         getUploadConfig()
           .then(response => {
             const { data } = response
-            var config = JSON.parse(window.atob(data.config))
+            // var config = JSON.parse(window.atob(data.config))
+            var config = data.config
             this.config = config
             this.action = config.domain
+            console.log(this.action)
+            console.log(this.config)
             this.formdata = {
-            // key: `pulic/image`,
+              // key: `pulic/image`,
               OSSAccessKeyId: config.access_key_id,
               policy: config.policy,
               Signature: config.signature,
@@ -94,6 +97,7 @@ export default {
       console.log(file)
     },
     before(res) {
+      console.log(this.formdata)
       if (res.size > this.size) {
         Message({
           message: '请选择正确尺寸的文件',
@@ -102,7 +106,10 @@ export default {
         })
         return false
       }
-      let uploadType = res.type.substring(res.type.indexOf('/') + 1, res.type.length)
+      let uploadType = res.type.substring(
+        res.type.indexOf('/') + 1,
+        res.type.length
+      )
       if (uploadType == 'jpeg') {
         uploadType = 'jpg'
       }
@@ -144,7 +151,11 @@ export default {
       const index2 = res.name.length
       const suffix1 = res.name.substring(index1 + 1, index2)
       let type
-      if (res.name.indexOf('jpg') > -1 || res.name.indexOf('png') > -1 || res.name.indexOf('gif')) {
+      if (
+        res.name.indexOf('jpg') > -1 ||
+        res.name.indexOf('png') > -1 ||
+        res.name.indexOf('gif')
+      ) {
         type = 'images'
       } else if (res.name.indexOf('mp4') > -1) {
         type = 'video'
@@ -156,15 +167,18 @@ export default {
         'key',
         `pulic/${type}/${timestamp}${num}.${suffix1}`
       )
-      this.keybox.push({ url: `${this.action}/${this.formdata.key}`, uid: res.uid })
+      this.keybox.push({
+        url: `${this.action}/${this.formdata.key}`,
+        uid: res.uid
+      })
     },
     success(response, file, fileList) {
-      // this.file = []
-      // for (let i = 0; i < fileList.length; i++) {
-      // console.log(this.formdata.key)
-      // console.log(this.keybox)
       for (let i = 0; i < this.keybox.length; i++) {
-        this.file.push({ url: this.keybox[i].url, name: file.name, uid: this.keybox[i].uid })
+        this.file.push({
+          url: this.keybox[i].url,
+          name: file.name,
+          uid: this.keybox[i].uid
+        })
       }
       for (let i = 0; i < this.file.length; i++) {
         for (let j = i + 1; j < this.file.length; j++) {
@@ -173,15 +187,13 @@ export default {
           }
         }
       }
-      // }
       Message({
         message: '上传成功',
         type: 'success',
         duration: 5 * 1000
       })
     },
-    change(res) {
-    },
+    change(res) {},
     error(res) {
       Message({
         message: '上传失败，请重试',
@@ -210,10 +222,10 @@ label {
   color: rgba(179, 179, 179, 1);
   margin-left: 17px;
 }
-.el-button--info{
-  background: #07D1AA;
-  border-color: #07D1AA;
-  color: #fff
+.el-button--info {
+  background: #07d1aa;
+  border-color: #07d1aa;
+  color: #fff;
 }
 </style>
 

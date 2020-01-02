@@ -24,6 +24,7 @@
       :disabled="deleteShow"
       @click="someDelete"
     >删除</el-button>
+    <el-button type="success" @click="goPackList">打包任务列表</el-button>
     <el-button size="medium" type="info" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
     </el-button>
@@ -323,6 +324,9 @@ export default {
     resetSearch() {
       this.tableInit(1)
       this.searchModel = false
+    },
+    goPackList() {
+      this.$router.push({ path: '/csPack/list' })
     }
   }
 }
