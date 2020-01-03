@@ -66,10 +66,10 @@
         <label style="vertical-align:top">备注说明:</label>
         <el-input
           v-model="detailMsg.remark"
-          placeholder="请输入教材目标，字数最多300字内"
+          placeholder="请输入教材目标，字数最多100字内"
           class="input Target"
           type="textarea"
-          maxlength="300"
+          maxlength="100"
         />
       </div>
     </div>

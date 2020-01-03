@@ -17,7 +17,7 @@
     :file-list="filelist"
   >
     <label>{{ label }}</label>
-    <el-button size="medium" type="info" @click="upload">上传</el-button>
+    <el-button size="medium" type="primary" @click="upload">上传</el-button>
     <span slot="tip" class="el-upload__tip">{{ msg }}</span>
     <video ref="noneVideo" src style="display:none" />
   </el-upload>
@@ -192,6 +192,7 @@ export default {
         type: 'success',
         duration: 5 * 1000
       })
+      console.log(this.file[0].url)
     },
     change(res) {},
     error(res) {
@@ -222,10 +223,6 @@ label {
   color: rgba(179, 179, 179, 1);
   margin-left: 17px;
 }
-.el-button--info {
-  background: #07d1aa;
-  border-color: #07d1aa;
-  color: #fff;
-}
+
 </style>
 

@@ -15,7 +15,7 @@
       <el-button type="success" @click="submitSearch">提交</el-button>
       <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
-    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
+    <el-button type="primary" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
       type="danger"
       icon="el-icon-delete"
@@ -48,16 +48,6 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="单价课价格" prop="class_price" />
-      <!-- <el-table-column align="center" label="是否单价课价格">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.is_class_price"
-            active-color="#07D1AA"
-            inactive-color="#D9D9D9"
-            @change="handleChange(scope.row)"
-          />
-        </template>
-      </el-table-column> -->
       <el-table-column align="center" label="目录数" prop="directory_count" />
       <el-table-column align="center" label="课时数" prop="class_count" />
       <el-table-column align="center" label="状态">
@@ -82,15 +72,6 @@
               <svg-icon class-name="search-icon" icon-class="check" />打包课件
             </span>
           </el-button>
-          <!-- <el-button
-            plain
-            class="caozuoButton"
-            @click="dialogVisibleReset=true,editId=scope.row.id"
-          >
-            <span plain class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="power" />重置
-            </span>
-          </el-button> -->
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -194,7 +175,6 @@ export default {
               this.seleteSearch[2].array.push(String(item.directory_count))
               this.seleteSearch[3].array.push(String(item.class_count))
             })
-            this.searchNum--
           })
           .catch(error => {
             reject(error)

@@ -947,7 +947,7 @@ export default {
 label {
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
+  font-weight: bold;
   color: rgba(88, 91, 99, 1);
   margin-right: 15px;
 }

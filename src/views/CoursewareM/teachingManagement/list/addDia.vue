@@ -53,10 +53,10 @@
         <label style="vertical-align:top">教材目标:</label>
         <el-input
           v-model="materialTarget"
-          placeholder="请输入教材目标，字数最多300字内"
-          class="input Target"
+          placeholder="请输入教材目标，字数最多100字内"
+          class="input "
           type="textarea"
-          maxlength="300"
+          maxlength="100"
         />
       </div>
     </div>
@@ -120,7 +120,7 @@
             /> -->
           </div>
         </div>
-        <el-button type="info" @click="newCatalogue">新增</el-button>
+        <el-button type="success" @click="newCatalogue">新增</el-button>
       </div>
       <div style="width:630px">
         <label style="vertical-align:top">单价课价格：</label>
@@ -142,8 +142,8 @@
     </div>
     <!-- <single-image :msg="message"></single-image> -->
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="info" @click="addA">确 定</el-button>
+      <el-button type="info" @click="close">取 消</el-button>
+      <el-button type="success" @click="addA">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -190,19 +190,29 @@ export default {
       this.$emit('close', false)
     },
     materialCover(res) {
-      this.materialCoverI = res[0].url
+      if (res.length > 0) {
+        this.materialCoverI = res[0].url
+      }
     },
     materialClassCover(res) {
-      this.materialClassCoverI = res[0].url
+      if (res.length > 0) {
+        this.materialClassCoverI = res[0].url
+      }
     },
     icon(res) {
-      this.iconI = res[0].url
+      if (res.length > 0) {
+        this.iconI = res[0].url
+      }
     },
     materialVideo(res) {
-      this.materialVideoV = res[0].url
+      if (res.length > 0) {
+        this.materialVideoV = res[0].url
+      }
     },
     materialDetailed(res) {
-      this.materialDetailedI = res[0].url
+      if (res.length > 0) {
+        this.materialDetailedI = res[0].url
+      }
     },
     newCatalogue() {
       this.CatalogueNum = this.CatalogueNum + 1
