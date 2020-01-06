@@ -20,16 +20,16 @@
           <el-option
             v-for="item in areaCode"
             :key="item.value"
-            :label="item.value"
+            :label="item.label"
             :value="item.value"
           />
         </el-select>
         <el-input v-model="mobile" placeholder="请输入手机号码(必选)" class="input" maxlength="11" />
       </div>
       <div>
+        <label class="uploadLabel">用户头像:</label>
         <single-image
           msg="图片小于1M，格式为jpg、png(必选)"
-          label="用户头像:"
           type=".jpg,.png"
           size="1048576"
           :limit="1"
@@ -50,8 +50,8 @@
     </div>
     <div style="display:none">{{ sum }}</div>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="info" :disabled="Exist" @click="addA">确 定</el-button>
+      <el-button type="info" @click="close">取 消</el-button>
+      <el-button type="success" :disabled="Exist" @click="addA">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -75,7 +75,7 @@ export default {
       img: '',
       ifExist: 0,
       Exist: true,
-      areaCode: [{ value: 86 }, { value: 852 }, { value: 853 }, { value: 886 }],
+      areaCode: [{ value: 86, label: `大陆 + 86` }, { value: 852, label: `香港 + 852` }, { value: 853, label: `澳门 + 853` }, { value: 886, label: `台湾 + 886` }],
       areaValue: '',
       head_list: []
     }
@@ -161,73 +161,76 @@ export default {
   }
 }
 </script>
+ <style  src="../../styles/Dia.css" scoped></style>
 <style lang="scss" scoped>
-.el-dialog__wrapper {
-  position: absolute;
-  height: 100%;
-}
+// @import '../../styles/Dia.css';
+// .el-dialog__wrapper {
+//   position: absolute;
+//   height: 100%;
+// }
 .left {
-  margin-left: 60px;
-  margin-right: 332px;
+  width: auto
+  // margin-left: 60px;
+  // margin-right: 332px;
 }
-.left,
-.right {
-  display: inline-block;
-  // width: 530px;
-  height: 100%;
-  vertical-align: top;
-  > div {
-    margin-bottom: 40px;
-    line-height: 100%;
-  }
-  .input {
-    width: 400px;
-    //  background:rgba(235,235,235,1)
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-  }
-  label {
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: rgba(88, 91, 99, 1);
-    margin-right: 15px;
-  }
-}
->>> .el-dialog {
-  top: 0;
-  bottom: 0;
-  position: absolute;
-  overflow: scroll;
-}
->>> .el-input__inner,
->>> .el-input__inner::placeholder {
-  background: #EBEBEB;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #c1c2c6;
-}
->>> .el-textarea__inner {
-  background: #EBEBEB;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #c1c2c6;
-  min-height: 188px !important;
-}
->>> .Target .el-textarea__inner {
-  min-height: 116px !important;
-}
->>> .el-textarea__inner:focus,
->>> .el-input__inner:focus {
-  border-color: #07d1aa;
-}
+// .left,
+// .right {
+//   display: inline-block;
+//   // width: 530px;
+//   height: 100%;
+//   vertical-align: top;
+//   > div {
+//     margin-bottom: 40px;
+//     line-height: 100%;
+//   }
+//   .input {
+//     width: 400px;
+//     //  background:rgba(235,235,235,1)
+//     border-radius: 6px;
+//     font-size: 15px;
+//     font-family: PingFangSC-Regular, PingFang SC;
+//     font-weight: 400;
+//   }
+//   label {
+//     font-size: 15px;
+//     font-family: PingFangSC-Regular, PingFang SC;
+//     font-weight: 400;
+//     color: rgba(88, 91, 99, 1);
+//     margin-right: 15px;
+//   }
+// }
+// >>> .el-dialog {
+//   top: 0;
+//   bottom: 0;
+//   position: absolute;
+//   overflow: scroll;
+// }
+// >>> .el-input__inner,
+// >>> .el-input__inner::placeholder {
+//   background: #EBEBEB;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: #c1c2c6;
+// }
+// >>> .el-textarea__inner {
+//   background: #EBEBEB;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: #c1c2c6;
+//   min-height: 188px !important;
+// }
+// >>> .Target .el-textarea__inner {
+//   min-height: 116px !important;
+// }
+// >>> .el-textarea__inner:focus,
+// >>> .el-input__inner:focus {
+//   border-color: #07d1aa;
+// }
 
->>>.el-select{
-  width: 125px
-}
+// >>>.el-select{
+//   width: 125px
+// }
 
 </style>

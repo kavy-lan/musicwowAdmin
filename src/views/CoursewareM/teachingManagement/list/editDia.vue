@@ -20,9 +20,9 @@
         />
       </div>
       <div>
+        <label class="uploadLabel">教材封面:</label>
         <single-image
           msg="图片小于2M，格式为jpg、png"
-          label="教材封面:"
           size="2097152"
           type=".jpg,.png"
           :limit="1"
@@ -31,9 +31,9 @@
         />
       </div>
       <div>
+        <label class="uploadLabel">教材课时封面:</label>
         <single-image
           msg="图片小于2M，格式为jpg、png"
-          label="教材课时封面:"
           type=".jpg,.png"
           size="2097152"
           :limit="1"
@@ -42,9 +42,9 @@
         />
       </div>
       <div>
+        <label class="uploadLabel">乐器图标:</label>
         <single-image
           msg="图片尺寸120x120并小于1M，格式为png"
-          label="乐器图标:"
           type=".png"
           :limit="1"
           size="1048576"
@@ -56,16 +56,6 @@
         <label style="vertical-align:top">教材目标:</label>
         <el-input
           v-model="detailMsg.goal"
-          placeholder="请输入教材目标，字数最多300字内"
-          class="input Target"
-          type="textarea"
-          maxlength="300"
-        />
-      </div>
-      <div>
-        <label style="vertical-align:top">备注说明:</label>
-        <el-input
-          v-model="detailMsg.remark"
           placeholder="请输入教材目标，字数最多100字内"
           class="input Target"
           type="textarea"
@@ -75,9 +65,9 @@
     </div>
     <div class="right">
       <div>
+        <label class="uploadLabel">教材介绍视频:</label>
         <single-image
           msg="视频格式为mp4"
-          label="教材介绍视频:"
           type=".mp4"
           :limit="1"
           :filelist="materialVideoV"
@@ -95,6 +85,7 @@
         />
       </div>
       <div>
+        <label class="uploadLabel">教材详情图:</label>
         <single-image
           msg="图片小于2M，格式为jpg、png"
           label="教材详情图:"
@@ -142,7 +133,7 @@
             /> -->
           </div>
         </div>
-        <el-button type="info" @click="newCatalogue">新增</el-button>
+        <el-button type="primary" @click="newCatalogue">新增</el-button>
       </div>
       <div style="width:630px">
         <label style="vertical-align:top">单价课价格：</label>
@@ -180,7 +171,7 @@ import {
   editteachingManagement
 } from '../../../../api/teachingManagement'
 import SingleImage from '@/components/Upload/SingleImage3'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 export default {
   components: {
     SingleImage
@@ -194,7 +185,6 @@ export default {
       materialTarget: '',
       materialDetail: '',
       price: 0,
-      remark: '',
       Catalogue: [],
       CatalogueNum: 0,
       materialCoverI: [],
@@ -320,136 +310,137 @@ export default {
   }
 }
 </script>
+ <style  src="../../../../styles/Dia.css" scoped></style>
 <style lang="scss" scoped>
-.el-dialog__wrapper {
-  position: absolute;
-  height: 100%;
-}
-.left {
-  margin-left: 60px;
-  margin-right: 332px;
-}
-.left,
-.right {
-  display: inline-block;
-  width: 530px;
-  height: 100%;
-  vertical-align: top;
-  > div {
-    margin-bottom: 40px;
-    line-height: 100%;
-  }
-  .input {
-    width: 400px;
-    //  background:rgba(235,235,235,1)
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-  }
-  >>> label:not(.el-upload-list__item-status-label) {
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: rgba(88, 91, 99, 1);
-    margin-right: 15px;
-    display: inline-block;
-    width: 100px;
-    text-align: left;
-  }
-}
->>> .el-dialog {
-  top: 0;
-  bottom: 0;
-  position: absolute;
-  overflow: scroll;
-}
->>> .el-input__inner,
->>> .el-input__inner::placeholder {
-  background: #EBEBEB;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #c1c2c6;
-}
->>> .el-textarea__inner {
-  background: #EBEBEB;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #c1c2c6;
-  min-height: 232px !important;
-}
->>> .Target .el-textarea__inner {
-  min-height: 232px !important;
-}
->>> .el-textarea__inner:focus,
->>> .el-input__inner:focus {
-  border-color: #07d1aa;
-}
->>> .el-radio__input.is-checked + .el-radio__label {
-  color: #585b63;
-}
->>> .el-radio__input.is-checked .el-radio__inner {
-  background: #07d1aa;
-  border-color: #d9d9d9;
-}
->>> .el-radio {
-  display: block;
-}
->>> .el-radio:nth-child(1) {
-  margin-bottom: 40px;
-}
-.allCatalogue div,
-.oneCatalogue > .No {
-  width: 50px;
-  height: 40px;
-  background: rgba(235, 235, 235, 1);
-  border-radius: 6px;
-  border: 1px solid rgba(217, 217, 217, 1);
-  line-height: 40px;
-}
-.oneCatalogue >.No >>>.el-input__inner{
-  padding: 0;
-  text-align: center;
-  border: none
-}
-.allCatalogue {
-  width: 200px;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(88, 91, 99, 1);
-  height: 40px;
-  line-height: 40px;
-  span {
-    vertical-align: top;
-  }
-}
-.allCatalogue,
-.oneCatalogue > div:nth-child(2),
-.allCatalogue div {
-  display: inline-block;
-}
-.materialCatalogue {
-  display: inline-block;
-  margin-left: 115px;
-}
-.oneCatalogue {
-  margin-top: 15px;
-  margin-left: 30px;
-  margin-bottom: 15px;
-  width: 526px;
-  height: 40px;
-  > .input {
-    vertical-align: middle;
-    margin-left: 15px;
-  }
-}
-.laji{
-  font-size: 20px;
-  vertical-align: middle;
-  cursor: pointer;
-}
+// .el-dialog__wrapper {
+//   position: absolute;
+//   height: 100%;
+// }
+// .left {
+//   margin-left: 60px;
+//   margin-right: 332px;
+// }
+// .left,
+// .right {
+//   display: inline-block;
+//   width: 530px;
+//   height: 100%;
+//   vertical-align: top;
+//   > div {
+//     margin-bottom: 40px;
+//     line-height: 100%;
+//   }
+//   .input {
+//     width: 400px;
+//     //  background:rgba(235,235,235,1)
+//     border-radius: 6px;
+//     font-size: 15px;
+//     font-family: PingFangSC-Regular, PingFang SC;
+//     font-weight: 400;
+//   }
+//   >>> label:not(.el-upload-list__item-status-label) {
+//     font-size: 15px;
+//     font-family: PingFangSC-Regular, PingFang SC;
+//     font-weight: 400;
+//     color: rgba(88, 91, 99, 1);
+//     margin-right: 15px;
+//     display: inline-block;
+//     width: 100px;
+//     text-align: left;
+//   }
+// }
+// >>> .el-dialog {
+//   top: 0;
+//   bottom: 0;
+//   position: absolute;
+//   overflow: scroll;
+// }
+// >>> .el-input__inner,
+// >>> .el-input__inner::placeholder {
+//   background: #EBEBEB;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: #c1c2c6;
+// }
+// >>> .el-textarea__inner {
+//   background: #EBEBEB;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: #c1c2c6;
+//   min-height: 232px !important;
+// }
+// >>> .Target .el-textarea__inner {
+//   min-height: 232px !important;
+// }
+// >>> .el-textarea__inner:focus,
+// >>> .el-input__inner:focus {
+//   border-color: #07d1aa;
+// }
+// >>> .el-radio__input.is-checked + .el-radio__label {
+//   color: #585b63;
+// }
+// >>> .el-radio__input.is-checked .el-radio__inner {
+//   background: #07d1aa;
+//   border-color: #d9d9d9;
+// }
+// >>> .el-radio {
+//   display: block;
+// }
+// >>> .el-radio:nth-child(1) {
+//   margin-bottom: 40px;
+// }
+// .allCatalogue div,
+// .oneCatalogue > .No {
+//   width: 50px;
+//   height: 40px;
+//   background: rgba(235, 235, 235, 1);
+//   border-radius: 6px;
+//   border: 1px solid rgba(217, 217, 217, 1);
+//   line-height: 40px;
+// }
+// .oneCatalogue >.No >>>.el-input__inner{
+//   padding: 0;
+//   text-align: center;
+//   border: none
+// }
+// .allCatalogue {
+//   width: 200px;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: rgba(88, 91, 99, 1);
+//   height: 40px;
+//   line-height: 40px;
+//   span {
+//     vertical-align: top;
+//   }
+// }
+// .allCatalogue,
+// .oneCatalogue > div:nth-child(2),
+// .allCatalogue div {
+//   display: inline-block;
+// }
+// .materialCatalogue {
+//   display: inline-block;
+//   margin-left: 115px;
+// }
+// .oneCatalogue {
+//   margin-top: 15px;
+//   margin-left: 30px;
+//   margin-bottom: 15px;
+//   width: 526px;
+//   height: 40px;
+//   > .input {
+//     vertical-align: middle;
+//     margin-left: 15px;
+//   }
+// }
+// .laji{
+//   font-size: 20px;
+//   vertical-align: middle;
+//   cursor: pointer;
+// }
 
 </style>

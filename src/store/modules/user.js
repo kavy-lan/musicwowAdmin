@@ -125,6 +125,7 @@ const actions = {
           if (res.error_code == 0) {
             const { data } = res
             commit('SET_NAME', data.username)
+            commit('SET_AVATAR', data.head_img)
           }
         }).catch(error => {
           reject(error)

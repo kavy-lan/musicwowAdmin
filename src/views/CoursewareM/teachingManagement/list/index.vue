@@ -60,16 +60,20 @@
           />
         </template>
       </el-table-column>
+      <el-table-column align="center" label="打包">
+        <template slot-scope="scope">
+          <el-button plain class="caozuoButton" @click="packCourseware(scope.row)">
+            <span class="caozuo">
+              <svg-icon class-name="search-icon" icon-class="pack" />打包课件
+            </span>
+          </el-button>
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button plain class="caozuoButton" @click="goClassList(scope.row)">
             <span class="caozuo">
               <svg-icon class-name="search-icon" icon-class="check" />课时
-            </span>
-          </el-button>
-          <el-button plain class="caozuoButton" @click="packCourseware(scope.row)">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />打包课件
             </span>
           </el-button>
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">

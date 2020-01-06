@@ -39,7 +39,6 @@ export default {
       if (!this.isDashboard(first)) {
         matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
       }
-
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },
     isDashboard(route) {
@@ -75,7 +74,7 @@ export default {
   margin-left: 8px;
 
   .no-redirect {
-    color: #97a8be;
+    color: #333338;
     cursor: text;
   }
 }

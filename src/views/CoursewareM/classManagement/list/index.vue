@@ -20,7 +20,7 @@
       <el-button type="danger" @click="resetList">重置</el-button>
     </div>
     <el-button round icon="el-icon-arrow-left" @click="back">返回上一页</el-button>
-    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true , addId=bookID">添加</el-button>
+    <el-button type="primary" icon="el-icon-upload2" size="medium" @click="dialogVisible = true , addId=bookID">添加</el-button>
     <el-button
       type="danger"
       icon="el-icon-delete"
@@ -38,7 +38,7 @@
       border
       :header-cell-style="{background:'#fff',color:'#B3B3B3',fontSize:'14px',fontFamily:'PingFangSC-Medium,PingFang SC',
                            fontWeight:'500'}"
-      :cell-style="{color:'#585B63',fontSize:'14px'}"
+      :cell-style="{color:'#585B63',fontSize:'12px'}"
       :row-class-name="tableRowClassName"
       @select="handleSelectionChange"
       @select-all="handleSelectAll"
@@ -52,16 +52,15 @@
       <el-table-column align="center" label="所属目录" prop="directory.title" />
       <el-table-column align="center" label="知识点数" prop="knowledge_count" />
       <!-- <el-table-column align="center" label="备注说明" prop="remark" /> -->
-      <!-- <el-table-column align="center" label="状态">
+      <el-table-column align="center" label="打包">
         <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.status"
-            active-color="#07D1AA"
-            inactive-color="#D9D9D9"
-            @change="handleChange(scope.row)"
-          />
+          <el-button plain class="caozuoButton" @click="packClass(scope.row)">
+            <span class="caozuo">
+              <svg-icon class-name="search-icon" icon-class="pack" />打包课时
+            </span>
+          </el-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id,editBookId=bookID">
@@ -72,11 +71,6 @@
           <el-button plain class="caozuoButton" @click="deleteA(scope.row)">
             <span class="caozuo">
               <svg-icon class-name="search-icon" icon-class="delete" />删除
-            </span>
-          </el-button>
-          <el-button plain class="caozuoButton" @click="packClass(scope.row)">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="delete" />打包课时
             </span>
           </el-button>
         </template>

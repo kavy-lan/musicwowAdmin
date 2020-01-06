@@ -70,8 +70,8 @@
                 v-model="items.Knowledgebox2"
                 @change="KnowledgeChange($event,index)"
               >
-                <el-checkbox label="底图素材" />
-                <el-checkbox label="其他素材" />
+                <el-checkbox disabled label="底图素材" />
+                <el-checkbox disabled label="其他素材" />
                 <el-checkbox label="音频素材" />
                 <el-checkbox label="视频素材" />
               </el-checkbox-group>
@@ -80,7 +80,7 @@
                 v-model="items.Knowledgebox1"
                 @change="KnowledgeChange($event,index)"
               >
-                <el-checkbox label="图片素材" />
+                <el-checkbox disabled label="图片素材" />
                 <el-checkbox label="音频素材" />
                 <el-checkbox label="视频素材" />
               </el-checkbox-group>
@@ -89,9 +89,9 @@
               <single-image
                 v-if="items.show.baseImage"
                 msg="素材图片小于3M，格式为 jpg、png、gif，图片最多1个"
-                label="底图素材:"
                 type=".jpg,.png,.gif"
                 size="3145728"
+                label="底图素材"
                 :limit="1"
                 :clear="items.clear"
                 @files="templateBase2($event,index)"
@@ -99,9 +99,9 @@
               <single-image
                 v-if="items.show.otherImage"
                 msg="素材图片小于1M，格式为 jpg、png、gif，图片最多7个"
-                label="其他素材"
                 type=".jpg,.png,.gif"
                 size="1048576"
+                label="其他素材"
                 :limit="7"
                 :clear="items.clear"
                 @files="templateOther2($event,index)"
@@ -109,18 +109,18 @@
               <single-image
                 v-if="items.show.knowledgeVideo"
                 msg="素材视频格式为 mp4，视频最多4个"
-                label="视频素材:"
                 type=".mp4"
                 :limit="4"
+                label="视频素材"
                 :clear="items.clear"
                 @files="templateVideo2($event,index)"
               />
               <single-image
                 v-if="items.show.knowledgeAudio"
                 msg="素材音频格式为 mp3，音频最多4个"
-                label="音频素材"
                 type=".mp3"
                 :limit="4"
+                label="音频素材"
                 :clear="items.clear"
                 @files="templateAudio2($event,index)"
               />
@@ -129,36 +129,39 @@
               <single-image
                 v-if="items.show.knowledgeImage"
                 msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
-                label="图片素材:"
                 type=".jpg,.png,.gif"
                 size="3145728"
                 :limit="4"
+                label="图片素材"
                 :clear="items.clear"
                 @files="templateImage1($event,index)"
               />
               <single-image
                 v-if="items.show.knowledgeVideo"
                 msg="素材视频格式为 mp4，视频最多4个"
-                label="视频素材:"
                 type=".mp4"
                 :limit="4"
+                label="视频素材"
                 :clear="items.clear"
                 @files="templateVideo1($event,index)"
               />
-              <single-image
-                v-if="items.show.knowledgeAudio"
-                msg="素材音频格式为 mp3，音频最多4个"
-                label="音频素材"
-                type=".mp3"
-                :limit="4"
-                :clear="items.clear"
-                @files="templateAudio1($event,index)"
-              />
+              <div>
+                <single-image
+                  v-if="items.show.knowledgeAudio"
+                  msg="素材音频格式为 mp3，音频最多4个"
+                  type=".mp3"
+                  :limit="4"
+                  label="音频素材"
+                  :clear="items.clear"
+                  @files="templateAudio1($event,index)"
+                />
+              </div>
+
             </div>
           </div>
         </div>
         <div style="display:inline-block">
-          <el-button type="info" @click="newKnowledge">新增</el-button>
+          <el-button type="primary" @click="newKnowledge">新增</el-button>
         </div>
       </div>
     </div>
@@ -179,7 +182,7 @@
           <div class="text">课后扩展只有模板1暂不可修改，且永远出现在最后一个知识点素材</div>
           <div>
             <el-checkbox-group v-model="tuozhanList" @change="tuozhanChange">
-              <el-checkbox label="图片素材" />
+              <el-checkbox disabled label="图片素材" />
               <el-checkbox label="视频素材" />
               <el-checkbox label="音频素材" />
             </el-checkbox-group>
@@ -221,7 +224,7 @@
             <div class="total">1</div>
             <div>
               <el-checkbox-group v-model="workList1" @change="workSelete1">
-                <el-checkbox label="作业文字" />
+                <el-checkbox disabled label="作业文字" />
                 <el-checkbox label="作业图片" />
                 <el-checkbox label="作业视频" />
               </el-checkbox-group>
@@ -260,7 +263,7 @@
             <div class="total">2</div>
             <div>
               <el-checkbox-group v-model="workList2" @change="workSelete2">
-                <el-checkbox label="作业文字" />
+                <el-checkbox disabled label="作业文字" />
                 <el-checkbox label="作业图片" />
                 <el-checkbox label="作业视频" />
               </el-checkbox-group>
@@ -300,8 +303,8 @@
     </div>
     <!-- <single-image :msg="message"></single-image> -->
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="info" @click="addA">确 定</el-button>
+      <el-button type="info" @click="close">取 消</el-button>
+      <el-button type="success" @click="addA">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -362,9 +365,12 @@ export default {
     }
   },
   watch: {
-    id(newval, oldval) {
-      this.getDirectoryList(newval)
-    }
+    // id(newval, oldval) {
+    //   // this.getDirectoryList(newval)
+    // }
+  },
+  mounted() {
+    this.getDirectoryList(this.id)
   },
   methods: {
     close() {
@@ -385,7 +391,8 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].videos.push({
           url: res[i].url,
-          title: res[i].name
+          title: res[i].name,
+          cover: res[i].cover
         })
       }
     },
@@ -403,7 +410,8 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].videos.push({
           url: res[i].url,
-          title: res[i].name
+          title: res[i].name,
+          cover: res[i].cover
         })
       }
     },
@@ -451,7 +459,7 @@ export default {
     tuozhanVideo1(res) {
       this.afters.videos = []
       for (let i = 0; i < res.length; i++) {
-        this.afters.videos.push({ url: res[i].url, title: res[i].name })
+        this.afters.videos.push({ url: res[i].url, title: res[i].name, cover: res[i].cover })
       }
     },
     tuozhanAudio1(res) {
@@ -514,6 +522,7 @@ export default {
       console.log(this.Catalogue)
     },
     addA() {
+      console.log(this.afters)
       const knowledges = []
       this.Knowledge.map(item => {
         knowledges.push({
@@ -536,29 +545,11 @@ export default {
       const works = [this.works1, this.works2]
       this.arrayTirm(knowledges)
       this.objectTirm(this.afters)
-      // this.arrayTirm(works)
-      // knowledges.map(item => {
-      //   if (item.template_type == 1 && !item.images) {
-      //     Message({
-      //       message: '知识点图片素材不能为空',
-      //       type: 'success',
-      //       duration: 5 * 1000
-      //     })
-      //     return false
-      //   } else if (item.template_type == 2 && (!item.images || !item.negative_image)) {
-      //     Message({
-      //       message: '知识点图片素材和底图素材不能为空',
-      //       type: 'success',
-      //       duration: 5 * 1000
-      //     })
-      //     return false
-      //   }
-      // })
       for (let i = 0; i < knowledges.length; i++) {
         if (knowledges[i].template_type == 1 && !knowledges[i].images) {
           Message({
             message: '知识点图片素材不能为空',
-            type: 'success',
+            type: 'error',
             duration: 5 * 1000
           })
           return false
@@ -568,22 +559,16 @@ export default {
         ) {
           Message({
             message: '知识点图片素材和底图素材不能为空',
-            type: 'success',
+            type: 'error',
             duration: 5 * 1000
           })
           return false
         }
       }
-      // if (!works[0].describe.trim()) {
-      //   works.splice(0, 1)
-      // }
-      // if (!works[0].describe.trim()) {
-      //   works.splice(0, 1)
-      // }
       if (!this.afters.images) {
         Message({
           message: '课后拓展图片素材不能为空',
-          type: 'success',
+          type: 'error',
           duration: 5 * 1000
         })
         return false
@@ -613,41 +598,6 @@ export default {
             reject(error)
           })
       })
-      // const directory_list = []
-      // for (let i = 0; i < this.Catalogue.length; i++) {
-      //   if (this.Catalogue[i].title.trim()) {
-      //     directory_list.push(this.Catalogue[i])
-      //   }
-      // }
-      // const params = {
-      //   title: this.materialName,
-      //   cover: this.materialCoverI,
-      //   class_cover: this.materialClassCoverI,
-      //   icon: this.iconI,
-      //   goal: this.materialTarget,
-      //   video: this.materialVideoV,
-      //   details: this.materialDetail,
-      //   details_image: this.materialDetailedI,
-      //   is_class_price: this.openPrice,
-      //   directory_list: directory_list,
-      //   class_price: this.price,
-      //   remark: this.remark
-      // }
-      // addteachingManagement(params)
-      //   .then(res => {
-      //     console.log(res)
-      //     if (res.error_code == 0) {
-      //       Message({
-      //         message: '添加成功',
-      //         type: 'success',
-      //         duration: 5 * 1000
-      //       })
-      //     }
-      //     this.$emit('close', true)
-      //   })
-      //   .catch(error => {
-      //     reject(error)
-      //   })
     },
     getDirectoryList(bookId) {
       return new Promise((resolve, reject) => {
@@ -831,7 +781,7 @@ export default {
   margin-right: 190px;
   .className {
     .input:nth-child(1) {
-      width: 88px;
+      width: 92px;
       margin-right: 12px;
     }
     .input:nth-child(2) {
@@ -901,12 +851,7 @@ export default {
       }
     }
   }
-  .laji {
-    font-size: 20px;
-    vertical-align: middle;
-    cursor: pointer;
-  }
-  .tips {
+   .tips {
     height: 21px;
     font-size: 15px;
     font-family: PingFangSC-Regular, PingFang SC;
@@ -914,6 +859,11 @@ export default {
     color: rgba(179, 179, 179, 1);
     line-height: 21px;
     margin-bottom: 23px;
+  }
+  .laji {
+    font-size: 20px;
+    vertical-align: middle;
+    cursor: pointer;
   }
 }
 .total {
@@ -930,6 +880,10 @@ export default {
 
 >>> .el-checkbox__input.is-checked + .el-checkbox__label {
   color: #585b63;
+}
+>>> .el-checkbox .el-checkbox__label{
+  font-weight: normal
+
 }
 >>> .el-checkbox__input.is-checked .el-checkbox__inner {
   background-color: #07d1aa;
@@ -959,21 +913,20 @@ label {
   overflow: scroll;
 }
 
->>> .el-input__inner,
->>> .el-input__inner::placeholder {
-  background: #ebebeb;
+>>> .el-input__inner{
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: #c1c2c6;
+  color: #585b63;
 }
 
 >>> .el-textarea__inner {
-  background: #ebebeb;
+  background: #EBEBEB;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: #c1c2c6;
+  color: #585b63;
   min-height: 188px !important;
 }
 
@@ -984,12 +937,21 @@ label {
 .upload-demo {
   margin-bottom: 13px;
 }
-.konwtotal {
-  >>> .el-input__inner {
+.konwtotal{
+  >>>.el-input__inner{
     padding: 0;
     border: none;
-    text-align: center;
+    text-align: center
   }
+}
+>>>.el-dialog__header{
+  background: #EBEBEB
+}
+>>>.upload-demo label{
+  font-weight: normal
+}
+>>>.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner{
+  background: #fff !important
 }
 </style>
 

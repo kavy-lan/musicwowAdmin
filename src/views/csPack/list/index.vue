@@ -107,7 +107,7 @@ export default {
               } else if (item.status == 1) {
                 item.status = '等待打包'
               } else if (item.status == 2) {
-                item.status = '则会那个在打包'
+                item.status = '正在打包'
               } else {
                 item.status = '打包成功'
               }

@@ -3,8 +3,12 @@
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
   font-weight: 400 !important;
-}
+  color: #999999;
 
+}
+.el-breadcrumb__item .el-breadcrumb__separator{
+  color: #D9D9D9;
+}
 .el-upload {
   input[type="file"] {
     display: none !important;

@@ -85,9 +85,9 @@ service.interceptors.response.use(
           })
           break
         case 10000:
-          MessageBox.confirm('token过期，请重新登陆', 'Confirm logout', {
-            confirmButtonText: 'Re-Login',
-            cancelButtonText: 'Cancel',
+          MessageBox.confirm('token过期，请重新登陆', '警告', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
             store.dispatch('user/resetToken').then(() => {

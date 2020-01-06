@@ -23,9 +23,9 @@
         <el-input v-model="auth_ids" placeholder="请输入授权角色，字数最多20字内" class="input" maxlength="20" />
       </div>
       <div>
+        <label class="uploadLabel">头像:</label>
         <single-image
           msg="图片小于2M，格式为jpg、png(必选)"
-          label="头像:"
           type=".jpg,.png"
           size="2097152"
           :limit="3"
@@ -45,8 +45,8 @@
     </div>
     <div style="display:none">{{ sum }}</div>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="info" :disabled="Exist" @click="addA">确 定</el-button>
+      <el-button type="info" @click="close">取 消</el-button>
+      <el-button type="success" :disabled="Exist" @click="addA">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -140,82 +140,83 @@ export default {
   }
 }
 </script>
+ <style  src="../../../../styles/Dia.css" scoped></style>
 <style lang="scss" scoped>
-.el-dialog__wrapper {
-  position: absolute;
-  height: 100%;
-}
-.left {
-  margin-left: 60px;
-  margin-right: 332px;
-}
-.left,
-.right {
-  display: inline-block;
-  width: 530px;
-  height: 100%;
-  vertical-align: top;
-  > div {
-    margin-bottom: 40px;
-    line-height: 100%;
-  }
-  .input {
-    width: 400px;
-    //  background:rgba(235,235,235,1)
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-  }
-  label {
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: rgba(88, 91, 99, 1);
-    margin-right: 15px;
-  }
-}
->>> .el-dialog {
-  top: 0;
-  bottom: 0;
-  position: absolute;
-  overflow: scroll;
-}
->>> .el-input__inner,
->>> .el-input__inner::placeholder {
-  background: #EBEBEB;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #c1c2c6;
-}
->>> .el-textarea__inner {
-  background: #EBEBEB;
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #c1c2c6;
-  min-height: 188px !important;
-}
->>> .Target .el-textarea__inner {
-  min-height: 116px !important;
-}
->>> .el-textarea__inner:focus,
->>> .el-input__inner:focus {
-  border-color: #07d1aa;
-}
->>> .el-radio__input.is-checked + .el-radio__label {
-  color: #585b63;
-}
->>> .el-radio__input.is-checked .el-radio__inner {
-  background: #07d1aa;
-  border-color: #d9d9d9;
-}
->>> .el-radio {
-  display: block;
-}
->>> .el-radio:nth-child(1) {
-  margin-bottom: 40px;
-}
+// .el-dialog__wrapper {
+//   position: absolute;
+//   height: 100%;
+// }
+// .left {
+//   margin-left: 60px;
+//   margin-right: 332px;
+// }
+// .left,
+// .right {
+//   display: inline-block;
+//   width: 530px;
+//   height: 100%;
+//   vertical-align: top;
+//   > div {
+//     margin-bottom: 40px;
+//     line-height: 100%;
+//   }
+//   .input {
+//     width: 400px;
+//     //  background:rgba(235,235,235,1)
+//     border-radius: 6px;
+//     font-size: 15px;
+//     font-family: PingFangSC-Regular, PingFang SC;
+//     font-weight: 400;
+//   }
+//   label {
+//     font-size: 15px;
+//     font-family: PingFangSC-Regular, PingFang SC;
+//     font-weight: 400;
+//     color: rgba(88, 91, 99, 1);
+//     margin-right: 15px;
+//   }
+// }
+// >>> .el-dialog {
+//   top: 0;
+//   bottom: 0;
+//   position: absolute;
+//   overflow: scroll;
+// }
+// >>> .el-input__inner,
+// >>> .el-input__inner::placeholder {
+//   background: #EBEBEB;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: #c1c2c6;
+// }
+// >>> .el-textarea__inner {
+//   background: #EBEBEB;
+//   font-size: 15px;
+//   font-family: PingFangSC-Regular, PingFang SC;
+//   font-weight: 400;
+//   color: #c1c2c6;
+//   min-height: 188px !important;
+// }
+// >>> .Target .el-textarea__inner {
+//   min-height: 116px !important;
+// }
+// >>> .el-textarea__inner:focus,
+// >>> .el-input__inner:focus {
+//   border-color: #07d1aa;
+// }
+// >>> .el-radio__input.is-checked + .el-radio__label {
+//   color: #585b63;
+// }
+// >>> .el-radio__input.is-checked .el-radio__inner {
+//   background: #07d1aa;
+//   border-color: #d9d9d9;
+// }
+// >>> .el-radio {
+//   display: block;
+// }
+// >>> .el-radio:nth-child(1) {
+//   margin-bottom: 40px;
+// }
 
 </style>

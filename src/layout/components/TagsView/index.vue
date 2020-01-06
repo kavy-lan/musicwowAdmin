@@ -3,6 +3,7 @@
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
       <router-link
         v-for="tag in visitedViews"
+        v-if="tag.title != 'Dashboard'"
         ref="tag"
         :key="tag.path"
         :class="isActive(tag)?'active':''"
@@ -17,10 +18,10 @@
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">Close</li>
-      <li @click="closeOthersTags">Close Others</li>
-      <li @click="closeAllTags(selectedTag)">Close All</li>
+      <li @click="refreshSelectedTag(selectedTag)">刷新</li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭当前</li>
+      <li @click="closeOthersTags">关闭其他</li>
+      <li @click="closeAllTags(selectedTag)">关闭所有</li>
     </ul>
   </div>
 </template>
@@ -200,7 +201,10 @@ export default {
   width: 100%;
   background: #ebebeb;
   border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  box-shadow:0px -1px 0px 0px rgba(217,217,217,1);
+  .scroll-container{
+   bottom: -2px
+  }
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
@@ -209,12 +213,14 @@ export default {
       height: 26px;
       line-height: 26px;
       border: none;
-      color: #999999;
+      color: #585B63;
       background: inherit;
       padding: 0 8px;
-      font-size: 12px;
+      font-size: 14px;
+      font-family:PingFangSC-Regular,PingFang SC;
       margin-left: 5px;
       margin-top: 4px;
+      height: 28px;
       &:first-of-type {
         margin-left: 15px;
       }
@@ -224,7 +230,8 @@ export default {
       &.active {
         background-color: #fff;
         color: #585B63;
-        border: none;
+        border: 1px solid #D9D9D9;
+        border-bottom: none;
         &::before {
           content: '';
           background: #fff;
@@ -270,7 +277,7 @@ export default {
     .el-icon-close {
       width: 16px;
       height: 16px;
-      vertical-align: 2px;
+      vertical-align: middle;
       border-radius: 50%;
       text-align: center;
       transition: all .3s cubic-bezier(.645, .045, .355, 1);
@@ -278,7 +285,7 @@ export default {
       &:before {
         transform: scale(.6);
         display: inline-block;
-        vertical-align: -3px;
+        vertical-align: middle;
       }
       &:hover {
         background-color: #b4bccc;

@@ -26,7 +26,7 @@
       border
       :header-cell-style="{background:'#fff',color:'#B3B3B3',fontSize:'14px',fontFamily:'PingFangSC-Medium,PingFang SC',
                            fontWeight:'500'}"
-      :cell-style="{color:'#585B63',fontSize:'14px'}"
+      :cell-style="{color:'#585B63',fontSize:'12px'}"
       :row-class-name="tableRowClassName"
       @select="handleSelectionChange"
       @select-all="handleSelectAll"

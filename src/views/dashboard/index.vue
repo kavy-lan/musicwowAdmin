@@ -499,7 +499,7 @@ export default {
             // height: {totalHeight} - y - y2,
             min: 0,
             max: 100,
-            minSize: '0%',
+            minSize: '20%',
             maxSize: '80%',
             sort: 'none',
             gap: 2,

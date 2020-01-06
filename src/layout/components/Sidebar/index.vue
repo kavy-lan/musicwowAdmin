@@ -99,8 +99,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
->>> .el-menu-item.is-active {
+  >>>.el-submenu .el-menu-item.is-active ,>>>.el-menu-item.is-active{
   background: #d9d9d9 !important;
+}
+>>>.el-submenu .el-menu-item{
+  background: #f2f2f2 !important
 }
 .input {
   width: 189px;

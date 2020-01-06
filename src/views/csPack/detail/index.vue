@@ -43,7 +43,7 @@
       background
       layout="prev, pager, next"
       :total="total"
-      page-size="10"
+      :page-size="10"
       class="clearfix"
       @current-change="nextPage"
     />

@@ -16,7 +16,7 @@
     :accept="type"
     :file-list="filelist"
   >
-    <label>{{ label }}</label>
+    <label v-if="label">{{ label }}</label>
     <el-button size="medium" type="primary" @click="upload">上传</el-button>
     <span slot="tip" class="el-upload__tip">{{ msg }}</span>
     <video ref="noneVideo" src style="display:none" />
@@ -32,7 +32,7 @@ import { config } from '@vue/test-utils'
 import { log } from 'util'
 export default {
   name: 'SingleImageUpload3',
-  props: ['msg', 'label', 'size', 'type', 'limit', 'filelist', 'clear', 'time'],
+  props: ['msg', 'size', 'type', 'limit', 'filelist', 'clear', 'time', 'label'],
   data() {
     return {
       formdata: {},
@@ -177,7 +177,8 @@ export default {
         this.file.push({
           url: this.keybox[i].url,
           name: file.name,
-          uid: this.keybox[i].uid
+          uid: this.keybox[i].uid,
+          cover: `${this.keybox[i].url}?x-oss-process=video/snapshot,t_1,f_jpg,m_fast,ar_auto`
         })
       }
       for (let i = 0; i < this.file.length; i++) {
@@ -209,13 +210,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-label {
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(88, 91, 99, 1);
-  margin-right: 15px;
-}
 .el-upload__tip {
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
