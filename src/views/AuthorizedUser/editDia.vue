@@ -75,7 +75,7 @@ export default {
       img: '',
       ifExist: 0,
       Exist: true,
-      areaCode: [{ value: 86, label: `大陆 + 86` }, { value: 852, label: `香港 + 852` }, { value: 853, label: `澳门 + 853` }, { value: 886, label: `台湾 + 886` }],
+      areaCode: [{ value: '86', label: `大陆 + 86` }, { value: '852', label: `香港 + 852` }, { value: '853', label: `澳门 + 853` }, { value: '886', label: `台湾 + 886` }],
       areaValue: '',
       head_list: []
     }

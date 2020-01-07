@@ -7,6 +7,13 @@ export function AuthorizedUserList(page, filters, ops) {
     params: { page: page, limit: '10', filters: filters, ops: ops }
   })
 }
+export function allList(page, filters, ops) {
+  return request({
+    url: 'user',
+    method: 'get',
+    params: { page: page, limit: '100000', filters: filters, ops: ops }
+  })
+}
 export function deleteAuthorizedUserList(ids) {
   return request({
     url: 'user',

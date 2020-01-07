@@ -14,7 +14,7 @@
         <label>教材目录：</label>
         <div class="c_right">
           <el-select v-model="CatalogueId" placeholder="请选择">
-            <el-option v-for="item in options" :key="item.id" :value="item.id" :label="item.title" />
+            <el-option v-for="(item , index) in options" :key="item.id" :value="item.id" :label="`${index+1}. ${item.title}`" />
           </el-select>
         </div>
       </div>
@@ -545,6 +545,14 @@ export default {
       const works = [this.works1, this.works2]
       this.arrayTirm(knowledges)
       this.objectTirm(this.afters)
+      if (this.classNum == this.className) {
+        Message({
+          message: '课时编号与课时名称不能重复',
+          type: 'error',
+          duration: 5 * 1000
+        })
+        return false
+      }
       for (let i = 0; i < knowledges.length; i++) {
         if (knowledges[i].template_type == 1 && !knowledges[i].images) {
           Message({

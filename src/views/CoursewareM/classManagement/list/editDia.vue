@@ -15,10 +15,10 @@
         <div class="c_right">
           <el-select v-model="CatalogueId" placeholder="请选择">
             <el-option
-              v-for="item in options"
+              v-for="(item,index) in options"
               :key="item.id"
               :value="item.id"
-              :label="item.title"
+              :label="`${index+1}. ${item.title}`"
             />
           </el-select>
         </div>
@@ -523,8 +523,15 @@ export default {
       this.works2.video = this.works2videos
       this.works1.describe = this.workText1
       this.works2.describe = this.workText2
-
       const Know = this.Knowledge
+      if (this.classNum == this.className) {
+        Message({
+          message: '课时编号与课时名称不能重复',
+          type: 'error',
+          duration: 5 * 1000
+        })
+        return false
+      }
       for (let i = 0; i < Know.length; i++) {
         if (Know[i].template_type == 1 && !Know[i].images) {
           Message({

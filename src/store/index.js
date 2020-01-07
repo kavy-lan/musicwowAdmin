@@ -6,11 +6,7 @@ Vue.use(Vuex)
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
 const modulesFiles = require.context('./modules', true, /\.js$/)
-const mutations = {
-  searchRouter: (state, router) => {
-    state.permission.routes = router
-  }
-}
+
 // you do not need `import app from './modules/app'`
 // it will auto require all vuex module from modules file
 const modules = modulesFiles.keys().reduce((modules, modulePath) => {
@@ -22,8 +18,8 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {})
 const store = new Vuex.Store({
   modules,
-  getters,
-  mutations
+  getters
+
 })
 
 export default store

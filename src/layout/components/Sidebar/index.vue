@@ -72,7 +72,6 @@ export default {
     //     }
     this.router = this.permission_routes
     this.router2 = this.permission_routes
-    // this.$store.commit('searchRouter', [])
   },
   methods: {
     searchMemu(res) {
@@ -92,7 +91,6 @@ export default {
       } else {
         searchArr = this.router2
       }
-      console.log(searchArr)
       this.router = searchArr
     }
   }
@@ -125,6 +123,6 @@ export default {
  background: url('../../../assets/images/searchicon.png') no-repeat  !important;
   background-size:18px 18px !important;
   left:10px;
-  top: 8px
+  top: 10px
 }
 </style>

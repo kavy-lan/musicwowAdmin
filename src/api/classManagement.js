@@ -11,6 +11,18 @@ export function classManagementList(bookId, page, filters, ops) {
     }
   })
 }
+export function allList(bookId, page, filters, ops) {
+  return request({
+    url: `cs/book_class/by/${bookId}`,
+    method: 'get',
+    params: {
+      page: page,
+      limit: '1000000',
+      filters: filters,
+      ops: ops
+    }
+  })
+}
 export function deleteclassManagementList(ids) {
   return request({
     url: `cs/book_class`,

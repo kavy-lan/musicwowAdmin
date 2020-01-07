@@ -25,7 +25,7 @@
       @click="someDelete"
     >删除</el-button>
     <el-button type="success" @click="goPackList">打包任务列表</el-button>
-    <el-button size="medium" type="info" style="float:right" @click="searchShow = !searchShow">
+    <el-button size="medium" type="primary" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
     </el-button>
     <el-table
@@ -34,7 +34,7 @@
       border
       :header-cell-style="{background:'#fff',color:'#B3B3B3',fontSize:'14px',fontFamily:'PingFangSC-Medium,PingFang SC',
                            fontWeight:'500'}"
-      :cell-style="{color:'#585B63',fontSize:'14px'}"
+      :cell-style="{color:'#585B63',fontSize:'12px'}"
       :row-class-name="tableRowClassName"
       @select="handleSelectionChange"
       @select-all="handleSelectAll"
@@ -106,7 +106,7 @@
 import AddDia from './addDia'
 import EditDia from './editDia'
 // import reset from "./resetDia";
-import { teachingManagementList, deleteteachingManagement, packCourseware } from '../../../../api/teachingManagement'
+import { teachingManagementList, allList, deleteteachingManagement, packCourseware } from '../../../../api/teachingManagement'
 import { Message } from 'element-ui'
 
 export default {
@@ -159,10 +159,6 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
-            this.seleteSearch[0].array = []
-            this.seleteSearch[1].array = []
-            this.seleteSearch[2].array = []
-            this.seleteSearch[3].array = []
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
@@ -174,10 +170,26 @@ export default {
               } else {
                 item.is_class_prices = false
               }
-              this.seleteSearch[0].array.push(String(item.title))
-              this.seleteSearch[1].array.push(String(item.class_price))
-              this.seleteSearch[2].array.push(String(item.directory_count))
-              this.seleteSearch[3].array.push(String(item.class_count))
+              // this.seleteSearch[0].array.push(String(item.title))
+              // this.seleteSearch[1].array.push(String(item.class_price))
+              // this.seleteSearch[2].array.push(String(item.directory_count))
+              // this.seleteSearch[3].array.push(String(item.class_count))
+            })
+            // 获取所有数据，用于下拉框
+            return new Promise((resolve, reject) => {
+              allList(page, filters, ops).then(res => {
+                // console.log(Object.keys(res.data.list))
+                res.data.list.map(item => {
+                  Object.keys(item).map(items => {
+                    this.seleteSearch.map(itemss => {
+                      if (items == itemss.name) {
+                        itemss.array.push(String(item[items]))
+                        itemss.array = [...new Set(itemss.array)]
+                      }
+                    })
+                  })
+                })
+              })
             })
           })
           .catch(error => {
@@ -306,6 +318,9 @@ export default {
       this.searchModel = true
     },
     resetSearch() {
+      this.seleteSearch.map(item => {
+        item.value = ''
+      })
       this.tableInit(1)
       this.searchModel = false
     },
@@ -315,137 +330,8 @@ export default {
   }
 }
 </script>
-
+<style  src="../../../../styles/list.css" scoped></style>
 <style lang="scss" scoped>
-.app-container {
-  .roles-table {
-    margin-top: 30px;
-  }
-  .permission-tree {
-    margin-bottom: 30px;
-  }
-}
 
-.svg-icon {
-  margin-right: 3px;
-}
->>> .el-table .warning-row {
-  background: #f8f8f8;
-}
->>> .el-table .success-row {
-  background: #f2f2f2;
-}
->>> .el-table--enable-row-hover .el-table__body tr:hover > td {
-  background-color: #ebebeb !important;
-}
->>> .el-table--border td:nth-child(1) {
-  border-right: none;
-}
->>> .el-table--border th:nth-child(1) {
-  border-right: none;
-}
->>> .el-table__header tr,
->>> .el-table__header th {
-  padding: 0;
-  height: 60px;
-}
->>> .el-table__body tr,
->>> .el-table__body td {
-  padding: 0;
-  height: 60px;
-}
->>> .noneColor {
-  margin-left: -5px !important;
-  border-radius: 0;
-}
->>> .noneColor:nth-child(3),
->>> .noneColor:nth-child(4),
->>> .noneColor:nth-child(5) {
-  border-right: none;
-}
->>> .deletebutton {
-  margin-right: 13px;
-}
->>> .el-pagination {
-  margin-top: 20px;
-  float: right;
-}
->>> .el-pagination.is-background .el-pager li,
->>> .el-pagination.is-background .btn-next,
->>> .el-pagination.is-background .btn-prev {
-  width: 43px;
-  height: 35px;
-  line-height: 35px;
-  background: rgba(242, 242, 242, 1);
-  border-radius: 6px;
-  border: 1px solid rgba(217, 217, 217, 1);
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(179, 179, 179, 1);
-}
->>> .el-pagination.is-background .el-pager li:not(.disabled).active {
-  color: #585b63;
-  background-color: #d9d9d9;
-}
->>> .el-pager li:hover {
-  color: rgba(179, 179, 179, 1) !important;
-}
-
->>> .el-button:focus {
-  border-color: #dcdfe6;
-}
-.search {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  > div {
-    display: inline-block;
-    margin-right: 20px;
-    margin-bottom: 15px
-  }
-  .input {
-    width: 200px;
-    //  background:rgba(235,235,235,1)
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-  }
-  label {
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: rgba(88, 91, 99, 1);
-    margin-right: 6px;
-  }
-  >>> .el-input__inner:focus {
-    border-color: #07d1aa;
-  }
-  >>> .el-input__inner,
-  >>> .el-input__inner::placeholder {
-    background: #EBEBEB;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #c1c2c6;
-  }
-}
-.caozuo {
-  //  width:
-  color: #bfbfbf;
-  cursor: pointer;
-  // margin-right: 1px;
-}
-.caozuo:hover {
-  color: #585b63;
-}
-.caozuoButton {
-  padding: 0;
-  border: none;
-  background: none
-}
-.caozuoButton:hover,.caozuoButton.is-plain:focus{
-  background: none
-}
 </style>
 

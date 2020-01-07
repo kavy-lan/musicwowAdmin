@@ -11,6 +11,18 @@ export function teachingManagementList(page, filters, ops) {
     }
   })
 }
+export function allList(page, filters, ops) { // 获取所有列表信息，用于搜索下拉框
+  return request({
+    url: 'cs/book',
+    method: 'get',
+    params: {
+      page: page,
+      limit: '100000',
+      filters: filters,
+      ops: ops
+    }
+  })
+}
 export function deleteteachingManagement(ids) {
   return request({
     url: `cs/book`,

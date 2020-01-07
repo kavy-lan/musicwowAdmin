@@ -7,7 +7,7 @@
       </div>
       <div v-for="(item, index) in seleteSearch" :key="index">
         <label>{{ item.label }}</label>
-        <el-select v-model="item.value" placeholder="请选择" clearable @change="seleteChange" @clear="clearSelete(index)">
+        <el-select v-model="item.value" placeholder="请选择" clearable filterable @change="seleteChange" @clear="clearSelete(index)">
           <el-option
             v-for="(items,indexs) in item.array"
             :key="indexs"
@@ -98,7 +98,8 @@ import editDia from './editDia'
 import {
   classManagementList,
   deleteclassManagementList,
-  packClass
+  packClass,
+  allList
 } from '../../../../api/classManagement'
 import { MessageBox, Message } from 'element-ui'
 
@@ -128,8 +129,7 @@ export default {
         { label: '课时编号:', value: '', name: 'class_no', ops: '=', array: [] },
         { label: '所属目录:', value: '', name: 'directory', ops: '=', array: [] }
       ],
-      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }],
-      searchNum: 1
+      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }]
     }
   },
   computed: {
@@ -155,18 +155,25 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
-            this.seleteSearch[0].array = []
-            this.seleteSearch[1].array = []
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
               } else {
                 item.status = false
               }
-              this.seleteSearch[0].array.push(String(item.class_no))
-              this.seleteSearch[1].array.push(String(item.directory))
             })
-            this.searchNum--
+            // 获取所有数据，用于下拉框
+            return new Promise((resolve, reject) => {
+              allList(bookID, page, filters, ops).then(res => {
+                // console.log(Object.keys(res.data.list))
+                res.data.list.map(item => {
+                  this.seleteSearch[0].array.push(String(item.class_no))
+                  this.seleteSearch[1].array.push(String(item.directory.title))
+                  this.seleteSearch[0].array = [...new Set(this.seleteSearch[0].array)]
+                  this.seleteSearch[1].array = [...new Set(this.seleteSearch[1].array)]
+                })
+              })
+            })
           })
           .catch(error => {
             reject(error)
@@ -278,6 +285,9 @@ export default {
           this.inputSearch[i].value.trim()) {
           this.filters[this.inputSearch[i].name] = `${this.inputSearch[i].value}`
           this.ops[this.inputSearch[i].name] = `${this.inputSearch[i].ops}`
+        } else {
+          delete this.filters[this.inputSearch[i].name]
+          delete this.ops[this.inputSearch[i].name]
         }
       }
     },
@@ -301,6 +311,10 @@ export default {
       this.searchModel = true
     },
     resetList() {
+      this.seleteSearch.map(item => {
+        item.value = ''
+      })
+      this.inputSearch[0].value = ''
       this.tableInit(this.bookID, 1)
       this.searchModel = false
     },
@@ -310,135 +324,8 @@ export default {
   }
 }
 </script>
-
+<style  src="../../../../styles/list.css" scoped></style>
 <style lang="scss" scoped>
-.app-container {
-  .roles-table {
-    margin-top: 30px;
-  }
-  .permission-tree {
-    margin-bottom: 30px;
-  }
-}
 
-.svg-icon {
-  margin-right: 3px;
-}
->>> .el-table .warning-row {
-  background: #f8f8f8;
-}
->>> .el-table .success-row {
-  background: #f2f2f2;
-}
->>> .el-table--enable-row-hover .el-table__body tr:hover > td {
-  background-color: #ebebeb !important;
-}
->>> .el-table--border td:nth-child(1) {
-  border-right: none;
-}
->>> .el-table--border th:nth-child(1) {
-  border-right: none;
-}
->>> .el-table__header tr,
->>> .el-table__header th {
-  padding: 0;
-  height: 60px;
-}
->>> .el-table__body tr,
->>> .el-table__body td {
-  padding: 0;
-  height: 60px;
-}
->>> .noneColor {
-  margin-left: -5px !important;
-  border-radius: 0;
-}
->>> .noneColor:nth-child(3),
->>> .noneColor:nth-child(4),
->>> .noneColor:nth-child(5) {
-  border-right: none;
-}
->>> .deletebutton {
-  margin-right: 13px;
-}
->>> .el-pagination {
-  margin-top: 20px;
-  float: right;
-}
->>> .el-pagination.is-background .el-pager li,
->>> .el-pagination.is-background .btn-next,
->>> .el-pagination.is-background .btn-prev {
-  width: 43px;
-  height: 35px;
-  line-height: 35px;
-  background: rgba(242, 242, 242, 1);
-  border-radius: 6px;
-  border: 1px solid rgba(217, 217, 217, 1);
-  font-size: 15px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(179, 179, 179, 1);
-}
->>> .el-pagination.is-background .el-pager li:not(.disabled).active {
-  color: #585b63;
-  background-color: #d9d9d9;
-}
->>> .el-pager li:hover {
-  color: rgba(179, 179, 179, 1) !important;
-}
-
->>> .el-button:focus {
-  border-color: #dcdfe6;
-}
-.search {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  > div {
-    display: inline-block;
-    margin-right: 20px;
-    margin-bottom: 15px
-  }
-  .input {
-    width: 200px;
-    //  background:rgba(235,235,235,1)
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-  }
-  label {
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: rgba(88, 91, 99, 1);
-    margin-right: 6px;
-  }
-  >>> .el-input__inner:focus {
-    border-color: #07d1aa;
-  }
-  >>> .el-input__inner,
-  >>> .el-input__inner::placeholder {
-    background: #EBEBEB;
-    font-size: 15px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #c1c2c6;
-  }
-}
-.caozuo {
-  color: #bfbfbf;
-  cursor: pointer;
-}
-.caozuo:hover {
-  color: #585b63;
-}
-.caozuoButton {
-  padding: 0;
-  border: none;
- background: none;
-}
-.caozuoButton:hover,.caozuoButton.is-plain:focus{
-  background: none
-}
 </style>
 
