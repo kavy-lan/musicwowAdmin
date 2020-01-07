@@ -19,7 +19,7 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 import 'lib-flexible'
-
+document.getElementsByTagName('body')[0].style.zoom = 1
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

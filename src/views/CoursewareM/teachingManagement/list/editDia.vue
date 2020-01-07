@@ -246,11 +246,12 @@ export default {
         this.detailMsg.is_class_price = 1
       } else {
         this.detailMsg.is_class_price = 0
-        this.detailMsg.class_price = 0
       }
-      console.log(res)
     },
     addA() {
+      if (this.detailMsg.is_class_price == 0) {
+        delete this.detailMsg.class_price
+      }
       return new Promise((resolve, reject) => {
         editteachingManagement(this.id, this.detailMsg)
           .then(res => {

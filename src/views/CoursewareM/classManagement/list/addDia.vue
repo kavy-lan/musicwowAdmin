@@ -207,7 +207,7 @@
             />
             <single-image
               v-if="tuozhanAudio"
-              msg="素材音频格式为 mp4，音频最多4个"
+              msg="素材音频格式为 mp3，音频最多4个"
               label="音频素材"
               type=".mp3"
               :limit="4"

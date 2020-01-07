@@ -244,9 +244,7 @@ export default {
       } else {
         this.priceShow = false
         this.openPrice = 0
-        this.price = 0
       }
-      console.log(res)
     },
     addA() {
       const directory_list = []
@@ -268,6 +266,9 @@ export default {
         directory_list: directory_list,
         class_price: this.price,
         remark: this.remark
+      }
+      if (this.openPrice == 0) {
+        delete params.class_price
       }
       addteachingManagement(params)
         .then(res => {

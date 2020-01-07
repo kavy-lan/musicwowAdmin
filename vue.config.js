@@ -135,18 +135,18 @@ module.exports = {
           config.optimization.runtimeChunk('single')
         }
       )
-  },
-  css: {
-    loaderOptions: {
-      css: {},
-      postcss: {
-        plugins: [
-          require('postcss-px2rem')({
-            remUnit: 192
-          })
-        ]
-      }
-    }
   }
+  // css: {
+  //   loaderOptions: {
+  //     css: {},
+  //     postcss: {
+  //       plugins: [
+  //         require('postcss-px2rem')({
+  //           remUnit: 192
+  //         })
+  //       ]
+  //     }
+  //   }
+  // }
 
 }

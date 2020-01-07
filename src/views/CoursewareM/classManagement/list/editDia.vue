@@ -119,13 +119,13 @@
                 label="视频素材"
                 type=".mp4"
                 :limit="4"
-                :filelist="items.videolist2"
+                :filelist="items.videoslist2"
                 :clear="items.clear"
                 @files="templateVideo2($event,index)"
               />
               <single-image
                 v-if="items.show.knowledgeAudio"
-                msg="素材音频格式为 mp4，音频最多4个"
+                msg="素材音频格式为 mp3，音频最多4个"
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
@@ -222,7 +222,7 @@
             />
             <single-image
               v-if="tuozhanAudio"
-              msg="素材音频格式为 mp4，音频最多4个"
+              msg="素材音频格式为 mp3，音频最多4个"
               label="音频素材"
               type=".mp3"
               :limit="4"
@@ -396,8 +396,8 @@ export default {
     }
   },
   mounted() {
-    this.getClassDetail(this.id)
     this.getDirectoryList(this.bookid)
+    this.getClassDetail(this.id)
   },
   methods: {
     close() {
@@ -686,11 +686,11 @@ export default {
               this.className = res.data.title
               this.classNum = res.data.class_no
               // 以下是目录
-              for (let i = 0; i < this.options.length; i++) {
-                if (this.options[i].id == directory.id) {
-                  this.CatalogueId = this.options[i].id
-                }
-              }
+              // for (let i = 0; i < this.options.length; i++) {
+              //   if (this.options[i].id == directory.id) {
+              this.CatalogueId = directory.id
+              //   }
+              // }
               // 以下是课后拓展
               this.afters.id = afters[0].id
               this.afters.material_id = afters[0].material_id
