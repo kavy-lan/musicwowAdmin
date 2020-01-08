@@ -37,7 +37,14 @@
       <el-table-column align="center" label="批次号" prop="lot_no" />
       <el-table-column align="center" label="打包类型" prop="pack_type" />
       <el-table-column align="center" label="日志内容" prop="content" />
-      <el-table-column align="center" label="状态" prop="status" />
+      <el-table-column align="center" label="状态" prop="status">
+        <template slot-scope="scope">
+          <span v-if="scope.row.status== 0" style="color: red">打包失败</span>
+          <span v-else-if="scope.row.status== 1">等待打包</span>
+          <span v-else-if="scope.row.status== 2">正在打包</span>
+          <span v-else style="color: blue">打包成功</span>
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="创建时间" prop="created_at" />
       <el-table-column align="center" label="更新时间" prop="updated_at" />
       <el-table-column align="center" label="操作" width="220">
@@ -102,15 +109,15 @@ export default {
             this.length = data.list.length
             this.total = data.total
             this.rolesList.map(item => {
-              if (item.status == 0) {
-                item.status = '打包失败'
-              } else if (item.status == 1) {
-                item.status = '等待打包'
-              } else if (item.status == 2) {
-                item.status = '正在打包'
-              } else {
-                item.status = '打包成功'
-              }
+              // if (item.status == 0) {
+              //   item.status = '打包失败'
+              // } else if (item.status == 1) {
+              //   item.status = '等待打包'
+              // } else if (item.status == 2) {
+              //   item.status = '正在打包'
+              // } else {
+              //   item.status = '打包成功'
+              // }
               if (item.pack_type == 1) {
                 item.pack_type = '课件'
               } else if (item.pack_type == 2) {

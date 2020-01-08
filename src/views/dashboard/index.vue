@@ -275,7 +275,6 @@ export default {
     this.student3()
     this.Teaching()
     this.teachingPie()
-
     // window.addEventListener('load', adaptation)
     // window.addEventListener('resize', adaptation)
     // function adaptation() {
