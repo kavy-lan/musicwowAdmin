@@ -4,14 +4,17 @@
 }
 
 .left {
-  margin-left: 60px;
-  margin-right: 332px;
+  /* margin-left: 60px; */
+  /* margin-right: 332px; */
 }
-
+>>>.el-dialog__body{
+}
 .left,
 .right {
+
   display: inline-block;
-  width: 530px;
+  /* width: 530px; */
+  width: 49%;
   height: 100%;
   vertical-align: top;
 }

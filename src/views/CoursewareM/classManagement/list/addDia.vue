@@ -160,8 +160,8 @@
             </div>
           </div>
         </div>
-        <div style="display:inline-block">
-          <el-button type="primary" @click="newKnowledge">新增</el-button>
+        <div :style="{'display':Knowledge.length>0?'block':'inline-block'}" @click="newKnowledge">
+          <el-button type="primary">新增</el-button>
         </div>
       </div>
     </div>
@@ -190,7 +190,7 @@
           <div>
             <single-image
               v-if="tuozhanImage"
-              msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
+              msg="素材图片小于3M,格式为 jpg、png、gif,图片最多4个"
               label="图片素材"
               type=".jpg,.png,.gif"
               size="3145728"
@@ -785,8 +785,8 @@ export default {
   height: 100%;
 }
 .left {
-  margin-left: 60px;
-  margin-right: 190px;
+  // margin-left: 60px;
+  // margin-right: 190px;
   .className {
     .input:nth-child(1) {
       width: 92px;
@@ -800,13 +800,13 @@ export default {
 .left,
 .right {
   display: inline-block;
-  width: 646px;
+  width: 49%;
   height: 100%;
   vertical-align: top;
   > div {
     margin-bottom: 40px;
     line-height: 100%;
-    display: inline-block;
+    // display: inline-block;
   }
   .c_right {
     display: inline-block;

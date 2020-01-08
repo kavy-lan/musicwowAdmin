@@ -169,7 +169,7 @@
             </div>
           </div>
         </div>
-        <div style="display:inline-block">
+        <div :style="{'display':Knowledge.length>0?'block':'inline-block'}">
           <el-button type="primary" @click="newKnowledge">新增</el-button>
         </div>
       </div>

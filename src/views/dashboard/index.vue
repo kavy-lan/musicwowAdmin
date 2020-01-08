@@ -7,15 +7,15 @@
       </div>
       <div class="Statistics">
         <div>
-          <div>33</div>
-          <div>门店服务</div>
+          <div>43</div>
+          <div>门店教务</div>
         </div>
         <div>
-          <div>33</div>
+          <div>56</div>
           <div>门店教师</div>
         </div>
         <div>
-          <div>33</div>
+          <div>117</div>
           <div>门店学员</div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div>
         <div class="title">
           <div>快速访问</div>
-          <div>More ></div>
+          <div v-show="false">More ></div>
         </div>
         <div class="sudu">
           <div class="yuyue">
@@ -73,7 +73,7 @@
       <div class="shop">
         <div>
           <span>门店动态</span>
-          <span>More ></span>
+          <span v-show="false">More ></span>
         </div>
         <div>
           <ul id="timeline">
@@ -84,13 +84,13 @@
                 <div class="content">
                   <div class="timeText">
                     <div>17 Jun</div>
-                    <div>05:49AM</div>
+                    <div>08:49PM</div>
                   </div>
                   <div class="timeThing">
                     <div>
-                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                      <img src="../../assets/images/dashboard/zuoye.png">上传作业
                     </div>
-                    <div>李大柱</div>
+                    <div>春娇</div>
                     <div>《遇见》吉他弹唱</div>
                   </div>
                 </div>
@@ -102,18 +102,18 @@
               <div class="relative">
                 <div class="content">
                   <div class="timeText">
-                    <div>17 Jun</div>
-                    <div>05:49AM</div>
+                    <div>26 Jun</div>
+                    <div>09:00AM</div>
                   </div>
                   <div class="timeThing">
                     <div>
-                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                      <img src="../../assets/images/dashboard/shangke.png">签到
                     </div>
-                    <div>李大柱</div>
-                    <div>《遇见》吉他弹唱</div>
+                    <div>志明</div>
+                    <div>吉他-基础课时</div>
                   </div>
                 </div>
-                <span class="circle" />
+                <span class="circle" style="border-color:#24CCB8" />
               </div>
             </li>
             <li class="work">
@@ -121,18 +121,18 @@
               <div class="relative">
                 <div class="content">
                   <div class="timeText">
-                    <div>17 Jun</div>
-                    <div>05:49AM</div>
+                    <div>5 Jul</div>
+                    <div>09:30PM</div>
                   </div>
                   <div class="timeThing">
                     <div>
-                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                      <img src="../../assets/images/dashboard/qingjia.png">请假
                     </div>
-                    <div>李大柱</div>
-                    <div>《遇见》吉他弹唱</div>
+                    <div>李龙</div>
+                    <div>钢琴-大师课</div>
                   </div>
                 </div>
-                <span class="circle" />
+                <span class="circle" style="border-color:green" />
               </div>
             </li>
             <li class="work">
@@ -140,18 +140,18 @@
               <div class="relative">
                 <div class="content">
                   <div class="timeText">
-                    <div>17 Jun</div>
-                    <div>05:49AM</div>
+                    <div>20 Jul</div>
+                    <div>10:05AM</div>
                   </div>
                   <div class="timeThing">
                     <div>
-                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                      <img src="../../assets/images/dashboard/dianping.png">发表评论
                     </div>
-                    <div>李大柱</div>
-                    <div>《遇见》吉他弹唱</div>
+                    <div>赵雅</div>
+                    <div>赵雅-这也太厉害了吧!!</div>
                   </div>
                 </div>
-                <span class="circle" />
+                <span class="circle" style="border-color:#FFC400" />
               </div>
             </li>
             <li class="work">
@@ -159,15 +159,15 @@
               <div class="relative">
                 <div class="content">
                   <div class="timeText">
-                    <div>17 Jun</div>
-                    <div>05:49AM</div>
+                    <div>2 Aug</div>
+                    <div>08:07PM</div>
                   </div>
                   <div class="timeThing">
                     <div>
-                      <img src="../../assets/images/dashboard/shangke.png">上传作业
+                      <img src="../../assets/images/dashboard/zuoye.png">上传作业
                     </div>
-                    <div>李大柱</div>
-                    <div>《遇见》吉他弹唱</div>
+                    <div>李淳罡</div>
+                    <div>《忐忑》吉他弹唱</div>
                   </div>
                 </div>
                 <span class="circle" />
@@ -178,8 +178,8 @@
       </div>
       <div class="student">
         <div class="studentTitle">
-          <el-button>当天</el-button>
-          <el-button>最近七天</el-button>
+          <el-button :class="{'clickButton':SignIn == 1}" @click="singInChange(1)">当天</el-button>
+          <el-button :class="{'clickButton':SignIn == 2}" @click="singInChange(2)">最近七天</el-button>
         </div>
         <div class="studentsub">
           <div ref="student1" class="student1" />
@@ -188,7 +188,7 @@
               <div>定</div>
               <span>学员签到率</span>
             </div>
-            <div>已签到:22人</div>
+            <div>已签到:{{ studentData1 }}人</div>
             <div>总人数:100人</div>
           </div>
         </div>
@@ -199,7 +199,7 @@
               <div>定</div>
               <span>学员签到率</span>
             </div>
-            <div>已签到:22人</div>
+            <div>已签到:{{ studentData2 }}人</div>
             <div>总人数:100人</div>
           </div>
         </div>
@@ -208,9 +208,9 @@
           <div class="studentText">
             <div>
               <div>定</div>
-              <span>学员签到率</span>
+              <span>学员转化率</span>
             </div>
-            <div>已签到:22人</div>
+            <div>已转化:{{ studentData3 }}人</div>
             <div>总人数:100人</div>
           </div>
         </div>
@@ -219,7 +219,7 @@
         <div>
           <span class="title">今日授课</span>
           <span>1月1日</span>
-          <span>More ></span>
+          <span v-show="false">More ></span>
         </div>
         <div class="todayClass">
           <div>
@@ -231,12 +231,84 @@
               <div>吉他课程</div>
               <div>已结课</div>
             </div>
-            <div>教师：谢大脚</div>
+            <div>教师：隆启老师</div>
           </div>
 
           <div>
-            <div>8:00-9:00</div>
-            <div>学员：1 人</div>
+            <div>09:00-10:00</div>
+            <div>学员：5 人</div>
+          </div>
+        </div>
+        <div class="todayClass">
+          <div>
+            <img src="../../assets/images/dashboard/shangke.png" alt>
+          </div>
+          <div>
+            <div>
+              <div>定</div>
+              <div>吉他大师课</div>
+              <div style="background:#07D1AA">上课中</div>
+            </div>
+            <div>教师：枫阳老师</div>
+          </div>
+
+          <div>
+            <div>08:45-09:45</div>
+            <div>学员：9人</div>
+          </div>
+        </div>
+        <div class="todayClass">
+          <div>
+            <img src="../../assets/images/dashboard/shangke.png" alt>
+          </div>
+          <div>
+            <div>
+              <div>集</div>
+              <div>吉他大师课</div>
+              <div style="background:#F5A623">未开课</div>
+            </div>
+            <div>教师：ken老师</div>
+          </div>
+
+          <div>
+            <div>13:00-14:00</div>
+            <div>学员：10人</div>
+          </div>
+        </div>
+        <div class="todayClass">
+          <div>
+            <img src="../../assets/images/dashboard/shangke.png" alt>
+          </div>
+          <div>
+            <div>
+              <div>定</div>
+              <div>吉他大师课</div>
+              <div style="background:#F5A623">未开课</div>
+            </div>
+            <div>教师：雪儿老师</div>
+          </div>
+
+          <div>
+            <div>13:00-14:00</div>
+            <div>学员：10人</div>
+          </div>
+        </div>
+        <div class="todayClass">
+          <div>
+            <img src="../../assets/images/dashboard/shangke.png" alt>
+          </div>
+          <div>
+            <div>
+              <div>集</div>
+              <div>钢琴课</div>
+              <div style="background:#F5A623">未开课</div>
+            </div>
+            <div>教师：雪儿老师</div>
+          </div>
+
+          <div>
+            <div>15:00-17:00</div>
+            <div>学员：10人</div>
           </div>
         </div>
       </div>
@@ -244,9 +316,9 @@
     <div class="mudule3">
       <div>
         <span>授课课时</span>
-        <el-button>最近七天</el-button>
-        <el-button>最近十五天</el-button>
-        <el-button>最近三十天</el-button>
+        <el-button :class="{'clickButton':TeachingNum == 1}" @click="teachingChange(1)">最近七天</el-button>
+        <el-button :class="{'clickButton':TeachingNum == 2}" @click="teachingChange(2)">最近十五天</el-button>
+        <el-button :class="{'clickButton':TeachingNum == 3}" @click="teachingChange(3)">最近三十天</el-button>
       </div>
       <div>
         <div ref="Teaching" class="Teaching" />
@@ -260,11 +332,22 @@ import echarts from 'echarts'
 import { color } from 'echarts/lib/export'
 import { mapGetters } from 'vuex'
 export default {
+
+  data() {
+    return {
+      SignIn: 1,
+      TeachingNum: 1,
+      studentData1: 50,
+      studentDataT: 100,
+      studentData2: 69,
+      studentData3: 22,
+      TeachingD: [10, 20, 20, 34, 16, 7, 45, 15],
+      TeachingJ: [20, 23, 22, 30, 5, 14, 50, 11],
+      TeachingDay: ['1', '2', '3', '4', '5', '6', '7']
+    }
+  },
   computed: {
     ...mapGetters(['name', 'avatar', 'roles'])
-  },
-  data() {
-    return {}
   },
   mounted() {
     this.echart()
@@ -275,6 +358,7 @@ export default {
     this.student3()
     this.Teaching()
     this.teachingPie()
+    // document.getElementsByTagName('body')[0].style.zoom = 0.7
     // window.addEventListener('load', adaptation)
     // window.addEventListener('resize', adaptation)
     // function adaptation() {
@@ -341,7 +425,7 @@ export default {
             offset: 14,
             type: 'category',
             boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+            data: ['前4周', '前3周', '前2周', '前1周', '本周'],
             splitLine: {
               show: false
             },
@@ -357,8 +441,8 @@ export default {
               textStyle: {
                 color: '#AAACAE',
                 fontSize: '12'
-              },
-              interval: 2
+              }
+              // interval: 2
             }
           }
         ],
@@ -420,7 +504,7 @@ export default {
                 }
               }
             },
-            data: [20, 40, 60, 100, 120, 140, 160]
+            data: [20, 40, 60, 100, 120]
           },
           {
             name: '转化成功',
@@ -442,7 +526,7 @@ export default {
                 ])
               }
             },
-            data: [10, 30, 50, 70, 90, 110, 130]
+            data: [10, 30, 50, 70, 90]
           }
         ]
       })
@@ -695,14 +779,15 @@ export default {
     },
     student1() {
       const student1 = echarts.init(this.$refs.student1)
-      var num = 90
-      var A = 80
+
+      const total = this.studentDataT
+      const A = this.studentData1
+      const persent = parseInt((A / total) * 100)
       student1.setOption({
         title: {
-          text: A,
-          // formatter:A,
+          text: persent + '%',
           x: 'center',
-          y: 'center',
+          y: '38%',
           textStyle: {
             fontSize: 20,
             fontWeight: 'normal',
@@ -726,7 +811,7 @@ export default {
             data: [
               {
                 hoverOffset: 1,
-                value: num,
+                value: A,
                 itemStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                     { offset: 0, color: '#4AE8DD' },
@@ -741,7 +826,7 @@ export default {
                 markArea: {
                   silent: true
                 },
-                value: 100 - num,
+                value: total - A,
                 itemStyle: {
                   color: '#E8E8E8'
                 },
@@ -756,14 +841,15 @@ export default {
     },
     student2() {
       const student2 = echarts.init(this.$refs.student2)
-      var num = 90
-      var A = 80
+      const total = this.studentDataT
+      const A = this.studentData2
+      const persent = parseInt((A / total) * 100)
       student2.setOption({
         title: {
-          text: A,
+          text: persent + '%',
           // formatter:A,
           x: 'center',
-          y: 'center',
+          y: '38%',
           textStyle: {
             fontSize: 20,
             fontWeight: 'normal',
@@ -787,7 +873,7 @@ export default {
             data: [
               {
                 hoverOffset: 1,
-                value: num,
+                value: A,
                 itemStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                     { offset: 0, color: '#4AE8DD' },
@@ -802,7 +888,7 @@ export default {
                 markArea: {
                   silent: true
                 },
-                value: 100 - num,
+                value: total - A,
                 itemStyle: {
                   color: '#E8E8E8'
                 },
@@ -817,14 +903,15 @@ export default {
     },
     student3() {
       const student3 = echarts.init(this.$refs.student3)
-      var num = 90
-      var A = 80
+      const total = this.studentDataT
+      const A = this.studentData3
+      const persent = parseInt((A / total) * 100)
       student3.setOption({
         title: {
-          text: A,
+          text: persent + '%',
           // formatter:A,
           x: 'center',
-          y: 'center',
+          y: '38%',
           textStyle: {
             fontSize: 20,
             fontWeight: 'normal',
@@ -848,7 +935,7 @@ export default {
             data: [
               {
                 hoverOffset: 1,
-                value: num,
+                value: A,
                 itemStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                     { offset: 0, color: '#FF7880' },
@@ -863,7 +950,7 @@ export default {
                 markArea: {
                   silent: true
                 },
-                value: 100 - num,
+                value: total - A,
                 itemStyle: {
                   color: '#E8E8E8'
                 },
@@ -924,7 +1011,7 @@ export default {
                 }
               },
               type: 'category',
-              data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+              data: this.TeachingDay
               // axisTick: {
               //   alignWithLabel: true
               // }
@@ -959,7 +1046,7 @@ export default {
             {
               name: '定制课',
               type: 'bar',
-              barWidth: '10%',
+              barWidth: '20%',
               barGap: 0,
               itemStyle: {
                 normal: {
@@ -969,12 +1056,12 @@ export default {
                   ])
                 }
               },
-              data: [10, 20, 52, 200, 334, 390, 330, 220]
+              data: this.TeachingD
             },
             {
               name: '集体课',
               type: 'bar',
-              barWidth: '10%',
+              barWidth: '20%',
               itemStyle: {
                 normal: {
                   color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
@@ -983,7 +1070,7 @@ export default {
                   ])
                 }
               },
-              data: [10, 20, 52, 200, 334, 390, 330, 220]
+              data: this.TeachingJ
             }
           ]
         }
@@ -995,7 +1082,7 @@ export default {
         tooltip: {
           trigger: 'item',
           backgroundColor: '#488AFE',
-          formatter: '{c}',
+          formatter: '{b}' + '</br>' + '{c}',
           color: '#fff'
         },
         title: {
@@ -1057,6 +1144,40 @@ export default {
           }
         ]
       })
+    },
+    singInChange(num) {
+      this.SignIn = num
+      if (num == 2) {
+        this.studentData1 = 62
+        this.studentData2 = 70
+        this.studentData3 = 43
+      } else {
+        this.studentData1 = 50
+        this.studentData2 = 69
+        this.studentData3 = 22
+      }
+      this.student1()
+      this.student2()
+      this.student3()
+    },
+    teachingChange(num) {
+      this.TeachingNum = num
+      if (num == 1) {
+        this.TeachingD = [10, 20, 20, 34, 16, 7, 45]
+        this.TeachingJ = [20, 23, 22, 30, 5, 14, 50]
+        this.TeachingDay = ['1', '2', '3', '4', '5', '6', '7']
+      } else if (num == 2) {
+        this.TeachingD = [10, 20, 20, 34, 16, 7, 45, 15, 24, 12, 45, 14, 26, 27, 36]
+        this.TeachingJ = [20, 23, 22, 30, 5, 14, 50, 11, 14, 23, 15, 34, 30, 29, 21]
+        this.TeachingDay = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+      } else {
+        this.TeachingD = [10, 20, 20, 34, 16, 7, 45, 15, 24, 12, 45, 14, 26, 27, 36, 40, 16, 12, 36, 24, 18, 15, 7, 45, 15, 24, 12, 45, 14, 26]
+
+        this.TeachingJ = [20, 23, 22, 30, 5, 14, 50, 11, 14, 23, 15, 34, 30, 29, 21, 32, 25, 30, 41, 13, 32, 21, 14, 14, 50, 11, 14, 23, 15, 34]
+
+        this.TeachingDay = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+      }
+      this.Teaching()
     }
   }
 }
@@ -1243,11 +1364,11 @@ export default {
         border-radius: 13px;
         border: 1px solid rgba(204, 204, 204, 1);
       }
-      .studentTitle .el-button:focus {
-        color: #ffffff !important;
-        background: rgba(155, 155, 155, 1) !important;
-        border: 1px solid rgba(155, 155, 155, 1) !important;
-      }
+      // .studentTitle .el-button:focus {
+      //   color: #ffffff !important;
+      //   background: rgba(155, 155, 155, 1) !important;
+      //   border: 1px solid rgba(155, 155, 155, 1) !important;
+      // }
       .student1 {
         width: 100px;
         height: 100px;
@@ -1298,9 +1419,13 @@ export default {
         }
       }
     }
+    .today::-webkit-scrollbar{
+      display: none
+    }
     .today {
       width: 379px;
       margin-right: 0;
+      overflow-y: scroll;
       > div:nth-child(1) {
         margin-bottom: 30px;
         .title {
@@ -1402,6 +1527,7 @@ export default {
             font-weight: 400;
             color: rgba(193, 194, 198, 1);
             line-height: 17px;
+            text-align: center;
           }
         }
       }
@@ -1578,6 +1704,7 @@ export default {
   }
   > div:nth-child(2) {
     color: rgba(204, 204, 204, 1);
+    font-size: 12px;
   }
 }
 
@@ -1591,6 +1718,11 @@ export default {
 // }
 .radio:checked + .relative .circle {
   background: #f98262;
+}
+.clickButton{
+    color: #ffffff !important;
+        background: rgba(155, 155, 155, 1) !important;
+        border: 1px solid rgba(155, 155, 155, 1) !important;
 }
 // .radio:checked ~ .content {
 //   max-height: 180px;
