@@ -63,7 +63,7 @@
     <div class="right">
       <div>
         <label class="uploadLabel">教材介绍视频:</label>
-        <single-image msg="视频格式为mp4" type=".mp4" :limit="1" @files="materialVideo" />
+        <single-image msg="视频格式为mp4" type=".mp4" size="524288000" :limit="1" @files="materialVideo" />
       </div>
       <div>
         <label style="vertical-align:top">教材文字详情:</label>

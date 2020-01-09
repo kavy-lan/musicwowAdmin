@@ -69,6 +69,7 @@
         <single-image
           msg="视频格式为mp4"
           type=".mp4"
+          size="524288000"
           :limit="1"
           :filelist="materialVideoV"
           @files="materialVideo"

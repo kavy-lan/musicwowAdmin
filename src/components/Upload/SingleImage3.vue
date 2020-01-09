@@ -121,28 +121,6 @@ export default {
         })
         return false
       }
-      // if (uploadType == 'mp4') {
-      // // 获取视频时长
-      //   var url = URL.createObjectURL(res)
-      //   var audioElement = new Audio(url)
-      //   var time = this.time
-
-      //   var p = new Promise((resolve, reject) => {
-      //     audioElement.addEventListener('loadedmetadata', function(e) {
-      //       resolve(audioElement.duration) // 时长为秒，小数，182.36
-      //     })
-      //   })
-      //   const flag = p
-      //   // if (flag > time) {
-      //   //   Message({
-      //   //     message: `视频时长不能大于${time / 60} 分钟`,
-      //   //     type: 'error',
-      //   //     duration: 5 * 1000
-      //   //   })
-      //   //   return false
-      //   // }
-      //   console.log(flag)
-      // }
       const timestamp = new Date().getTime()
       const num = Math.random()
         .toString(36)
@@ -169,14 +147,15 @@ export default {
       )
       this.keybox.push({
         url: `${this.action}/${this.formdata.key}`,
-        uid: res.uid
+        uid: res.uid,
+        name: res.name
       })
     },
     success(response, file, fileList) {
       for (let i = 0; i < this.keybox.length; i++) {
         this.file.push({
           url: this.keybox[i].url,
-          name: file.name,
+          name: this.keybox[i].name,
           uid: this.keybox[i].uid,
           cover: `${this.keybox[i].url}?x-oss-process=video/snapshot,t_1,f_jpg,m_fast,ar_auto`
         })

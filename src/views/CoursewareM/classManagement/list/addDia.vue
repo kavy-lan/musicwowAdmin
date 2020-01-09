@@ -111,6 +111,7 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 type=".mp4"
                 :limit="4"
+                size="524288000"
                 label="视频素材"
                 :clear="items.clear"
                 @files="templateVideo2($event,index)"
@@ -128,7 +129,7 @@
             <div v-else>
               <single-image
                 v-if="items.show.knowledgeImage"
-                msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
+                msg="素材图片小于3M，格式为 jpg、png、gif，最多4个"
                 type=".jpg,.png,.gif"
                 size="3145728"
                 :limit="4"
@@ -138,8 +139,9 @@
               />
               <single-image
                 v-if="items.show.knowledgeVideo"
-                msg="素材视频格式为 mp4，视频最多4个"
+                msg="素材视频格式为 mp4，最多4个"
                 type=".mp4"
+                size="524288000"
                 :limit="4"
                 label="视频素材"
                 :clear="items.clear"
@@ -202,6 +204,7 @@
               msg="素材视频格式为 mp4，视频最多4个"
               label="视频素材"
               type=".mp4"
+              size="524288000"
               :limit="4"
               @files="tuozhanVideo1"
             />
@@ -252,7 +255,7 @@
                 v-if="workV1"
                 msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
-                time="300"
+                size="524288000"
                 type=".mp4"
                 :limit="1"
                 @files="homeWorkV1"
@@ -292,7 +295,7 @@
                 msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
-                time="300"
+                size="524288000"
                 :limit="1"
                 @files="homeWorkV2"
               />
@@ -397,6 +400,7 @@ export default {
       }
     },
     templateAudio1(res, index) {
+      console.log(res)
       this.Knowledge[index].audios = []
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].audios.push({
@@ -522,7 +526,6 @@ export default {
       console.log(this.Catalogue)
     },
     addA() {
-      console.log(this.afters)
       const knowledges = []
       this.Knowledge.map(item => {
         knowledges.push({

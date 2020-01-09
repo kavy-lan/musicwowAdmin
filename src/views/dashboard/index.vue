@@ -20,7 +20,9 @@
         </div>
       </div>
     </div>
+
     <div class="mudule1">
+
       <div>
         <div class="title">
           <div>快速访问</div>
@@ -61,11 +63,14 @@
           </div>
         </div>
       </div>
+
       <div>
         <div id="myChart" ref="echart" class="rate" style="width:450px;height:100%" />
         <div ref="funnel" class="funnel" style="height:100%" />
       </div>
+
     </div>
+
     <div class="mudule2">
       <div class="class">
         <div ref="pie" class="pie" style="width:100%;height:100%" />
@@ -221,94 +226,96 @@
           <span>1月1日</span>
           <span v-show="false">More ></span>
         </div>
-        <div class="todayClass">
-          <div>
-            <img src="../../assets/images/dashboard/shangke.png" alt>
-          </div>
-          <div>
+        <div>
+          <div class="todayClass">
             <div>
-              <div>定</div>
-              <div>吉他课程</div>
-              <div>已结课</div>
+              <img src="../../assets/images/dashboard/shangke.png" alt>
             </div>
-            <div>教师：隆启老师</div>
-          </div>
-
-          <div>
-            <div>09:00-10:00</div>
-            <div>学员：5 人</div>
-          </div>
-        </div>
-        <div class="todayClass">
-          <div>
-            <img src="../../assets/images/dashboard/shangke.png" alt>
-          </div>
-          <div>
             <div>
-              <div>定</div>
-              <div>吉他大师课</div>
-              <div style="background:#07D1AA">上课中</div>
+              <div>
+                <div>定</div>
+                <div>吉他课程</div>
+                <div>已结课</div>
+              </div>
+              <div>教师：隆启老师</div>
             </div>
-            <div>教师：枫阳老师</div>
-          </div>
 
-          <div>
-            <div>08:45-09:45</div>
-            <div>学员：9人</div>
-          </div>
-        </div>
-        <div class="todayClass">
-          <div>
-            <img src="../../assets/images/dashboard/shangke.png" alt>
-          </div>
-          <div>
             <div>
-              <div>集</div>
-              <div>吉他大师课</div>
-              <div style="background:#F5A623">未开课</div>
+              <div>09:00-10:00</div>
+              <div>学员：5 人</div>
             </div>
-            <div>教师：ken老师</div>
           </div>
-
-          <div>
-            <div>13:00-14:00</div>
-            <div>学员：10人</div>
-          </div>
-        </div>
-        <div class="todayClass">
-          <div>
-            <img src="../../assets/images/dashboard/shangke.png" alt>
-          </div>
-          <div>
+          <div class="todayClass">
             <div>
-              <div>定</div>
-              <div>吉他大师课</div>
-              <div style="background:#F5A623">未开课</div>
+              <img src="../../assets/images/dashboard/shangke.png" alt>
             </div>
-            <div>教师：雪儿老师</div>
-          </div>
-
-          <div>
-            <div>13:00-14:00</div>
-            <div>学员：10人</div>
-          </div>
-        </div>
-        <div class="todayClass">
-          <div>
-            <img src="../../assets/images/dashboard/shangke.png" alt>
-          </div>
-          <div>
             <div>
-              <div>集</div>
-              <div>钢琴课</div>
-              <div style="background:#F5A623">未开课</div>
+              <div>
+                <div>定</div>
+                <div>吉他大师课</div>
+                <div style="background:#07D1AA">上课中</div>
+              </div>
+              <div>教师：枫阳老师</div>
             </div>
-            <div>教师：雪儿老师</div>
-          </div>
 
-          <div>
-            <div>15:00-17:00</div>
-            <div>学员：10人</div>
+            <div>
+              <div>08:45-09:45</div>
+              <div>学员：9人</div>
+            </div>
+          </div>
+          <div class="todayClass">
+            <div>
+              <img src="../../assets/images/dashboard/shangke.png" alt>
+            </div>
+            <div>
+              <div>
+                <div>集</div>
+                <div>吉他大师课</div>
+                <div style="background:#F5A623">未开课</div>
+              </div>
+              <div>教师：ken老师</div>
+            </div>
+
+            <div>
+              <div>13:00-14:00</div>
+              <div>学员：10人</div>
+            </div>
+          </div>
+          <div class="todayClass">
+            <div>
+              <img src="../../assets/images/dashboard/shangke.png" alt>
+            </div>
+            <div>
+              <div>
+                <div>定</div>
+                <div>吉他大师课</div>
+                <div style="background:#F5A623">未开课</div>
+              </div>
+              <div>教师：雪儿老师</div>
+            </div>
+
+            <div>
+              <div>13:00-14:00</div>
+              <div>学员：10人</div>
+            </div>
+          </div>
+          <div class="todayClass">
+            <div>
+              <img src="../../assets/images/dashboard/shangke.png" alt>
+            </div>
+            <div>
+              <div>
+                <div>集</div>
+                <div>钢琴课</div>
+                <div style="background:#F5A623">未开课</div>
+              </div>
+              <div>教师：雪儿老师</div>
+            </div>
+
+            <div>
+              <div>15:00-17:00</div>
+              <div>学员：10人</div>
+            </div>
           </div>
         </div>
       </div>
@@ -358,27 +365,7 @@ export default {
     this.student3()
     this.Teaching()
     this.teachingPie()
-    // document.getElementsByTagName('body')[0].style.zoom = 0.7
-    // window.addEventListener('load', adaptation)
-    // window.addEventListener('resize', adaptation)
-    // function adaptation() {
-    //   var w = document.body.clientWidth
-    //   var h = document.body.clientHeight
-    //   var nw = 1920
-    //   var nh = 1080
-    //   var left, top, scale
-    //   if (w / h > nw / nh) {
-    //     scale = h / nh
-    //     top = 0
-    //     left = (w - nw * scale) / 2
-    //   } else {
-    //     scale = w / nw
-    //     left = 0
-    //     top = (h - nh * scale) / 2
-    //   }
-    //   document.getElementById('main').setAttribute('style', 'transform: scale(' + scale + ');left:' + left + 'px;top:' + top + 'px;')
-    // }
-    // adaptation()
+    console.log(document.body.clientWidth)
   },
   methods: {
     echart() {
@@ -1082,7 +1069,7 @@ export default {
         tooltip: {
           trigger: 'item',
           backgroundColor: '#488AFE',
-          formatter: '{b}' + '</br>' + '{c}',
+          formatter: '{b}' + ':' + '{c}' + '人',
           color: '#fff'
         },
         title: {
@@ -1182,553 +1169,7 @@ export default {
   }
 }
 </script>
+
+<style  src="../../styles/dashbord.css" scoped></style>
 <style lang='scss' scoped>
-* {
-  box-sizing: border-box;
-}
-.bigBox {
-  padding: 38px 80px 0 90px;
-  > div {
-    margin-top: 40px;
-  }
-  .userinfo {
-    padding: 35px 33px;
-    display: flex;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
-    .name {
-      > div:nth-child(1) {
-        font-size: 28px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
-        color: rgba(40, 45, 50, 1);
-        margin-bottom: 3px;
-      }
-      > div:nth-child(2) {
-        font-size: 10px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: rgba(88, 91, 99, 1);
-      }
-    }
-    .Statistics {
-      > div {
-        text-align: center;
-        display: inline-block;
-        margin-left: 80px;
-        > div:nth-child(1) {
-          font-size: 36px;
-          font-family: PingFangSC-Regular, PingFang SC;
-          font-weight: 400;
-          color: rgba(7, 209, 170, 1);
-        }
-        > div:nth-child(2) {
-          font-size: 13px;
-          font-family: PingFangSC-Regular, PingFang SC;
-          font-weight: 400;
-          color: rgba(88, 91, 99, 1);
-        }
-      }
-    }
-  }
-  .mudule1 {
-    display: flex;
-    > div {
-      padding: 32px 37px 37px 40px;
-    }
-    > div:nth-child(1) {
-      width: 607px;
-      height: 330px;
-      background: rgba(255, 255, 255, 1);
-      box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
-      .sudu {
-        display: flex;
-        flex-wrap: wrap;
-        padding-top: 36px;
-        > div {
-          width: 78px;
-          height: 78px;
-          margin-right: 32px;
-          margin-bottom: 33px;
-          padding-top: 10px;
-          background: #07d1aa;
-          cursor: pointer;
-          box-shadow: 0px 5px 10px 0px rgba(7, 194, 209, 0.3);
-          border-radius: 16px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-around;
-          > img {
-            width: 32px;
-            height: 32px;
-          }
-          > span {
-            font-size: 12px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 1);
-          }
-        }
-        > div:hover {
-          background: #0fe5bc;
-        }
-        > div:nth-child(5) {
-          margin-right: 0;
-        }
-        .xueyuan,
-        .xiaoxi {
-          background: #32c5ff;
-        }
-        .xueyuan:hover,
-        .xiaoxi:hover {
-          background: #53ceff;
-        }
-        .banji,
-        .shenpi {
-          background: #ffb940;
-        }
-        .banji:hover,
-        .shenpi:hover {
-          background: #ffc664;
-        }
-      }
-    }
-    > div:nth-child(2) {
-      flex: 1;
-      display: flex;
-      background: rgba(255, 255, 255, 1);
-      box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
-      .funnel {
-        flex: 1;
-      }
-    }
-  }
-  .mudule2 {
-    height: 304px;
-    > div {
-      background: rgba(255, 255, 255, 1);
-      box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
-      border-radius: 3px;
-      margin-right: 20px;
-      padding: 20px 11px 0 24px;
-      height: 304px;
-      // display: inline-block;
-      float: left;
-    }
-    .class {
-      width: 332px;
-    }
-    .shop {
-      width: 293px;
-      > div:nth-child(1) {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        > span:nth-child(1) {
-          font-size: 20px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: bold;
-          color: rgba(40, 45, 50, 1);
-        }
-        > span:nth-child(2) {
-          font-size: 12px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(179, 179, 179, 1);
-          cursor: pointer;
-        }
-      }
-      > div:nth-child(2) {
-        // height: 92%;
-        margin-top: 34px;
-        overflow-y: scroll;
-        height: 227px;
-      }
-      > div:nth-child(2)::-webkit-scrollbar {
-        display: none;
-      }
-    }
-    .student {
-      width: 445px;
-      .studentTitle {
-        margin-bottom: 40px;
-      }
-      .studentTitle .el-button {
-        height: 25px;
-        line-height: 25px;
-        color: #9b9b9b;
-        padding: 0 20px;
-        background: rgba(255, 255, 255, 1);
-        border-radius: 13px;
-        border: 1px solid rgba(204, 204, 204, 1);
-      }
-      // .studentTitle .el-button:focus {
-      //   color: #ffffff !important;
-      //   background: rgba(155, 155, 155, 1) !important;
-      //   border: 1px solid rgba(155, 155, 155, 1) !important;
-      // }
-      .student1 {
-        width: 100px;
-        height: 100px;
-      }
-      .studentsub {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        display: inline-block;
-        margin-right: 31px;
-        > .studentText {
-          position: absolute;
-          bottom: -80px;
-          left: 12px;
-          width: 100%;
-          > div:nth-child(1) {
-            margin-bottom: 5px;
-            div {
-              display: inline-block;
-              width: 16px;
-              height: 16px;
-              line-height: 16px;
-              text-align: center;
-              background: #76aaeb;
-              font-size: 10px;
-              font-family: PingFangSC-Medium, PingFang SC;
-              font-weight: 500;
-              color: rgba(255, 255, 255, 1);
-              margin-right: 2px;
-            }
-            > span {
-              font-size: 14px;
-              font-family: PingFangSC-Regular, PingFang SC;
-              font-weight: 400;
-              color: rgba(50, 54, 67, 1);
-              line-height: 20px;
-            }
-          }
-          > div:nth-child(2),
-          div:nth-child(3) {
-            font-size: 12px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: rgba(204, 204, 204, 1);
-            height: 17px;
-            line-height: 17px;
-          }
-        }
-      }
-    }
-    .today::-webkit-scrollbar{
-      display: none
-    }
-    .today {
-      width: 379px;
-      margin-right: 0;
-      overflow-y: scroll;
-      > div:nth-child(1) {
-        margin-bottom: 30px;
-        .title {
-          font-size: 20px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(40, 45, 50, 1);
-          display: inline-block;
-          font-weight: bold;
-        }
-        > span:nth-child(2) {
-          font-size: 12px;
-          font-family: HelveticaNeue-Medium, HelveticaNeue;
-          font-weight: 500;
-          color: rgba(204, 204, 204, 1);
-          margin-left: 12px;
-          margin-right: 158px;
-        }
-        > span:nth-child(3) {
-          font-size: 12px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(179, 179, 179, 1);
-          cursor: pointer;
-        }
-      }
-      .todayClass {
-        display: flex;
-        //  justify-content: space-between;
-        align-items: center;
-        margin-bottom: 32px;
-        > div:nth-child(1) {
-          flex: 2;
-          img {
-            width: 35px;
-            height: 36px;
-            border-radius: 50%;
-          }
-        }
-        > div:nth-child(2) {
-          flex: 6;
-          > div:nth-child(1) {
-            div {
-              display: inline-block;
-            }
-            > div:nth-child(1) {
-              width: 16px;
-              height: 16px;
-              line-height: 16px;
-              background: rgba(118, 170, 235, 1);
-              border-radius: 2px;
-              font-size: 10px;
-              font-family: PingFangSC-Medium, PingFang SC;
-              font-weight: 500;
-              color: rgba(255, 255, 255, 1);
-              text-align: center;
-            }
-            > div:nth-child(2) {
-              font-size: 14px;
-              font-family: PingFangSC-Regular, PingFang SC;
-              font-weight: 400;
-              color: rgba(88, 91, 99, 1);
-              margin-left: 2px;
-              margin-right: 14px;
-            }
-            > div:nth-child(3) {
-              flex: 2;
-              font-size: 11px;
-              font-family: PingFangSC-Regular, PingFang SC;
-              font-weight: 400;
-              color: rgba(255, 255, 255, 1);
-              padding: 1px 5px;
-              background: #c1c2c6;
-              border-radius: 5px;
-            }
-          }
-          > div:nth-child(2) {
-            font-size: 12px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: rgba(179, 179, 179, 1);
-            height: 17px;
-            line-height: 17px;
-          }
-        }
-        > div:nth-child(3) {
-          > div:nth-child(1) {
-            height: 20px;
-            font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: rgba(50, 54, 67, 1);
-            line-height: 20px;
-          }
-          > div:nth-child(2) {
-            height: 17px;
-            font-size: 12px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: rgba(193, 194, 198, 1);
-            line-height: 17px;
-            text-align: center;
-          }
-        }
-      }
-    }
-  }
-  .mudule3 {
-    padding: 36px 34px 0 34px;
-    height: 300px;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: -10px 10px 20px 0px rgba(30, 30, 30, 0.05);
-    margin-bottom: 60px;
-    > div:nth-child(1) {
-      span {
-        height: 20px;
-        font-size: 20px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: bold;
-        color: rgba(40, 45, 50, 1);
-        line-height: 20px;
-        margin-right: 25px;
-      }
-       .el-button {
-      height: 25px;
-      line-height: 25px;
-      color: #9b9b9b;
-      padding: 0 20px;
-      background: rgba(255, 255, 255, 1);
-      border-radius: 13px;
-      border: 1px solid rgba(204, 204, 204, 1);
-    }
-    .el-button:focus {
-      color: #ffffff !important;
-      background: rgba(155, 155, 155, 1) !important;
-      border: 1px solid rgba(155, 155, 155, 1) !important;
-    }
-    }
-   .Teaching{
-     width: 80%;
-     height: 207px;
-     display: inline-block;
-   }
-   .teachingPie{
-     width: 19%;
-     display:inline-block;
-     height: 207px;
-   }
-  }
-  .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    > div:nth-child(1) {
-      font-size: 20px;
-      font-family: PingFangSC-Medium, PingFang SC;
-      font-weight: 500;
-      color: rgba(40, 45, 50, 1);
-    }
-    > div:nth-child(2) {
-      font-size: 12px;
-      font-family: PingFangSC-Medium, PingFang SC;
-      font-weight: 500;
-      color: rgba(179, 179, 179, 1);
-      cursor: pointer;
-    }
-  }
-}
-.rate,
-.funnel,
-.pie {
-  display: inline-block;
-}
-#timeline {
-  list-style: none;
-  margin: 0px 0 0px 7px;
-  padding: 0;
-  border-left: 1px solid #e8e8e8;
-}
-#timeline li {
-  position: relative;
-}
-#timeline p {
-  margin: 0 0 15px;
-}
-
-.circle {
-  left: -5px;
-  width: 10px;
-  height: 10px;
-  background: #fff;
-  border: 2px solid #4880ff;
-  border-radius: 50%;
-  display: block;
-  position: absolute;
-  top: 0;
-}
-
-.content {
-  max-height: 20px;
-  padding: 62px 20px 0;
-  border-color: transparent;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 0.5em;
-  position: relative;
-}
-// .content:before, .content:after {
-//   content: "";
-//   width: 0;
-//   height: 0;
-//   border: solid transparent;
-//   position: absolute;
-//   pointer-events: none;
-//   right: 100%;
-// }
-// .content:before {
-//   border-right-color: inherit;
-//   border-width: 20px;
-//   top: 50%;
-//   margin-top: -20px;
-// }
-// .content:after {
-//   border-right-color: #48b379;
-//   border-width: 17px;
-//   top: 50%;
-//   margin-top: -17px;
-// }
-
-.timeText,
-.timeThing {
-  display: inline-block;
-  top: 0;
-}
-.timeThing {
-  position: absolute;
-  z-index: 100;
-  cursor: pointer;
-  // top: 20px;
-  left: 120px;
-  font-size: 12px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(155, 155, 155, 1);
-  > div {
-    height: 17px;
-    line-height: 17px;
-  }
-  > div:nth-child(1) {
-    img {
-      width: 11px;
-      height: 12px;
-      position: absolute;
-      left: -18px;
-    }
-  }
-  > div:nth-child(2) {
-    font-weight: 600;
-    color: rgba(74, 74, 74, 1);
-  }
-}
-.timeText {
-  position: absolute;
-  z-index: 100;
-  cursor: pointer;
-  // top: 20px;
-  left: 20px;
-  > div {
-    height: 14px;
-    line-height: 14px;
-  }
-  > div:nth-child(1) {
-    font-size: 12px;
-    font-family: HelveticaNeue;
-    color: rgba(74, 74, 74, 1);
-  }
-  > div:nth-child(2) {
-    color: rgba(204, 204, 204, 1);
-    font-size: 12px;
-  }
-}
-
-.radio {
-  display: none;
-}
-
-// .radio:checked + .relative label {
-//   cursor: auto;
-//   transform: translateX(42px);
-// }
-.radio:checked + .relative .circle {
-  background: #f98262;
-}
-.clickButton{
-    color: #ffffff !important;
-        background: rgba(155, 155, 155, 1) !important;
-        border: 1px solid rgba(155, 155, 155, 1) !important;
-}
-// .radio:checked ~ .content {
-//   max-height: 180px;
-//   border-color: #eee9dc;
-//   margin-right: 20px;
-//   transform: translateX(20px);
-//   transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
-// }
 </style>

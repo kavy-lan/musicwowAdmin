@@ -118,6 +118,7 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 label="视频素材"
                 type=".mp4"
+                size="524288000"
                 :limit="4"
                 :filelist="items.videoslist2"
                 :clear="items.clear"
@@ -151,6 +152,7 @@
                 msg="素材视频格式为 mp4，视频最多4个"
                 label="视频素材"
                 type=".mp4"
+                size="524288000"
                 :limit="4"
                 :filelist="items.videoslist1"
                 :clear="items.clear"
@@ -162,7 +164,7 @@
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
-                :filelist="items.audioslist1"
+                :filelist="items.audiolist1"
                 :clear="items.clear"
                 @files="templateAudio1($event,index)"
               />
@@ -214,6 +216,7 @@
               v-if="tuozhanVideo"
               msg="素材视频格式为 mp4，视频最多4个"
               label="视频素材"
+              size="524288000"
               type=".mp4"
               :limit="4"
               :filelist="aftersVideosList"
@@ -270,7 +273,7 @@
                 msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
-                time="300"
+                size="524288000"
                 :limit="1"
                 :filelist="workVideoList1"
                 @files="homeWorkV1"
@@ -311,7 +314,7 @@
                 msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
-                time="300"
+                size="524288000"
                 :limit="1"
                 :filelist="workVideoList2"
                 @files="homeWorkV2"
@@ -852,7 +855,7 @@ export default {
                 }, {
                   value: '2',
                   label: '模板2[交互]'
-                }], Templatevalue: knowledges[i].Templatevalue, show: knowledges[i].show, Knowledgebox1: knowledges[i].Knowledgebox1, Knowledgebox2: knowledges[i].Knowledgebox2, imageslist1: knowledges[i].imageslist1, videoslist1: knowledges[i].videoslist1, audiolist1: knowledges[i].audiolist1, imageslist2: knowledges[i].imageslist2, videoslist2: knowledges[i].videoslist2, audiolist2: knowledges[i].audioslist2, negative_imagelist: knowledges[i].negative_imagelist })
+                }], Templatevalue: knowledges[i].Templatevalue, show: knowledges[i].show, Knowledgebox1: knowledges[i].Knowledgebox1, Knowledgebox2: knowledges[i].Knowledgebox2, imageslist1: knowledges[i].imageslist1, videoslist1: knowledges[i].videoslist1, audiolist1: knowledges[i].audioslist1, imageslist2: knowledges[i].imageslist2, videoslist2: knowledges[i].videoslist2, audiolist2: knowledges[i].audioslist2, negative_imagelist: knowledges[i].negative_imagelist })
               }
               this.KnowledgeNum = this.Knowledge[this.Knowledge.length - 1].knowledge_no
             }
