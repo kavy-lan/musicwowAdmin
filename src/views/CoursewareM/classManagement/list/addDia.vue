@@ -964,5 +964,11 @@ label {
 >>>.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner{
   background: #fff !important
 }
+>>>.el-dialog__footer{
+   position: fixed;
+   left: 50%;
+   bottom: 40px;
+   transform: translateX(-50%);
+}
 </style>
 

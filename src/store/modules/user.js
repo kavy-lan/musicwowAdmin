@@ -92,16 +92,6 @@ const actions = {
             }
           }
         }
-        // const routerPach = (data) => {
-        //   data.foreach(item => {
-        //     if (item.children) {
-        //       item.children.foreach(items => {
-        //         items.component = () => import(`../../views${items.path}`)
-        //         routerPach(items.children)
-        //       })
-        //     }
-        //   })
-        // }
         routerPach(data)
         if (!data) {
           reject('Verification failed, please Login again.')

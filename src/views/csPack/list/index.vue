@@ -20,6 +20,7 @@
       <el-button type="danger" @click="resetList">重置</el-button>
     </div>
     <el-button round icon="el-icon-arrow-left" @click="back">返回上一页</el-button>
+    <el-button icon="el-icon-refresh" type="primary" @click="reload" />
     <el-button size="medium" type="primary" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
     </el-button>
@@ -62,6 +63,7 @@
       layout="prev, pager, next"
       :total="total"
       class="clearfix"
+      :current-page="currentPage"
       @current-change="nextPage"
     />
   </div>
@@ -79,6 +81,7 @@ export default {
       filters: {},
       ops: {},
       total: 0,
+      currentPage: 1,
       searchShow: false,
       somedelete: '',
       deleteShow: true,
@@ -97,7 +100,6 @@ export default {
   },
   mounted() {
     this.tableInit(1)
-    console.log(this.searchList)
   },
   methods: {
     tableInit(page, filters, ops) {
@@ -108,6 +110,7 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
+            this.currentPage = page
             this.rolesList.map(item => {
               // if (item.status == 0) {
               //   item.status = '打包失败'
@@ -131,6 +134,9 @@ export default {
             reject(error)
           })
       })
+    },
+    reload() {
+      this.tableInit(1)
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {

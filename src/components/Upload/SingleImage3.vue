@@ -97,7 +97,14 @@ export default {
       console.log(file)
     },
     before(res) {
-      console.log(this.formdata)
+      if (res.name.length > 54) {
+        Message({
+          message: '上传文件名称长度不能大于50',
+          type: 'error',
+          duration: 5 * 1000
+        })
+        return false
+      }
       if (res.size > this.size) {
         Message({
           message: '请选择正确尺寸的文件',

@@ -15,6 +15,7 @@
       <el-button type="success" @click="submitSearch">提交</el-button>
       <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
+    <el-button icon="el-icon-refresh" type="primary" @click="reload" />
     <el-button type="primary" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
       type="danger"
@@ -94,6 +95,7 @@
       layout="prev, pager, next"
       :total="total"
       class="clearfix"
+      :current-page="currentPage"
       @current-change="nextPage"
     />
     <!-- 添加课时弹窗 -->
@@ -122,6 +124,7 @@ export default {
       filters: {},
       ops: {},
       total: 0,
+      currentPage: 1,
       editId: '',
       searchShow: false,
       somedelete: '',
@@ -145,9 +148,6 @@ export default {
     // Mock: get all routes and roles list from server
   },
   mounted() {
-    // administratorsList().then(res=>{
-    //   console.log(res)
-    // })
     this.tableInit(1)
   },
   methods: {
@@ -159,6 +159,7 @@ export default {
             this.rolesList = data.list
             this.length = data.list.length
             this.total = data.total
+            this.currentPage = page
             this.rolesList.map(item => {
               if (item.status == 1) {
                 item.status = true
@@ -196,6 +197,9 @@ export default {
             reject(error)
           })
       })
+    },
+    reload() {
+      this.tableInit(1)
     },
     deleteA(row) {
       this.$confirm('确定要删除吗？', '警告', {
