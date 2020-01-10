@@ -25,7 +25,6 @@
       <div>
         <label class="uploadLabel">头像:</label>
         <single-image
-          msg="图片小于2M，格式为jpg、png(必选)"
           type=".jpg,.png"
           size="2097152"
           :limit="1"
@@ -40,6 +39,7 @@
           placeholder="请输入教材备注信息，字数最多300字内"
           class="input textarea"
           type="textarea"
+          resize="none"
           maxlength="300"
         />
       </div>

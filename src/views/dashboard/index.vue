@@ -15,7 +15,7 @@
           <div>门店教师</div>
         </div>
         <div>
-          <div>117</div>
+          <div>488</div>
           <div>门店学员</div>
         </div>
       </div>
@@ -95,8 +95,66 @@
                     <div>
                       <img src="../../assets/images/dashboard/zuoye.png">上传作业
                     </div>
-                    <div>春娇</div>
+                    <div>谢政烨</div>
                     <div>《遇见》吉他弹唱</div>
+                  </div>
+                </div>
+                <span class="circle" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work5" class="radio" name="works" type="radio" checked>
+
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>08:49PM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/zuoye.png">上传作业
+                    </div>
+                    <div>卢柏桥</div>
+                    <div>《安河桥》吉他弹唱</div>
+                  </div>
+                </div>
+                <span class="circle" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work5" class="radio" name="works" type="radio" checked>
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>08:00PM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/zuoye.png">上传作业
+                    </div>
+                    <div>朱君浩</div>
+                    <div>《童话镇》吉他弹唱</div>
+                  </div>
+                </div>
+                <span class="circle" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work5" class="radio" name="works" type="radio" checked>
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>17 Jun</div>
+                    <div>09:05AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/zuoye.png">上传作业
+                    </div>
+                    <div>黄智远</div>
+                    <div>《神话》吉他弹唱</div>
                   </div>
                 </div>
                 <span class="circle" />
@@ -114,7 +172,45 @@
                     <div>
                       <img src="../../assets/images/dashboard/shangke.png">签到
                     </div>
-                    <div>志明</div>
+                    <div>赵康乐</div>
+                    <div>吉他-基础课时</div>
+                  </div>
+                </div>
+                <span class="circle" style="border-color:#24CCB8" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work4" class="radio" name="works" type="radio">
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>26 Jun</div>
+                    <div>09:00AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">签到
+                    </div>
+                    <div>卢柏桥</div>
+                    <div>吉他-基础课时</div>
+                  </div>
+                </div>
+                <span class="circle" style="border-color:#24CCB8" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work4" class="radio" name="works" type="radio">
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>26 Jun</div>
+                    <div>09:00AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/shangke.png">签到
+                    </div>
+                    <div>谢政烨</div>
                     <div>吉他-基础课时</div>
                   </div>
                 </div>
@@ -133,7 +229,7 @@
                     <div>
                       <img src="../../assets/images/dashboard/qingjia.png">请假
                     </div>
-                    <div>李龙</div>
+                    <div>郭欣玥</div>
                     <div>钢琴-大师课</div>
                   </div>
                 </div>
@@ -146,7 +242,7 @@
                 <div class="content">
                   <div class="timeText">
                     <div>20 Jul</div>
-                    <div>10:05AM</div>
+                    <div>10:30AM</div>
                   </div>
                   <div class="timeThing">
                     <div>
@@ -154,6 +250,44 @@
                     </div>
                     <div>赵雅</div>
                     <div>赵雅-这也太厉害了吧!!</div>
+                  </div>
+                </div>
+                <span class="circle" style="border-color:#FFC400" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work2" class="radio" name="works" type="radio">
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>20 Jul</div>
+                    <div>09:30AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/dianping.png">发表评论
+                    </div>
+                    <div>何理乐</div>
+                    <div>何理乐-很动人</div>
+                  </div>
+                </div>
+                <span class="circle" style="border-color:#FFC400" />
+              </div>
+            </li>
+            <li class="work">
+              <input id="work2" class="radio" name="works" type="radio">
+              <div class="relative">
+                <div class="content">
+                  <div class="timeText">
+                    <div>20 Jul</div>
+                    <div>11:00AM</div>
+                  </div>
+                  <div class="timeThing">
+                    <div>
+                      <img src="../../assets/images/dashboard/dianping.png">发表评论
+                    </div>
+                    <div>杨杨</div>
+                    <div>杨杨-今天要加倍努力了</div>
                   </div>
                 </div>
                 <span class="circle" style="border-color:#FFC400" />
@@ -171,7 +305,7 @@
                     <div>
                       <img src="../../assets/images/dashboard/zuoye.png">上传作业
                     </div>
-                    <div>李淳罡</div>
+                    <div>胡峥</div>
                     <div>《忐忑》吉他弹唱</div>
                   </div>
                 </div>
@@ -201,7 +335,7 @@
           <div ref="student2" class="student1" />
           <div class="studentText">
             <div>
-              <div>定</div>
+              <div>集</div>
               <span>学员签到率</span>
             </div>
             <div>已签到:{{ studentData2 }}人</div>
@@ -212,7 +346,6 @@
           <div ref="student3" class="student1" />
           <div class="studentText">
             <div>
-              <div>定</div>
               <span>学员转化率</span>
             </div>
             <div>已转化:{{ studentData3 }}人</div>
@@ -237,7 +370,7 @@
                 <div>吉他课程</div>
                 <div>已结课</div>
               </div>
-              <div>教师：隆启老师</div>
+              <div>教师：胡文健老师</div>
             </div>
 
             <div>
@@ -255,7 +388,7 @@
                 <div>吉他大师课</div>
                 <div style="background:#07D1AA">上课中</div>
               </div>
-              <div>教师：枫阳老师</div>
+              <div>教师：李聪老师</div>
             </div>
 
             <div>
@@ -273,7 +406,7 @@
                 <div>吉他大师课</div>
                 <div style="background:#F5A623">未开课</div>
               </div>
-              <div>教师：ken老师</div>
+              <div>教师：吴梓豪老师</div>
             </div>
 
             <div>
@@ -632,13 +765,14 @@ export default {
     },
     pie() {
       var data = [
+        { value: 1548, name: '民谣吉他课程' },
+        { value: 1548, name: '尤克里里课程' },
         { value: 335, name: '爵士鼓课程' },
         { value: 310, name: '声乐课程' },
         { value: 234, name: '钢琴课程' },
         { value: 135, name: '电吉他课程' },
-        { value: 1548, name: '民谣吉他课程' },
-        { value: 135, name: '非洲鼓课程' },
-        { value: 1548, name: '尤克里里课程' }
+        { value: 135, name: '非洲鼓课程' }
+
       ]
       const pie = echarts.init(this.$refs.pie)
       pie.setOption({
@@ -684,13 +818,14 @@ export default {
           itemHeight: 4,
           itemGap: 2,
           data: [
+            '民谣吉他课程',
+            '尤克里里课程',
             '爵士鼓课程',
             '声乐课程',
             '钢琴课程',
             '电吉他课程',
-            '民谣吉他课程',
-            '非洲鼓课程',
-            '尤克里里课程'
+            '非洲鼓课程'
+
           ],
           formatter: function(name) {
             var total = 0
@@ -1115,13 +1250,13 @@ export default {
               }
             },
             data: [
-              { value: 335, name: '定制班', itemStyle: {
+              { value: 271, name: '定制班', itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
                   { offset: 0, color: '#D8C5F3' },
                   { offset: 1, color: '#B093E4' }
                 ])
               }},
-              { value: 310, name: '集体班', itemStyle: {
+              { value: 117, name: '集体班', itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
                   { offset: 0, color: '#9ACBFF' },
                   { offset: 1, color: '#76AAEB' }

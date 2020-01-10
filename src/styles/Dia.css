@@ -4,14 +4,15 @@
 }
 
 .left {
-  margin-left: 60px;
-  margin-right: 332px;
+  /* margin-left: 60px; */
+  /* margin-right: 332px; */
 }
 
 .left,
 .right {
   display: inline-block;
-  width: 530px;
+  /* width: 530px; */
+  /* width: 49%; */
   height: 100%;
   vertical-align: top;
 }
@@ -178,5 +179,22 @@
    position: fixed;
    left: 50%;
    bottom: 40px;
-   transform: translateX(-50%);
+}
+>>>.el-dialog__header{
+  padding: 10px;
+}
+>>>.el-dialog__headerbtn{
+   top: 15px;
+}
+.uploadText{
+  text-align: center;
+  color: orange;
+  margin-bottom: 12px;
+}
+@media screen and (min-width: 1900px) {
+  .left {
+    margin-left: 131px;
+    margin-right: 165px;
+    /* width: 530px; */
+  }
 }

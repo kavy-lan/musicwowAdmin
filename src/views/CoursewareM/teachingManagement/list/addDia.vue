@@ -9,6 +9,9 @@
     :close-on-click-modal="false"
     :before-close="handleClose"
   >
+    <div class="uploadText">
+      图片小于 2M/张，视频MP4小于 500M/个，音频MP3小于 20M/个
+    </div>
     <div class="left">
       <div>
         <label>教材名称:</label>
@@ -22,7 +25,6 @@
       <div>
         <label class="uploadLabel">教材封面:</label>
         <single-image
-          msg="图片小于2M，格式为jpg、png"
           size="2097152"
           type=".jpg,.png"
           :limit="1"
@@ -32,7 +34,6 @@
       <div>
         <label class="uploadLabel">教材课时封面:</label>
         <single-image
-          msg="图片小于2M，格式为jpg、png"
           type=".jpg,.png"
           size="2097152"
           :limit="1"
@@ -42,10 +43,9 @@
       <div>
         <label class="uploadLabel">乐器图标:</label>
         <single-image
-          msg="图片尺寸120x120并小于1M，格式为png"
           type=".png"
           :limit="1"
-          size="1048576"
+          size="2097152"
           @files="icon"
         />
       </div>
@@ -56,6 +56,7 @@
           placeholder="请输入教材目标，字数最多100字内"
           class="input "
           type="textarea"
+          resize="none"
           maxlength="100"
         />
       </div>
@@ -63,7 +64,7 @@
     <div class="right">
       <div>
         <label class="uploadLabel">教材介绍视频:</label>
-        <single-image msg="视频格式为mp4" type=".mp4" size="524288000" :limit="1" @files="materialVideo" />
+        <single-image type=".mp4" size="524288000" :limit="1" @files="materialVideo" />
       </div>
       <div>
         <label style="vertical-align:top">教材文字详情:</label>
@@ -72,13 +73,14 @@
           placeholder="请输入教材文字详情，字数最多300字内"
           class="input textarea"
           type="textarea"
+          resize="none"
           maxlength="300"
         />
       </div>
       <div>
         <label class="uploadLabel">教材详情图:</label>
         <single-image
-          msg="图片小于2M，格式为jpg、png"
+          msg="最多6张"
           type=".jpg,.png"
           size="2097152"
           :limit="6"
@@ -290,4 +292,8 @@ export default {
 }
 </script>
  <style  src="../../../../styles/Dia.css" scoped></style>
-
+<style lang="scss" scoped>
+ .materialCatalogue{
+   display: block
+ }
+</style>

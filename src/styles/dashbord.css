@@ -109,6 +109,7 @@
   }
   .bigBox .mudule1 > div:nth-child(2) .funnel {
     flex: 1;
+    margin-left: 25px;
   }
   .bigBox .mudule2 > div {
     background: white;

@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="授权用户"
+    title="添加授权用户"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"
@@ -9,6 +9,9 @@
     :close-on-click-modal="false"
     :before-close="handleClose"
   >
+    <div class="uploadText">
+      图片小于 2M/张，视频MP4小于 500M/个，音频MP3小于 20M/个
+    </div>
     <div class="left">
       <div>
         <label>用户名:</label>
@@ -29,9 +32,8 @@
       <div>
         <label class="uploadLabel">用户头像:</label>
         <single-image
-          msg="图片小于1M，格式为jpg、png(必选)"
           type=".jpg,.png"
-          size="1048576"
+          size="2097152"
           :limit="1"
           @files="file"
         />
@@ -44,6 +46,7 @@
           class="input textarea"
           type="textarea"
           maxlength="300"
+          resize="none"
         />
       </div>
     </div>

@@ -9,6 +9,9 @@
     :close-on-click-modal="false"
     :before-close="handleClose"
   >
+    <div class="uploadText">
+      图片小于 2M/张，视频MP4小于 500M/个，音频MP3小于 20M/个
+    </div>
     <div class="left">
       <div>
         <label>教材目录：</label>
@@ -93,10 +96,9 @@
             <div v-if="items.template_type ==2">
               <single-image
                 v-if="items.show.baseImage"
-                msg="素材图片小于3M，格式为 jpg、png、gif，图片最多1个"
                 label="底图素材"
                 type=".jpg,.png,.gif"
-                size="3145728"
+                size="2097152"
                 :limit="1"
                 :filelist="items.negative_imagelist"
                 :clear="items.clear"
@@ -104,10 +106,10 @@
               />
               <single-image
                 v-if="items.show.otherImage"
-                msg="素材图片小于1M，格式为 jpg、png、gif，图片最多7个"
+                msg="最多7张"
                 label="其他素材"
                 type=".jpg,.png,.gif"
-                size="1048576"
+                size="2097152"
                 :limit="7"
                 :filelist="items.imageslist2"
                 :clear="items.clear"
@@ -115,7 +117,7 @@
               />
               <single-image
                 v-if="items.show.knowledgeVideo"
-                msg="素材视频格式为 mp4，视频最多4个"
+                msg="最多4个"
                 label="视频素材"
                 type=".mp4"
                 size="524288000"
@@ -126,7 +128,7 @@
               />
               <single-image
                 v-if="items.show.knowledgeAudio"
-                msg="素材音频格式为 mp3，音频最多4个"
+                msg="最多4个"
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
@@ -138,10 +140,10 @@
             <div v-else>
               <single-image
                 v-if="items.show.knowledgeImage"
-                msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
+                msg="最多4张"
                 label="图片素材"
                 type=".jpg,.png,.gif"
-                size="3145728"
+                size="2097152"
                 :limit="4"
                 :filelist="items.imageslist1"
                 :clear="items.clear"
@@ -149,7 +151,7 @@
               />
               <single-image
                 v-if="items.show.knowledgeVideo"
-                msg="素材视频格式为 mp4，视频最多4个"
+                msg="最多4个"
                 label="视频素材"
                 type=".mp4"
                 size="524288000"
@@ -160,7 +162,7 @@
               />
               <single-image
                 v-if="items.show.knowledgeAudio"
-                msg="素材音频格式为 mp3，音频最多4个"
+                msg="最多4个"
                 label="音频素材"
                 type=".mp3"
                 :limit="4"
@@ -204,17 +206,17 @@
           <div>
             <single-image
               v-if="tuozhanImage"
-              msg="素材图片小于3M，格式为 jpg、png、gif，图片最多4个"
+              msg="最多4张"
               label="图片素材"
               type=".jpg,.png,.gif"
-              size="3145728"
+              size="2097152"
               :limit="4"
               :filelist="aftersImagesList"
               @files="tuozhanImage1"
             />
             <single-image
               v-if="tuozhanVideo"
-              msg="素材视频格式为 mp4，视频最多4个"
+              msg="最多4个"
               label="视频素材"
               size="524288000"
               type=".mp4"
@@ -225,7 +227,7 @@
             />
             <single-image
               v-if="tuozhanAudio"
-              msg="素材音频格式为 mp3，音频最多4个"
+              msg="最多4个"
               label="音频素材"
               type=".mp3"
               :limit="4"
@@ -256,11 +258,12 @@
                 class="input"
                 maxlength="300"
                 type="textarea"
+                resize="none"
                 style="margin-bottom:13px"
               />
               <single-image
                 v-if="workI1"
-                msg="素材图片小于2M，格式为 jpg、png，图片最多5个"
+                msg="最多5张"
                 label="图片素材"
                 size="2097152"
                 type=".jpg,.png"
@@ -270,7 +273,6 @@
               />
               <single-image
                 v-if="workV1"
-                msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
                 size="524288000"
@@ -297,11 +299,12 @@
                 class="input"
                 maxlength="300"
                 type="textarea"
+                resize="none"
                 style="margin-bottom:13px"
               />
               <single-image
                 v-if="workI2"
-                msg="素材图片小于2M，格式为 jpg、png，图片最多5个"
+                msg="最多5张"
                 label="图片素材"
                 type=".jpg,.png"
                 size="2097152"
@@ -311,7 +314,6 @@
               />
               <single-image
                 v-if="workV2"
-                msg="素材视频小于五分钟,格式为 mp4，视频最多1个"
                 label="视频素材"
                 type=".mp4"
                 size="524288000"
@@ -1012,8 +1014,8 @@ export default {
   height: 100%;
 }
 .left {
-  margin-left: 60px;
-  margin-right: 190px;
+  // margin-left: 60px;
+  // margin-right: 190px;
   .className {
     .input:nth-child(1) {
       width: 92px;
@@ -1027,13 +1029,14 @@ export default {
 .left,
 .right {
   display: inline-block;
-  width: 646px;
+  // width: 646px;
+  // width: 49%;
   height: 100%;
   vertical-align: top;
   > div {
     margin-bottom: 40px;
     line-height: 100%;
-    display: inline-block;
+    // display: inline-block;
   }
   .c_right {
     display: inline-block;
@@ -1192,6 +1195,23 @@ label {
    position: fixed;
    left: 50%;
    bottom: 40px;
-   transform: translateX(-50%);
+}
+>>>.el-dialog__header{
+  padding: 10px;
+}
+>>>.el-dialog__headerbtn{
+   top: 15px;
+}
+.uploadText{
+  text-align: center;
+  color: orange;
+  margin-bottom: 12px;
+}
+@media screen and (min-width: 1900px) {
+  .left {
+    margin-left: 131px;
+    margin-right: 165px;
+    // width: 530px;
+  }
 }
 </style>

@@ -197,7 +197,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .el-upload__tip {
-  font-size: 15px;
+  font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(179, 179, 179, 1);

@@ -20,6 +20,7 @@
         placeholder="请输入角色备注信息，字数最多300字内"
         class="input textarea"
         type="textarea"
+        resize="none"
         maxlength="300"
       />
     </div>
