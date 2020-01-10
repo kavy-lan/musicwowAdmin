@@ -2,7 +2,7 @@
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-input v-model="search" placeholder="搜索菜单..." class="input" @input="searchMemu" />
+      <el-input v-show="!isCollapse" v-model="search" placeholder="搜索菜单..." class="input" @input="searchMemu" />
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"

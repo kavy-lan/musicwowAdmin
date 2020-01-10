@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <div v-if="searchShow" class="search">
-      <div v-for="(item, index) in inputSearch" :key="item.name">
+      <!-- <div v-for="(item, index) in inputSearch" :key="item.name">
         <label>{{ item.label }}</label>
         <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
-      </div>
+      </div> -->
       <div v-for="(item, index) in seleteSearch" :key="index">
         <label>{{ item.label }}</label>
         <el-select v-model="item.value" placeholder="请选择" clearable filterable @change="seleteChange" @clear="clearSelete(index)">
@@ -30,7 +30,7 @@
       :disabled="deleteShow"
       @click="someDelete"
     >删除</el-button>
-    <el-button size="medium" type="info" style="float:right" @click="searchShow = !searchShow">
+    <el-button size="medium" type="primary" style="float:right" @click="searchShow = !searchShow">
       <svg-icon class-name="search-icon" icon-class="search" />
     </el-button>
     <el-table
@@ -130,9 +130,9 @@ export default {
       searchModel: false,
       seleteSearch: [
         { label: '课时编号:', value: '', name: 'class_no', ops: '=', array: [] },
-        { label: '所属目录:', value: '', name: 'directory', ops: '=', array: [] }
-      ],
-      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }]
+        { label: '所属目录:', value: '', name: 'directory', ops: '%*%', array: [] },
+        { label: '课时名称:', value: '', name: 'title', ops: '%*%', array: [] }
+      ]
     }
   },
   computed: {
@@ -173,8 +173,10 @@ export default {
                 res.data.list.map(item => {
                   this.seleteSearch[0].array.push(String(item.class_no))
                   this.seleteSearch[1].array.push(String(item.directory.title))
+                  this.seleteSearch[2].array.push(String(item.title))
                   this.seleteSearch[0].array = [...new Set(this.seleteSearch[0].array)]
                   this.seleteSearch[1].array = [...new Set(this.seleteSearch[1].array)]
+                  this.seleteSearch[2].array = [...new Set(this.seleteSearch[2].array)]
                 })
               })
             })
@@ -321,7 +323,6 @@ export default {
       this.seleteSearch.map(item => {
         item.value = ''
       })
-      this.inputSearch[0].value = ''
       this.tableInit(this.bookID, 1)
       this.searchModel = false
     },

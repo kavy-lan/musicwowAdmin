@@ -805,7 +805,7 @@ export default {
 .left,
 .right {
   display: inline-block;
-  // width: 49%;
+  width: 49%;
   height: 100%;
   vertical-align: top;
   > div {
@@ -968,8 +968,10 @@ label {
 }
 >>>.el-dialog__footer{
    position: fixed;
-   left: 50%;
-   bottom: 40px;
+   bottom: 0;
+   width: 88.17%;
+   background: #EBEBEB;
+   padding: 10px;
 
 }
 >>>.el-dialog__header{
@@ -987,6 +989,7 @@ label {
   .left {
     margin-left: 131px;
     margin-right: 165px;
+    width: inherit
     // width: 530px;
   }
 }

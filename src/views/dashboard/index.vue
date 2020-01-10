@@ -324,7 +324,7 @@
           <div ref="student1" class="student1" />
           <div class="studentText">
             <div>
-              <div>定</div>
+              <div style="background:#B093E4">定</div>
               <span>学员签到率</span>
             </div>
             <div>已签到:{{ studentData1 }}人</div>
@@ -366,7 +366,7 @@
             </div>
             <div>
               <div>
-                <div>定</div>
+                <div style="background:#B093E4">定</div>
                 <div>吉他课程</div>
                 <div>已结课</div>
               </div>
@@ -384,7 +384,7 @@
             </div>
             <div>
               <div>
-                <div>定</div>
+                <div style="background:#B093E4">定</div>
                 <div>吉他大师课</div>
                 <div style="background:#07D1AA">上课中</div>
               </div>
@@ -420,7 +420,7 @@
             </div>
             <div>
               <div>
-                <div>定</div>
+                <div style="background:#B093E4">定</div>
                 <div>吉他大师课</div>
                 <div style="background:#F5A623">未开课</div>
               </div>
