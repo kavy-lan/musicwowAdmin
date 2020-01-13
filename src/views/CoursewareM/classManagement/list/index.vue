@@ -314,8 +314,6 @@ export default {
       delete this.ops[this.seleteSearch[index].name]
     },
     submitSearch() {
-      // this.filters = JSON.stringify(this.filters)
-      // this.ops = JSON.stringify(this.ops)
       this.tableInit(this.bookID, 1, this.filters, this.ops)
       this.searchModel = true
     },
@@ -323,6 +321,8 @@ export default {
       this.seleteSearch.map(item => {
         item.value = ''
       })
+      this.filters = {}
+      this.ops = {}
       this.tableInit(this.bookID, 1)
       this.searchModel = false
     },

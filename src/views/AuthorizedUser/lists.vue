@@ -299,6 +299,8 @@ export default {
       this.seleteSearch.map(item => {
         item.value = ''
       })
+      this.filters = {}
+      this.ops = {}
       this.tableInit(1)
       this.searchModel = false
     }
