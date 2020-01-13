@@ -210,7 +210,6 @@ export default {
       this.$emit('close', false)
     },
     file(res) {
-      console.log(res)
     },
     handleClose() {
       this.$emit('close', false)
@@ -275,7 +274,6 @@ export default {
       return new Promise((resolve, reject) => {
         teachingManagementDetail(id)
           .then(res => {
-            console.log(res)
             if (res.error_code == 0) {
               this.detailMsg = res.data
               this.materialCoverI = [{ url: this.detailMsg.cover }]
@@ -304,11 +302,6 @@ export default {
           title: ''
         })
       }
-      // this.detailMsg.directory_list.push({
-      //   directory_no: '',
-      //   title: ''
-      // })
-      console.log(this.Catalogue)
     }
   }
 }
@@ -318,135 +311,4 @@ export default {
  .materialCatalogue{
    display: block
  }
-// .el-dialog__wrapper {
-//   position: absolute;
-//   height: 100%;
-// }
-// .left {
-//   margin-left: 60px;
-//   margin-right: 332px;
-// }
-// .left,
-// .right {
-//   display: inline-block;
-//   width: 530px;
-//   height: 100%;
-//   vertical-align: top;
-//   > div {
-//     margin-bottom: 40px;
-//     line-height: 100%;
-//   }
-//   .input {
-//     width: 400px;
-//     //  background:rgba(235,235,235,1)
-//     border-radius: 6px;
-//     font-size: 15px;
-//     font-family: PingFangSC-Regular, PingFang SC;
-//     font-weight: 400;
-//   }
-//   >>> label:not(.el-upload-list__item-status-label) {
-//     font-size: 15px;
-//     font-family: PingFangSC-Regular, PingFang SC;
-//     font-weight: 400;
-//     color: rgba(88, 91, 99, 1);
-//     margin-right: 15px;
-//     display: inline-block;
-//     width: 100px;
-//     text-align: left;
-//   }
-// }
-// >>> .el-dialog {
-//   top: 0;
-//   bottom: 0;
-//   position: absolute;
-//   overflow: scroll;
-// }
-// >>> .el-input__inner,
-// >>> .el-input__inner::placeholder {
-//   background: #EBEBEB;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: #c1c2c6;
-// }
-// >>> .el-textarea__inner {
-//   background: #EBEBEB;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: #c1c2c6;
-//   min-height: 232px !important;
-// }
-// >>> .Target .el-textarea__inner {
-//   min-height: 232px !important;
-// }
-// >>> .el-textarea__inner:focus,
-// >>> .el-input__inner:focus {
-//   border-color: #07d1aa;
-// }
-// >>> .el-radio__input.is-checked + .el-radio__label {
-//   color: #585b63;
-// }
-// >>> .el-radio__input.is-checked .el-radio__inner {
-//   background: #07d1aa;
-//   border-color: #d9d9d9;
-// }
-// >>> .el-radio {
-//   display: block;
-// }
-// >>> .el-radio:nth-child(1) {
-//   margin-bottom: 40px;
-// }
-// .allCatalogue div,
-// .oneCatalogue > .No {
-//   width: 50px;
-//   height: 40px;
-//   background: rgba(235, 235, 235, 1);
-//   border-radius: 6px;
-//   border: 1px solid rgba(217, 217, 217, 1);
-//   line-height: 40px;
-// }
-// .oneCatalogue >.No >>>.el-input__inner{
-//   padding: 0;
-//   text-align: center;
-//   border: none
-// }
-// .allCatalogue {
-//   width: 200px;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: rgba(88, 91, 99, 1);
-//   height: 40px;
-//   line-height: 40px;
-//   span {
-//     vertical-align: top;
-//   }
-// }
-// .allCatalogue,
-// .oneCatalogue > div:nth-child(2),
-// .allCatalogue div {
-//   display: inline-block;
-// }
-// .materialCatalogue {
-//   display: inline-block;
-//   margin-left: 115px;
-// }
-// .oneCatalogue {
-//   margin-top: 15px;
-//   margin-left: 30px;
-//   margin-bottom: 15px;
-//   width: 526px;
-//   height: 40px;
-//   > .input {
-//     vertical-align: middle;
-//     margin-left: 15px;
-//   }
-// }
-// .laji{
-//   font-size: 20px;
-//   vertical-align: middle;
-//   cursor: pointer;
-// }
-
 </style>

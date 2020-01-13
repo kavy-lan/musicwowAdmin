@@ -185,9 +185,6 @@ export default {
       this.$emit('close', false)
     },
     file(res) {
-      console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     handleClose() {
       this.$emit('close', false)
@@ -230,14 +227,9 @@ export default {
           title: ''
         })
       }
-      // this.Catalogue.push({
-      //   directory_no: '',
-      //   title: ''
-      // })
     },
     deleCatalogue(index) {
       this.Catalogue.splice(index, 1)
-      console.log(this.Catalogue)
     },
     radioChange(res) {
       if (res == 1) {
@@ -274,7 +266,6 @@ export default {
       }
       addteachingManagement(params)
         .then(res => {
-          console.log(res)
           if (res.error_code == 0) {
             Message({
               message: '添加成功',

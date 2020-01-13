@@ -147,7 +147,6 @@ export default {
     const that = this
     that.bookID = this.$route.query.id
     that.tableInit(this.bookID, 1)
-    console.log(this.searchList)
   },
   methods: {
     tableInit(bookID, page, filters, ops) {
@@ -198,7 +197,6 @@ export default {
           return new Promise((resolve, reject) => {
             deleteclassManagementList(row.id)
               .then(res => {
-                console.log(res)
                 if (res.error_code == 0) {
                   Message({
                     message: '删除成功',
@@ -248,7 +246,6 @@ export default {
       }
     },
     handleChange(e) {
-      console.log(e)
     },
     handleSelectionChange(row) {
       if (row.length > 0) {
@@ -267,7 +264,6 @@ export default {
       }
     },
     getValue() {
-      console.log(this.test)
     },
     nextPage(val) {
       if (this.searchModel) {

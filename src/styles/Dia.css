@@ -183,6 +183,9 @@
    background: #EBEBEB;
    padding: 10px;
 }
+>>>.el-dialog__body{
+  margin-bottom: 56px;
+}
 >>>.el-dialog__header{
   padding: 10px;
 }

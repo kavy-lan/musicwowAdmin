@@ -984,6 +984,14 @@ label {
   text-align: center;
   color: orange;
   margin-bottom: 12px;
+  display: block
+}
+
+>>>.upload-demo .el-upload-list {
+  width: 400px;
+}
+>>>.el-dialog__body{
+  margin-bottom: 56px;
 }
 @media screen and (min-width: 1900px) {
   .left {

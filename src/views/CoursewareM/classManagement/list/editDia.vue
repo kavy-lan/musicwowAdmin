@@ -413,7 +413,6 @@ export default {
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].images += `${res[i].url},`
       }
-      // console.log(this.Knowledge[index].images.length)
       this.Knowledge[index].images = this.Knowledge[index].images.substring(0, this.Knowledge[index].images.length - 1)
     },
     templateVideo1(res, index) {
@@ -492,7 +491,6 @@ export default {
     },
     homeWorkV1(res) {
       this.works1videos = res[0].url
-      console.log(this.works1)
     },
     homeWorkV2(res) {
       this.works2videos = res[0].url
@@ -510,8 +508,6 @@ export default {
           title: ''
         })
       }
-
-      console.log(this.Catalogue)
     },
     deleCatalogue(index) {
       this.Catalogue.splice(index, 1)
@@ -1208,6 +1204,12 @@ label {
   text-align: center;
   color: orange;
   margin-bottom: 12px;
+}
+>>>.upload-demo .el-upload-list {
+  width: 400px;
+}
+>>>.el-dialog__body{
+  margin-bottom: 56px;
 }
 @media screen and (min-width: 1900px) {
   .left {

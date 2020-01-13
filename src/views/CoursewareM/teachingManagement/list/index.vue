@@ -210,7 +210,6 @@ export default {
           return new Promise((resolve, reject) => {
             deleteteachingManagement(row.id)
               .then(res => {
-                console.log(res)
                 if (res.error_code == 0) {
                   Message({
                     message: '删除成功',
@@ -263,7 +262,6 @@ export default {
       }
     },
     handleChange(e) {
-      console.log(e)
     },
     handleSelectionChange(row) {
       if (row.length > 0) {
@@ -282,7 +280,6 @@ export default {
       }
     },
     getValue() {
-      console.log(this.test)
     },
     nextPage(val) {
       if (this.searchModel) {
@@ -317,7 +314,6 @@ export default {
       delete this.ops[this.seleteSearch[index].name]
     },
     submitSearch() {
-      console.log(this.seleteSearch)
       this.tableInit(1, this.filters, this.ops)
       this.searchModel = true
     },

@@ -3,7 +3,7 @@
     <div class="userinfo">
       <div class="name">
         <div>您好，{{ name }}，祝你开心每一天！</div>
-        <div>音乐窝佛山三水店 | 广东省佛山市海南区 - 详细的街道名称以及门牌号名称</div>
+        <div>音乐窝佛山三水店 | 广东省佛山市南海区 - 详细的街道名称以及门牌号名称</div>
       </div>
       <div class="Statistics">
         <div>
