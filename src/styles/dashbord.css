@@ -477,7 +477,7 @@
     display: none;
   }
   .radio:checked + .relative .circle {
-    background: #f98262;
+    /* background: #f98262; */
   }
   .clickButton {
     color: #ffffff !important;
@@ -972,7 +972,7 @@
     display: none;
   }
   .radio:checked + .relative .circle {
-    background: #f98262;
+    /* background: #f98262; */
   }
   .clickButton {
     color: #ffffff !important;

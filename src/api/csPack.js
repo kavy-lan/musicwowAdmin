@@ -23,3 +23,10 @@ export function csPackDetail(lot_no, page, filters, ops) {
     }
   })
 }
+export function csPackDelete(id) {
+  return request({
+    url: `cs/pack`,
+    method: 'delete',
+    params: { ids: id }
+  })
+}

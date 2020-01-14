@@ -1,13 +1,9 @@
 <template>
   <div class="app-container">
     <div v-if="searchShow" class="search">
-      <div v-for="(item, index) in inputSearch" :key="item.name">
-        <label>{{ item.label }}</label>
-        <el-input v-model="item.value" placeholder="请输入内容" class="input" @input="six" />
-      </div>
       <div v-for="(item, index) in seleteSearch" :key="index">
         <label>{{ item.label }}</label>
-        <el-select v-model="item.value" placeholder="请选择" clearable @change="seleteChange" @clear="clearSelete(index)">
+        <el-select v-model="item.value" placeholder="请选择" clearable filterable @change="seleteChange" @clear="clearSelete(index)">
           <el-option
             v-for="(items,indexs) in item.array"
             :key="indexs"
@@ -17,10 +13,10 @@
         </el-select>
       </div>
       <el-button type="success" @click="submitSearch">提交</el-button>
-      <el-button type="danger" @click="resetList">重置</el-button>
+      <el-button type="danger" @click="resetSearch">重置</el-button>
     </div>
-    <el-button round icon="el-icon-arrow-left" @click="back">返回上一页</el-button>
     <el-button icon="el-icon-refresh" type="primary" @click="reload" />
+    <el-button type="success" icon="el-icon-upload2" size="medium" @click="dialogVisible = true">添加</el-button>
     <el-button
       type="danger"
       icon="el-icon-delete"
@@ -44,33 +40,25 @@
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
-      <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="批次号" prop="lot_no" />
-      <!-- <el-table-column align="center" label="打包类型" prop="pack_type" /> -->
-      <el-table-column align="center" label="打包类型" prop="pack_type">
+      <el-table-column align="center" label="机构名称" prop="username" />
+      <el-table-column align="center" label="授权内容名称" prop="mobile" />
+      <el-table-column align="center" label="类型" prop="remark" />
+      <el-table-column align="center" label="有效期" prop="remark" />
+      <!-- <el-table-column align="center" label="状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.pack_type== 1" style="color:green ">课件</span>
-          <span v-else-if="scope.row.pack_type== 2" style="color: ">目录</span>
-          <span v-else style="color: blue">课时</span>
+          <el-switch
+            v-model="scope.row.status"
+            active-color="#07D1AA"
+            inactive-color="#D9D9D9"
+            @change="handleChange(scope.row)"
+          />
         </template>
-      </el-table-column>
-      <el-table-column align="center" label="标题" prop="title" />
-      <el-table-column align="center" label="日志内容" prop="content" />
-      <el-table-column align="center" label="状态" prop="status">
-        <template slot-scope="scope">
-          <span v-if="scope.row.status== 0" style="color: red">打包失败</span>
-          <span v-else-if="scope.row.status== 1">等待打包</span>
-          <span v-else-if="scope.row.status== 2">正在打包</span>
-          <span v-else style="color: blue">打包成功</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="创建时间" prop="created_at" />
-      <el-table-column align="center" label="更新时间" prop="updated_at" />
+      </el-table-column>-->
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button plain class="caozuoButton" @click="goDetail(scope.row)">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="tableEdit" />打包详情
+          <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
+            <span plain class="caozuo">
+              <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
             </span>
           </el-button>
           <el-button plain class="caozuoButton" @click="deleteA(scope.row)">
@@ -89,35 +77,65 @@
       :current-page="currentPage"
       @current-change="nextPage"
     />
+    <!-- 添加课时弹窗 -->
+    <add-dia v-if="dialogVisible" :dialog-visible="dialogVisible" @close="closr" />
+    <edit-dia
+      v-if="dialogVisibleEdit"
+      :id="editId"
+      :dialog-visible="dialogVisibleEdit"
+      @close="closr"
+    />
+    <!-- <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" /> -->
   </div>
 </template>
 <script>
+// import SingleImage from "@/components/Upload/SingleImage3"
+import AddDia from './addDia'
+import EditDia from './editDia'
+// import reset from './resetDia'
 import {
-  csPackList,
-  csPackDelete
-} from '../../../api/csPack'
+  AuthorizedMechanismList,
+  deleteAuthorizedMechanismList,
+  allMechanismList
+} from '../../../api/AuthorizedUser'
 import { Message } from 'element-ui'
+
 export default {
+  components: { AddDia, EditDia },
   data() {
     return {
       rolesList: [],
+      dialogVisible: false,
+      dialogVisibleEdit: false,
+      dialogVisibleReset: false,
       length: 1,
+      imgUrl: [],
       filters: {},
       ops: {},
       total: 0,
       currentPage: 1,
+      editId: '',
       searchShow: false,
       somedelete: '',
-      deleteShow: true,
-      searchModel: false,
       seleteSearch: [
-        { label: '课时编号:', value: '', name: 'class_no', ops: '=', array: [] },
-        { label: '所属目录:', value: '', name: 'directory', ops: '=', array: [] }
+        {
+          label: '用户名称:',
+          value: '',
+          name: 'username',
+          ops: '=',
+          array: []
+        },
+        { label: '用户手机:', value: '', name: 'mobile', ops: '=', array: [] }
       ],
-      inputSearch: [{ label: '课时名称:', value: '', name: 'title', ops: '=' }]
+      test: [],
+      deleteShow: true,
+      searchModel: false
     }
   },
   computed: {
+    routesData() {
+      return this.routes
+    }
   },
   created() {
     // Mock: get all routes and roles list from server
@@ -128,7 +146,7 @@ export default {
   methods: {
     tableInit(page, filters, ops) {
       return new Promise((resolve, reject) => {
-        csPackList(page, filters, ops)
+        AuthorizedMechanismList(page, filters, ops)
           .then(res => {
             const { data } = res
             this.rolesList = data.list
@@ -136,13 +154,27 @@ export default {
             this.total = data.total
             this.currentPage = page
             this.rolesList.map(item => {
-              // if (item.pack_type == 1) {
-              //   item.pack_type = '课件'
-              // } else if (item.pack_type == 2) {
-              //   item.pack_type = '目录'
-              // } else {
-              //   item.pack_type = '课时'
-              // }
+              if (item.status == 1) {
+                item.status = true
+              } else {
+                item.status = false
+              }
+            })
+            // 获取所有数据，用于下拉框
+            return new Promise((resolve, reject) => {
+              allMechanismList(page, filters, ops).then(res => {
+                // console.log(Object.keys(res.data.list))
+                res.data.list.map(item => {
+                  Object.keys(item).map(items => {
+                    this.seleteSearch.map(itemss => {
+                      if (items == itemss.name) {
+                        itemss.array.push(String(item[items]))
+                        itemss.array = [...new Set(itemss.array)]
+                      }
+                    })
+                  })
+                })
+              })
             })
           })
           .catch(error => {
@@ -160,8 +192,9 @@ export default {
       })
         .then(() => {
           return new Promise((resolve, reject) => {
-            csPackDelete(row.id)
+            deleteAuthorizedMechanismList(row.id)
               .then(res => {
+                console.log(res)
                 if (res.error_code == 0) {
                   Message({
                     message: '删除成功',
@@ -188,6 +221,9 @@ export default {
       allId1.id = allId.id.substring(0, allId.id.length - 1)
       this.deleteA(allId1)
     },
+    goGetRole() {
+      this.$router.push({ path: '/getROLE' })
+    },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
         return 'warning-row'
@@ -196,14 +232,7 @@ export default {
       }
     },
     handleChange(e) {
-    },
-    handleSelectAll(row) {
-      if (row.length > 0) {
-        this.deleteShow = false
-        this.somedelete = row
-      } else {
-        this.deleteShow = true
-      }
+      console.log(e)
     },
     handleSelectionChange(row) {
       if (row.length > 0) {
@@ -213,7 +242,16 @@ export default {
         this.deleteShow = true
       }
     },
+    handleSelectAll(row) {
+      if (row.length > 0) {
+        this.deleteShow = false
+        this.somedelete = row
+      } else {
+        this.deleteShow = true
+      }
+    },
     getValue() {
+      console.log(this.test)
     },
     nextPage(val) {
       if (this.searchModel) {
@@ -222,13 +260,16 @@ export default {
         this.tableInit(val)
       }
     },
-    six(e) {
-      for (let i = 0; i < this.inputSearch.length; i++) {
-        if (this.inputSearch[i].value != undefined &&
-          this.inputSearch[i].value.trim()) {
-          this.filters[this.inputSearch[i].name] = `${this.inputSearch[i].value}`
-          this.ops[this.inputSearch[i].name] = `${this.inputSearch[i].ops}`
-        }
+    closr(val) {
+      if (val == false) {
+        this.dialogVisible = false
+        this.dialogVisibleEdit = false
+        this.dialogVisibleReset = false
+      } else {
+        this.dialogVisible = false
+        this.dialogVisibleEdit = false
+        this.dialogVisibleReset = false
+        this.tableInit(1)
       }
     },
     seleteChange(res) {
@@ -245,20 +286,17 @@ export default {
       delete this.ops[this.seleteSearch[index].name]
     },
     submitSearch() {
-      // this.filters = JSON.stringify(this.filters)
-      // this.ops = JSON.stringify(this.ops)
       this.tableInit(1, this.filters, this.ops)
       this.searchModel = true
     },
-    resetList() {
+    resetSearch() {
+      this.seleteSearch.map(item => {
+        item.value = ''
+      })
+      this.filters = {}
+      this.ops = {}
       this.tableInit(1)
       this.searchModel = false
-    },
-    back() {
-      this.$router.go(-1)
-    },
-    goDetail(row) {
-      this.$router.push({ path: '/csPack/detail', query: { lot_no: row.lot_no }})
     }
   }
 }
