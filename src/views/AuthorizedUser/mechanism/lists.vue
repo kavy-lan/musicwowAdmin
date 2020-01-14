@@ -40,11 +40,18 @@
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
-      <el-table-column align="center" label="机构名称" prop="username" />
-      <el-table-column align="center" label="授权内容名称" prop="mobile" />
-      <el-table-column align="center" label="类型" prop="remark" />
-      <el-table-column align="center" label="有效期" prop="remark" />
-      <!-- <el-table-column align="center" label="状态">
+      <el-table-column align="center" label="机构名称" prop="org.name" />
+      <el-table-column align="center" label="授权内容名称" prop="book.name" />
+      <el-table-column align="center" label="类型" prop="authorize_type">
+        <template slot-scope="scope">
+          <span v-if="scope.row.authorize_type== 1">整本</span>
+          <span v-else-if="scope.row.authorize_type== 2">目录</span>
+          <span v-else-if="scope.row.authorize_type== 3">课时</span>
+          <span v-else>混合</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="有效期" prop="effective_at" />
+      <el-table-column align="center" label="状态">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.status"
@@ -53,7 +60,7 @@
             @change="handleChange(scope.row)"
           />
         </template>
-      </el-table-column>-->
+      </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">

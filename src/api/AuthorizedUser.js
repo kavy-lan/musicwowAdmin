@@ -64,3 +64,10 @@ export function deleteAuthorizedMechanismList(ids) {
     params: { ids: ids }
   })
 }
+// 获取机构下拉列表
+export function getOrgList() {
+  return request({
+    url: 'cs/auth_org/org_list',
+    method: 'get'
+  })
+}

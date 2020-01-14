@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="添加授权用户"
+    title="添加授权机构"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"
@@ -18,16 +18,23 @@
         <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="20" />
       </div>
       <div>
-        <label>用户手机:</label>
-        <el-select v-model="areaValue" placeholder="请选择区号" class="el-selete">
+        <label>机构名称:</label>
+        <el-select v-model="orgListId" placeholder="请选择授权机构" class="el-selete">
           <el-option
-            v-for="item in areaCode"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in orgList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
           />
         </el-select>
-        <el-input v-model="mobile" placeholder="请输入手机号码(必选)" class="input" maxlength="11" />
+      </div>
+      <div>
+        <label>授权教材:</label>
+        <el-radio-group v-model="radio">
+          <el-radio :label="1">全部授权</el-radio>
+          <el-radio :label="2">目录授权</el-radio>
+          <el-radio :label="3">课时授权</el-radio>
+        </el-radio-group>
       </div>
       <div>
         <label class="uploadLabel">用户头像:</label>
@@ -60,7 +67,7 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { addAuthorizedUser } from '../../../api/AuthorizedUser'
+import { addAuthorizedUser, getOrgList } from '../../../api/AuthorizedUser'
 import { Message } from 'element-ui'
 
 export default {
@@ -77,8 +84,9 @@ export default {
       img: '',
       ifExist: 0,
       Exist: true,
-      areaCode: [{ value: 86, label: `大陆 + 86` }, { value: 852, label: `香港 + 852` }, { value: 853, label: `澳门 + 853` }, { value: 886, label: `台湾 + 886` }],
-      areaValue: ''
+      orgList: [],
+      orgListId: '',
+      radio: ''
     }
   },
   computed: {
@@ -98,6 +106,9 @@ export default {
         this.Exist = true
       }
     }
+  },
+  mounted() {
+    this.getorgList()
   },
   methods: {
     close() {
@@ -136,6 +147,18 @@ export default {
           .catch(error => {
             reject(error)
           })
+      })
+    },
+    getorgList() {
+      return new Promise((resolve, reject) => {
+        getOrgList().then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
+            this.orgList = data
+          }
+        }).catch(error => {
+          reject(error)
+        })
       })
     }
   }
