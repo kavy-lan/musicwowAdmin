@@ -71,3 +71,17 @@ export function getOrgList() {
     method: 'get'
   })
 }
+// 获取目录
+export function getOrgDirectory(bookId) {
+  return request({
+    url: `cs/auth_org/directory_list/${bookId}`,
+    method: 'get'
+  })
+}
+// 获取目录
+export function getOrgClass(bookId) {
+  return request({
+    url: `cs/auth_org/class_list/${bookId}`,
+    method: 'get'
+  })
+}

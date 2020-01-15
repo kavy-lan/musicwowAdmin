@@ -9,7 +9,7 @@
     :close-on-click-modal="false"
     :before-close="handleClose"
   >
-    <div class="left" @click="test">
+    <div class="left">
       <div>
         <label>用户名:</label>
         <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="20" />
@@ -20,7 +20,15 @@
       </div>
       <div>
         <label>授权角色:</label>
-        <el-input v-model="auth_ids" placeholder="请输入授权角色，字数最多20字内" class="input" maxlength="20" />
+        <!-- <el-input v-model="auth_ids" placeholder="请输入授权角色，字数最多20字内" class="input" maxlength="20" /> -->
+        <el-select v-model="auth_ids" multiple placeholder="请选择授权角色" class="el-selete" filterable>
+          <el-option
+            v-for="item in auth_list"
+            :key="item.id"
+            :label="item.title"
+            :value="item.id"
+          />
+        </el-select>
       </div>
       <div>
         <label class="uploadLabel">头像:</label>
@@ -54,10 +62,8 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { editAdministrators, getEditAdministrators } from '../../../../api/Administrators'
-import { MessageBox, Message } from 'element-ui'
-import { array } from 'jszip/lib/support'
-import { join } from 'path'
+import { editAdministrators, getEditAdministrators, GetAdminAuthList } from '../../../../api/Administrators'
+import { Message } from 'element-ui'
 
 export default {
   components: {
@@ -71,6 +77,7 @@ export default {
       username: '',
       mobile: '',
       auth_ids: '',
+      auth_list: [],
       remark: '',
       img: '',
       ifExist: 0,
@@ -97,15 +104,12 @@ export default {
   },
   mounted() {
     this.getDetail(this.id)
+    this.getRole()
+    console.log(this.auth_ids)
   },
   methods: {
     close() {
       this.$emit('close', false)
-    },
-    file(res) {
-      console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     file(res) {
       if (res.length > 0) {
@@ -119,8 +123,7 @@ export default {
     },
     addA() {
       return new Promise((resolve, reject) => {
-        const index1 = this.auth_ids.split('')
-        const index2 = index1.join(',')
+        const index2 = this.auth_ids.join(',')
         editAdministrators(
           this.id,
           this.username,
@@ -151,102 +154,40 @@ export default {
           if (res.error_code == 0) {
             const { data } = res
             this.username = data.username
-            this.auth_ids = data.auth_ids
+            const a = []
+            const ss = data.auth_ids.split(',')
+            for (let i = 0; i < ss.length; i++) {
+              a.push(parseInt(ss[i]))
+            }
+            this.auth_ids = a
             this.remark = data.remark
             this.mobile = data.mobile
             this.headImg = [{ url: data.head_img }]
             this.img = data.head_img
-            console.log(this.headImg)
           }
         }).catch(error => {
           reject(error)
         })
       })
     },
-    test() {
-      console.log(this.id)
-      console.log(33333)
+    getRole() {
+      return new Promise((resolve, reject) => {
+        GetAdminAuthList()
+          .then(res => {
+            if (res.error_code == 0) {
+              const { data } = res
+              this.auth_list = data
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     }
+
   }
 }
 </script>
  <style  src="../../../../styles/Dia.css" scoped></style>
 <style lang="scss" scoped>
-// .el-dialog__wrapper {
-//   position: absolute;
-//   height: 100%;
-// }
-// .left {
-//   margin-left: 60px;
-//   margin-right: 332px;
-// }
-// .left,
-// .right {
-//   display: inline-block;
-//   width: 530px;
-//   height: 100%;
-//   vertical-align: top;
-//   > div {
-//     margin-bottom: 40px;
-//     line-height: 100%;
-//   }
-//   .input {
-//     width: 400px;
-//     //  background:rgba(235,235,235,1)
-//     border-radius: 6px;
-//     font-size: 15px;
-//     font-family: PingFangSC-Regular, PingFang SC;
-//     font-weight: 400;
-//   }
-//   label {
-//     font-size: 15px;
-//     font-family: PingFangSC-Regular, PingFang SC;
-//     font-weight: 400;
-//     color: rgba(88, 91, 99, 1);
-//     margin-right: 15px;
-//   }
-// }
-// >>> .el-dialog {
-//   top: 0;
-//   bottom: 0;
-//   position: absolute;
-//   overflow: scroll;
-// }
-// >>> .el-input__inner,
-// >>> .el-input__inner::placeholder {
-//   background: #EBEBEB;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: #c1c2c6;
-// }
-// >>> .el-textarea__inner {
-//   background: #EBEBEB;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: #c1c2c6;
-//   min-height: 188px !important;
-// }
-// >>> .Target .el-textarea__inner {
-//   min-height: 116px !important;
-// }
-// >>> .el-textarea__inner:focus,
-// >>> .el-input__inner:focus {
-//   border-color: #07d1aa;
-// }
-// >>> .el-radio__input.is-checked + .el-radio__label {
-//   color: #585b63;
-// }
-// >>> .el-radio__input.is-checked .el-radio__inner {
-//   background: #07d1aa;
-//   border-color: #d9d9d9;
-// }
-// >>> .el-radio {
-//   display: block;
-// }
-// >>> .el-radio:nth-child(1) {
-//   margin-bottom: 40px;
-// }
-
 </style>

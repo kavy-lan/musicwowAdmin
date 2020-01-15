@@ -14,10 +14,6 @@
     </div>
     <div class="left">
       <div>
-        <label>用户名:</label>
-        <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="20" />
-      </div>
-      <div>
         <label>机构名称:</label>
         <el-select v-model="orgListId" placeholder="请选择授权机构" class="el-selete">
           <el-option
@@ -29,24 +25,57 @@
         </el-select>
       </div>
       <div>
-        <label>授权教材:</label>
-        <el-radio-group v-model="radio">
-          <el-radio :label="1">全部授权</el-radio>
-          <el-radio :label="2">目录授权</el-radio>
-          <el-radio :label="3">课时授权</el-radio>
-        </el-radio-group>
+        <label class="shouquanL">授权教材:</label>
+        <div class="shouquan">
+          <div>
+            <el-radio-group v-model="radio" @change="radioChange">
+              <el-radio :label="1">全部授权</el-radio>
+              <el-radio :label="2">目录授权</el-radio>
+              <el-radio :label="3">课时授权</el-radio>
+            </el-radio-group>
+          </div>
+          <div>
+
+            <el-select v-show="radio==1" v-model="value" placeholder="请选择授权教材" class="el-selete">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+
+            <el-select v-show="radio==2" v-model="directoryId" multiple placeholder="请选择授权目录" class="el-selete" filterable>
+              <el-option
+                v-for="item in directoryList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              />
+            </el-select>
+            <el-select v-show="radio==3" v-model="classId" multiple placeholder="请选择授权课时" class="el-selete">
+              <el-option
+                v-for="item in classList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              />
+            </el-select>
+          </div>
+        </div>
       </div>
       <div>
-        <label class="uploadLabel">用户头像:</label>
-        <single-image
-          type=".jpg,.png"
-          size="2097152"
-          :limit="1"
-          @files="file"
+        <label>授权时间:</label>
+        <el-date-picker
+          v-model="value2"
+          type="datetime"
+          placeholder="选择日期时间"
+          align="right"
+          :picker-options="pickerOptions"
         />
       </div>
       <div>
-        <label style="vertical-align:top">备注信息:</label>
+        <label style="vertical-align:top">授权备注:</label>
         <el-input
           v-model="remark"
           placeholder="请输入授权教材备注信息，字数最多300字内"
@@ -67,7 +96,7 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { addAuthorizedUser, getOrgList } from '../../../api/AuthorizedUser'
+import { addAuthorizedUser, getOrgList, getOrgDirectory, getOrgClass } from '../../../api/AuthorizedUser'
 import { Message } from 'element-ui'
 
 export default {
@@ -78,15 +107,57 @@ export default {
   data() {
     return {
       dialogVisibleii: this.dialogVisible,
-      username: '',
-      mobile: '',
-      remark: '',
-      img: '',
       ifExist: 0,
       Exist: true,
       orgList: [],
+      directoryList: [],
+      classList: [],
       orgListId: '',
-      radio: ''
+      directoryId: '',
+      classId: '',
+      radio: 1,
+      remark: '',
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
+      value2: '',
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
+      value: ''
+
     }
   },
   computed: {
@@ -113,13 +184,6 @@ export default {
   methods: {
     close() {
       this.$emit('close', false)
-    },
-    file(res) {
-      if (res.length > 0) {
-        this.img = res[0].url
-      } else {
-        this.img = ''
-      }
     },
     handleClose() {
       this.$emit('close', false)
@@ -160,6 +224,32 @@ export default {
           reject(error)
         })
       })
+    },
+    radioChange(val) {
+      this.radio = val
+      if (val == 2) {
+        return new Promise((resolve, reject) => {
+          getOrgDirectory(this.orgListId).then(res => {
+            if (res.error_code == 0) {
+              const { data } = res
+              this.directoryList = data
+            }
+          }).catch(error => {
+            reject(error)
+          })
+        })
+      } else {
+        return new Promise((resolve, reject) => {
+          getOrgClass(this.orgListId).then(res => {
+            if (res.error_code == 0) {
+              const { data } = res
+              this.classList = data
+            }
+          }).catch(error => {
+            reject(error)
+          })
+        })
+      }
     }
   }
 }
@@ -168,5 +258,14 @@ export default {
 <style lang="scss" scoped>
 .left{
   width: 100%
+}
+>>>.el-radio-group label{
+ margin-bottom: 20px !important
+}
+.shouquanL{
+  vertical-align: top
+}
+.shouquan{
+  display: inline-block;
 }
 </style>

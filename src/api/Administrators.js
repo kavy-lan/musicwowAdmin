@@ -41,3 +41,10 @@ export function resetAdministrators(id, password) {
     params: { password: password }
   })
 }
+// 获取所有角色
+export function GetAdminAuthList() {
+  return request({
+    url: `admin/auth_list`,
+    method: 'get'
+  })
+}

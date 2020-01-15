@@ -23,7 +23,15 @@
       </div>
       <div>
         <label>授权角色:</label>
-        <el-input v-model="auth_ids" placeholder="请输入授权角色，字数最多20字内" class="input" maxlength="20" />
+        <!-- <el-input v-model="auth_ids" placeholder="请输入授权角色，字数最多20字内" class="input" maxlength="20" /> -->
+        <el-select v-model="auth_ids" multiple placeholder="请选择授权角色" class="el-selete" filterable>
+          <el-option
+            v-for="item in auth_list"
+            :key="item.id"
+            :label="item.title"
+            :value="item.id"
+          />
+        </el-select>
       </div>
       <div>
         <label class="uploadLabel">头像:</label>
@@ -56,8 +64,8 @@
 
 <script>
 import SingleImage from '@/components/Upload/SingleImage3'
-import { addAdministrators } from '../../../../api/Administrators'
-import { MessageBox, Message } from 'element-ui'
+import { addAdministrators, GetAdminAuthList } from '../../../../api/Administrators'
+import { Message } from 'element-ui'
 
 export default {
   components: {
@@ -71,6 +79,7 @@ export default {
       username: '',
       mobile: '',
       auth_ids: '',
+      auth_list: [],
       remark: '',
       img: '',
       ifExist: 0,
@@ -94,14 +103,12 @@ export default {
       }
     }
   },
+  mounted() {
+    this.getRole()
+  },
   methods: {
     close() {
       this.$emit('close', false)
-    },
-    file(res) {
-      console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     file(res) {
       if (res.length > 0) {
@@ -113,10 +120,25 @@ export default {
     handleClose() {
       this.$emit('close', false)
     },
+    getRole() {
+      return new Promise((resolve, reject) => {
+        GetAdminAuthList()
+          .then(res => {
+            if (res.error_code == 0) {
+              const { data } = res
+              this.auth_list = data
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
     addA() {
       return new Promise((resolve, reject) => {
-        const index1 = this.auth_ids.split('')
-        const index2 = index1.join(',')
+        // const index1 = this.auth_ids.split('')
+        // const index2 = index1.join(',')
+        const index2 = String(this.auth_ids)
         addAdministrators(
           this.username,
           this.mobile,

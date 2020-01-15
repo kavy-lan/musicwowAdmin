@@ -56,11 +56,6 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button plain class="caozuoButton" @click="goGetRole">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />查看
-            </span>
-          </el-button>
           <el-button
             plain
             class="caozuoButton"
@@ -212,9 +207,6 @@ export default {
       }
       allId1.id = allId.id.substring(0, allId.id.length - 1)
       this.deleteA(allId1)
-    },
-    goGetRole() {
-      this.$router.push({ path: '/getROLE' })
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
