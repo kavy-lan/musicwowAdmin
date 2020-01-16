@@ -51,7 +51,6 @@ export default {
       this.$emit('files', newval)
     },
     clear(newval, oldval) {
-      console.log('清理了')
       this.$refs.upload.clearFiles()
     }
   },

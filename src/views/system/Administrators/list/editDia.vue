@@ -9,6 +9,9 @@
     :close-on-click-modal="false"
     :before-close="handleClose"
   >
+    <div class="uploadText">
+      图片小于 2M/张，视频MP4小于 500M/个，音频MP3小于 20M/个
+    </div>
     <div class="left">
       <div>
         <label>用户名:</label>
@@ -54,8 +57,8 @@
     </div>
     <div style="display:none">{{ sum }}</div>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close">取 消</el-button>
-      <el-button type="info" :disabled="Exist" @click="addA">确 定</el-button>
+      <el-button type="info" @click="close">取 消</el-button>
+      <el-button type="success" :disabled="Exist" @click="addA">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -105,7 +108,6 @@ export default {
   mounted() {
     this.getDetail(this.id)
     this.getRole()
-    console.log(this.auth_ids)
   },
   methods: {
     close() {

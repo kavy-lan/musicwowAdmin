@@ -89,7 +89,7 @@
     <!-- 添加课时弹窗 -->
     <add-dia v-if="dialogVisible" :dialog-visible="dialogVisible" @close="closr" />
     <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
-    <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" />
+    <reset v-if="dialogVisibleReset" :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" />
   </div>
 </template>
 <script>
@@ -101,7 +101,7 @@ import {
   administratorsList,
   deleteAdministrators
 } from '../../../../api/Administrators'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 
 export default {
   components: { AddDia, EditDia, reset },
@@ -283,8 +283,6 @@ export default {
 }
 </script>
 <style  src="../../../../styles/list.css" scoped></style>
-
 <style lang="scss" scoped>
-
 </style>
 

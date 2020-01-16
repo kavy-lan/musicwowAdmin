@@ -7,7 +7,7 @@
           <el-option
             v-for="(items,indexs) in item.array"
             :key="indexs"
-            :label="items"
+            :label="items ==1? '整本授权':items ==2?'目录授权':items ==3?'课时授权':items ==4?'混合授权':items"
             :value="items"
           />
         </el-select>
@@ -41,7 +41,7 @@
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
       <el-table-column align="center" label="机构名称" prop="org.name" />
-      <el-table-column align="center" label="授权内容名称" prop="book.name" />
+      <el-table-column align="center" label="授权内容名称" prop="book.title" />
       <el-table-column align="center" label="类型" prop="authorize_type">
         <template slot-scope="scope">
           <span v-if="scope.row.authorize_type== 1">整本</span>
@@ -92,14 +92,14 @@
       :dialog-visible="dialogVisibleEdit"
       @close="closr"
     />
-    <!-- <reset :id="editId" :dialog-visible="dialogVisibleReset" @close="closr" /> -->
+
   </div>
 </template>
 <script>
-// import SingleImage from "@/components/Upload/SingleImage3"
+
 import AddDia from './addDia'
 import EditDia from './editDia'
-// import reset from './resetDia'
+
 import {
   AuthorizedMechanismList,
   deleteAuthorizedMechanismList,
@@ -126,13 +126,14 @@ export default {
       somedelete: '',
       seleteSearch: [
         {
-          label: '用户名称:',
+          label: '机构名称:',
           value: '',
-          name: 'username',
-          ops: '=',
+          name: 'name',
+          ops: '%*%',
           array: []
         },
-        { label: '用户手机:', value: '', name: 'mobile', ops: '=', array: [] }
+        { label: '授权内容名称:', value: '', name: 'title', ops: '%*%', array: [] },
+        { label: '类型:', value: '', name: 'authorize_type', ops: '%*%', array: [] }
       ],
       test: [],
       deleteShow: true,
@@ -172,14 +173,12 @@ export default {
               allMechanismList(page, filters, ops).then(res => {
                 // console.log(Object.keys(res.data.list))
                 res.data.list.map(item => {
-                  Object.keys(item).map(items => {
-                    this.seleteSearch.map(itemss => {
-                      if (items == itemss.name) {
-                        itemss.array.push(String(item[items]))
-                        itemss.array = [...new Set(itemss.array)]
-                      }
-                    })
-                  })
+                  this.seleteSearch[0].array.push(String(item.org.name))
+                  this.seleteSearch[1].array.push(String(item.book.title))
+                  this.seleteSearch[2].array.push(String(item.authorize_type))
+                  this.seleteSearch[0].array = [...new Set(this.seleteSearch[0].array)]
+                  this.seleteSearch[1].array = [...new Set(this.seleteSearch[1].array)]
+                  this.seleteSearch[2].array = [...new Set(this.seleteSearch[2].array)]
                 })
               })
             })

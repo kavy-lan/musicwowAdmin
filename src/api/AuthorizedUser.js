@@ -71,6 +71,13 @@ export function getOrgList() {
     method: 'get'
   })
 }
+// 获取所有教材
+export function getBookList() {
+  return request({
+    url: 'cs/auth_org/book_list',
+    method: 'get'
+  })
+}
 // 获取目录
 export function getOrgDirectory(bookId) {
   return request({
@@ -83,5 +90,28 @@ export function getOrgClass(bookId) {
   return request({
     url: `cs/auth_org/class_list/${bookId}`,
     method: 'get'
+  })
+}
+// 添加授权机构
+export function addOrg(org_id, book_id, authorize_type, effective_at, directory_ids, class_ids, remark) {
+  return request({
+    url: 'cs/auth_org',
+    method: 'post',
+    data: { org_id: org_id, book_id: book_id, authorize_type: authorize_type, effective_at: effective_at, directory_ids: directory_ids, class_ids: class_ids, remark: remark }
+  })
+}
+// 获取机构授权详情
+export function getOrgDetail(id) {
+  return request({
+    url: `cs/auth_org/${id}`,
+    method: 'get'
+  })
+}
+// 编辑机构
+export function editOrg(id, org_id, book_id, authorize_type, effective_at, directory_ids, class_ids, remark) {
+  return request({
+    url: `cs/auth_org/${id}`,
+    method: 'put',
+    params: { org_id: org_id, book_id: book_id, authorize_type: authorize_type, effective_at: effective_at, directory_ids: directory_ids, class_ids: class_ids, remark: remark }
   })
 }

@@ -498,7 +498,6 @@ export default {
     this.student3()
     this.Teaching()
     this.teachingPie()
-    console.log(document.body.clientWidth)
   },
   methods: {
     echart() {

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div class="nameList"> <span :class="{'clickButton':SignIn == 1}" @click="singInChange(1)">用户</span>
-      <span :class="{'clickButton':SignIn == 2}" @click="singInChange(2)">机构</span></div>
+    <div class="nameList">
+      <span :class="{'clickButton':SignIn == 2}" @click="singInChange(2)">机构</span>
+      <span :class="{'clickButton':SignIn == 1}" @click="singInChange(1)">用户</span>
+    </div>
     <user-list v-if="SignIn == 1" />
     <me-chanism v-if="SignIn == 2" />
   </div>

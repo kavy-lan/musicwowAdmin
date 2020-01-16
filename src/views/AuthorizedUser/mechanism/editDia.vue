@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="授权用户"
+    title="编辑授权机构"
     :visible.sync="dialogVisible"
     width="100%"
     custom-class="customWidth"
@@ -14,33 +14,70 @@
     </div>
     <div class="left">
       <div>
-        <label>用户名:</label>
-        <el-input v-model="username" placeholder="请输入用户名，字数最多20字内(必选)" class="input" maxlength="20" />
-      </div>
-      <div>
-        <label>用户手机:</label>
-        <el-select v-model="areaValue" placeholder="请选择区号" class="el-selete">
+        <label>机构名称:</label>
+        <el-select v-model="orgListId" placeholder="请选择授权机构" class="el-selete">
           <el-option
-            v-for="item in areaCode"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in orgList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
           />
         </el-select>
-        <el-input v-model="mobile" placeholder="请输入手机号码(必选)" class="input" maxlength="11" />
       </div>
       <div>
-        <label class="uploadLabel">用户头像:</label>
-        <single-image
-          type=".jpg,.png"
-          size="2097152"
-          :limit="1"
-          :filelist="head_list"
-          @files="file"
+        <label class="shouquanL">授权教材:</label>
+        <div class="shouquan">
+          <div>
+            <el-radio-group v-model="radio" @change="radioChange">
+              <el-radio :label="1">全部授权</el-radio>
+              <el-radio :label="2">目录授权</el-radio>
+              <el-radio :label="3">课时授权</el-radio>
+            </el-radio-group>
+          </div>
+          <div>
+
+            <el-select v-model="bookId" placeholder="请选择授权教材" class="el-selete" @change="bookChange">
+              <el-option
+                v-for="item in bookList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              />
+            </el-select>
+
+            <el-select v-show="radio==2" v-model="directoryId" multiple placeholder="请选择授权目录" class="el-selete" filterable>
+              <el-option
+                v-for="item in directoryList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              />
+            </el-select>
+            <el-select v-show="radio==3" v-model="classId" multiple placeholder="请选择授权课时" class="el-selete">
+              <el-option
+                v-for="item in classList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              />
+            </el-select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label>授权时间:</label>
+        <el-date-picker
+          v-model="effective"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
+          placeholder="选择日期时间"
+          align="right"
+          :picker-options="pickerOptions"
         />
       </div>
       <div>
-        <label style="vertical-align:top">备注信息:</label>
+        <label style="vertical-align:top">授权备注:</label>
         <el-input
           v-model="remark"
           placeholder="请输入授权教材备注信息，字数最多300字内"
@@ -60,41 +97,63 @@
 </template>
 
 <script>
-import SingleImage from '@/components/Upload/SingleImage3'
-import { getAuthorizedUserDetail, editAuthorizedUser } from '../../../api/AuthorizedUser'
+import { editOrg, getOrgList, getOrgDirectory, getOrgClass, getBookList, getOrgDetail } from '../../../api/AuthorizedUser'
 import { Message } from 'element-ui'
 
 export default {
-  components: {
-    SingleImage
-  },
   props: ['dialogVisible', 'id'],
   data() {
     return {
       dialogVisibleii: this.dialogVisible,
-      username: '',
-      mobile: '',
-      remark: '',
-      img: '',
       ifExist: 0,
       Exist: true,
-      areaCode: [{ value: '86', label: `大陆 + 86` }, { value: '852', label: `香港 + 852` }, { value: '853', label: `澳门 + 853` }, { value: '886', label: `台湾 + 886` }],
-      areaValue: '',
-      head_list: []
+      orgList: [],
+      directoryList: [],
+      classList: [],
+      orgListId: '',
+      directoryId: '',
+      classId: '',
+      radio: 1,
+      remark: '',
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
+      bookId: '',
+      effective: '',
+      bookList: []
+
     }
   },
   computed: {
     sum() {
       this.ifExist =
-        Number(Boolean(this.username)) +
-        Number(Boolean(this.mobile)) +
-        Number(Boolean(this.areaValue)) +
-        Number(Boolean(this.img))
+        Number(Boolean(this.orgListId)) +
+        Number(Boolean(this.bookId)) +
+        Number(Boolean(this.effective))
     }
   },
   watch: {
     ifExist(newval, oldval) {
-      if (Number(newval) == 4) {
+      if (Number(newval) == 3) {
         this.Exist = false
       } else {
         this.Exist = true
@@ -102,31 +161,30 @@ export default {
     }
   },
   mounted() {
-    this.getDetail(this.id)
+    this.getorgList()
+    this.getbookList()
+    this.getorgDetail(this.id)
   },
   methods: {
     close() {
       this.$emit('close', false)
     },
-    file(res) {
-      if (res.length > 0) {
-        this.img = res[0].url
-      } else {
-        this.img = ''
-      }
-    },
     handleClose() {
       this.$emit('close', false)
     },
     addA() {
+      console.log(this.effective)
+
       return new Promise((resolve, reject) => {
-        editAuthorizedUser(
+        editOrg(
           this.id,
-          this.username,
-          this.areaValue,
-          this.mobile,
+          this.orgListId,
+          this.bookId,
+          this.radio,
+          this.effective,
+          String(this.directoryId),
+          String(this.classId),
           this.remark,
-          this.img
         )
           .then(res => {
             console.log(res)
@@ -144,17 +202,82 @@ export default {
           })
       })
     },
-    getDetail(id) {
+    getorgList() {
       return new Promise((resolve, reject) => {
-        getAuthorizedUserDetail(id).then(res => {
+        getOrgList().then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
+            this.orgList = data
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getbookList() {
+      return new Promise((resolve, reject) => {
+        getBookList().then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
+            this.bookList = data
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    radioChange(val) {
+      this.radio = val
+      this.bookId = ''
+      this.classId = ''
+      this.directoryId = ''
+    },
+    bookChange() {
+      this.classId = ''
+      this.directoryId = ''
+      if (this.radio == 2) {
+        return new Promise((resolve, reject) => {
+          getOrgDirectory(this.bookId).then(res => {
+            if (res.error_code == 0) {
+              const { data } = res
+              this.directoryList = data
+            }
+          }).catch(error => {
+            reject(error)
+          })
+        })
+      } else if (this.radio == 3) {
+        return new Promise((resolve, reject) => {
+          getOrgClass(this.bookId).then(res => {
+            if (res.error_code == 0) {
+              const { data } = res
+              this.classList = data
+            }
+          }).catch(error => {
+            reject(error)
+          })
+        })
+      }
+    },
+    getorgDetail(id) {
+      return new Promise((resolve, reject) => {
+        getOrgDetail(id).then(res => {
           if (res.error_code == 0) {
             const { data } = res
             this.remark = data.remark
-            this.username = data.username
-            this.mobile = data.mobile
-            this.head_list = [{ url: data.head_image }]
-            this.img = data.head_image
-            this.areaValue = data.area_code
+            this.orgListId = data.org_id
+            this.bookId = data.book_id
+            this.radio = data.authorize_type
+            this.effective = data.effective_at
+            this.bookChange()
+            this.classId = []
+            this.directoryId = []
+            data.classs.map(item => {
+              this.classId.push(item.book_class_id)
+            })
+            data.directorys.map(item => {
+              this.directoryId.push(item.book_directory_id)
+            })
           }
         }).catch(error => {
           reject(error)
@@ -166,74 +289,16 @@ export default {
 </script>
  <style  src="../../../styles/Dia.css" scoped></style>
 <style lang="scss" scoped>
-// @import '../../styles/Dia.css';
-// .el-dialog__wrapper {
-//   position: absolute;
-//   height: 100%;
-// }
-.left {
-  width: auto
-  // margin-left: 60px;
-  // margin-right: 332px;
+.left{
+  width: 100%
 }
-// .left,
-// .right {
-//   display: inline-block;
-//   // width: 530px;
-//   height: 100%;
-//   vertical-align: top;
-//   > div {
-//     margin-bottom: 40px;
-//     line-height: 100%;
-//   }
-//   .input {
-//     width: 400px;
-//     //  background:rgba(235,235,235,1)
-//     border-radius: 6px;
-//     font-size: 15px;
-//     font-family: PingFangSC-Regular, PingFang SC;
-//     font-weight: 400;
-//   }
-//   label {
-//     font-size: 15px;
-//     font-family: PingFangSC-Regular, PingFang SC;
-//     font-weight: 400;
-//     color: rgba(88, 91, 99, 1);
-//     margin-right: 15px;
-//   }
-// }
-// >>> .el-dialog {
-//   top: 0;
-//   bottom: 0;
-//   position: absolute;
-//   overflow: scroll;
-// }
-// >>> .el-input__inner,
-// >>> .el-input__inner::placeholder {
-//   background: #EBEBEB;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: #c1c2c6;
-// }
-// >>> .el-textarea__inner {
-//   background: #EBEBEB;
-//   font-size: 15px;
-//   font-family: PingFangSC-Regular, PingFang SC;
-//   font-weight: 400;
-//   color: #c1c2c6;
-//   min-height: 188px !important;
-// }
-// >>> .Target .el-textarea__inner {
-//   min-height: 116px !important;
-// }
-// >>> .el-textarea__inner:focus,
-// >>> .el-input__inner:focus {
-//   border-color: #07d1aa;
-// }
-
-// >>>.el-select{
-//   width: 125px
-// }
-
+>>>.el-radio-group label{
+ margin-bottom: 20px !important
+}
+.shouquanL{
+  vertical-align: top
+}
+.shouquan{
+  display: inline-block;
+}
 </style>

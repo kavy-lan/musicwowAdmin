@@ -36,12 +36,12 @@
           </div>
           <div>
 
-            <el-select v-show="radio==1" v-model="value" placeholder="请选择授权教材" class="el-selete">
+            <el-select v-model="bookId" placeholder="请选择授权教材" class="el-selete" @change="bookChange">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in bookList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
               />
             </el-select>
 
@@ -67,7 +67,9 @@
       <div>
         <label>授权时间:</label>
         <el-date-picker
-          v-model="value2"
+          v-model="effective"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
           type="datetime"
           placeholder="选择日期时间"
           align="right"
@@ -95,14 +97,10 @@
 </template>
 
 <script>
-import SingleImage from '@/components/Upload/SingleImage3'
-import { addAuthorizedUser, getOrgList, getOrgDirectory, getOrgClass } from '../../../api/AuthorizedUser'
+import { addOrg, getOrgList, getOrgDirectory, getOrgClass, getBookList } from '../../../api/AuthorizedUser'
 import { Message } from 'element-ui'
 
 export default {
-  components: {
-    SingleImage
-  },
   props: ['dialogVisible'],
   data() {
     return {
@@ -139,39 +137,23 @@ export default {
           }
         }]
       },
-      value2: '',
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
-      value: ''
+      bookId: '',
+      effective: '',
+      bookList: []
 
     }
   },
   computed: {
     sum() {
       this.ifExist =
-        Number(Boolean(this.username)) +
-        Number(Boolean(this.mobile)) +
-        Number(Boolean(this.areaValue)) +
-        Number(Boolean(this.img))
+        Number(Boolean(this.orgListId)) +
+        Number(Boolean(this.bookId)) +
+        Number(Boolean(this.effective))
     }
   },
   watch: {
     ifExist(newval, oldval) {
-      if (Number(newval) == 4) {
+      if (Number(newval) == 3) {
         this.Exist = false
       } else {
         this.Exist = true
@@ -180,6 +162,7 @@ export default {
   },
   mounted() {
     this.getorgList()
+    this.getbookList()
   },
   methods: {
     close() {
@@ -189,13 +172,17 @@ export default {
       this.$emit('close', false)
     },
     addA() {
+      console.log(this.effective)
+
       return new Promise((resolve, reject) => {
-        addAuthorizedUser(
-          this.username,
-          this.areaValue,
-          this.mobile,
+        addOrg(
+          this.orgListId,
+          this.bookId,
+          this.radio,
+          this.effective,
+          String(this.directoryId),
+          String(this.classId),
           this.remark,
-          this.img
         )
           .then(res => {
             console.log(res)
@@ -225,11 +212,30 @@ export default {
         })
       })
     },
+    getbookList() {
+      return new Promise((resolve, reject) => {
+        getBookList().then(res => {
+          if (res.error_code == 0) {
+            const { data } = res
+            this.bookList = data
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     radioChange(val) {
       this.radio = val
-      if (val == 2) {
+      this.bookId = ''
+      this.classId = ''
+      this.directoryId = ''
+    },
+    bookChange() {
+      this.classId = ''
+      this.directoryId = ''
+      if (this.radio == 2) {
         return new Promise((resolve, reject) => {
-          getOrgDirectory(this.orgListId).then(res => {
+          getOrgDirectory(this.bookId).then(res => {
             if (res.error_code == 0) {
               const { data } = res
               this.directoryList = data
@@ -238,9 +244,9 @@ export default {
             reject(error)
           })
         })
-      } else {
+      } else if (this.radio == 3) {
         return new Promise((resolve, reject) => {
-          getOrgClass(this.orgListId).then(res => {
+          getOrgClass(this.bookId).then(res => {
             if (res.error_code == 0) {
               const { data } = res
               this.classList = data
