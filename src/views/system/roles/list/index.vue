@@ -27,14 +27,14 @@
       border
       :header-cell-style="{background:'#fff',color:'#B3B3B3',fontSize:'14px',fontFamily:'PingFangSC-Medium,PingFang SC',
                            fontWeight:'500'}"
-      :cell-style="{color:'#585B63',fontSize:'14px'}"
+      :cell-style="{color:'#585B63',fontSize:'12px'}"
       :row-class-name="tableRowClassName"
       @select="handleSelectionChange"
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
       <el-table-column align="left" label="ID" prop="id" />
-      <el-table-column align="center" label="角色名称" prop="titie" />
+      <el-table-column align="center" label="角色名称" prop="title" />
       <el-table-column align="center" label="规则列表" prop="rules" />
       <el-table-column align="center" label="备注说明" prop="remark" />
       <el-table-column align="center" label="状态">
@@ -49,20 +49,6 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button plain class="caozuoButton" @click="goGetRole">
-            <span class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="check" />查看
-            </span>
-          </el-button>
-          <el-button
-            plain
-            class="caozuoButton"
-            @click="dialogVisibleReset=true,editId=scope.row.id"
-          >
-            <span plain class="caozuo">
-              <svg-icon class-name="search-icon" icon-class="power" />重置
-            </span>
-          </el-button>
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -87,16 +73,14 @@
     <!-- 添加课时弹窗 -->
     <add-dia v-if="dialogVisible" :dialog-visible="dialogVisible" @close="closr" />
     <edit-dia v-if="dialogVisibleEdit" :id="editId" :dialog-visible="dialogVisibleEdit" @close="closr" />
-    <!-- <reset :dialogVisible="dialogVisibleReset" @close="closr" :id="editId"></reset> -->
   </div>
 </template>
 <script>
-// import SingleImage from "@/components/Upload/SingleImage3"
 import AddDia from './addDia'
 import EditDia from './editDia'
-// import reset from "./resetDia";
 import {
-  rolesList
+  rolesList,
+  deleteRoles
 } from '../../../../api/roles'
 import { Message } from 'element-ui'
 
@@ -179,7 +163,7 @@ export default {
       })
         .then(() => {
           return new Promise((resolve, reject) => {
-            deleteAdministrators(row.id)
+            deleteRoles(row.id)
               .then(res => {
                 console.log(res)
                 if (res.error_code == 0) {
@@ -208,9 +192,7 @@ export default {
       allId1.id = allId.id.substring(0, allId.id.length - 1)
       this.deleteA(allId1)
     },
-    goGetRole() {
-      this.$router.push({ path: '/getROLE' })
-    },
+
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
         return 'warning-row'

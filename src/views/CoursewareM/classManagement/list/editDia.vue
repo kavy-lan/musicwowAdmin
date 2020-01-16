@@ -511,13 +511,8 @@ export default {
     },
     deleCatalogue(index) {
       this.Catalogue.splice(index, 1)
-      console.log(this.Catalogue)
     },
     addA() {
-      console.log(this.Knowledge)
-      console.log(this.CatalogueId)
-      console.log(this.afters)
-
       this.works1.images = this.works1images
       this.works2.images = this.works2images
       this.works1.video = this.works1videos
@@ -587,7 +582,6 @@ export default {
 
       return new Promise((resolve, reject) => {
         editclassManagementList(this.id, params).then(res => {
-          console.log(res)
           if (res.error_code == 0) {
             Message({
               message: '编辑成功',
@@ -600,74 +594,6 @@ export default {
           reject(error)
         })
       })
-      // const knowledges = []
-      // this.Knowledge.map(item => {
-      //   knowledges.push({ knowledge_no: item.knowledge_no, template_type: item.template_type, images: item.images, negative_image: item.negative_image, videos: item.videos, audios: item.audios })
-      // })
-      // this.works1.classwork_no = 1
-      // this.works2.classwork_no = 2
-      // this.works1.describe = this.workText1
-      // this.works2.describe = this.workText2
-      // console.log(this.works1)
-      // const params = {
-      //   book_id: this.id,
-      //   book_directory_id: this.CatalogueId,
-      //   class_no: this.classNum,
-      //   title: this.className,
-      //   knowledges: knowledges,
-      //   afters: this.afters,
-      //   works: [this.works1, this.works2]
-      // }
-      // return new Promise((resolve, reject) => {
-      //   addclassManagementList(params).then(res => {
-      //     if (res.error_code == 0) {
-      //       Message({
-      //         message: '添加成功',
-      //         type: 'success',
-      //         duration: 5 * 1000
-      //       })
-      //       this.$emit('close', true)
-      //     }
-      //   })
-      //     .catch(error => {
-      //       reject(error)
-      //     })
-      // })
-      // const directory_list = []
-      // for (let i = 0; i < this.Catalogue.length; i++) {
-      //   if (this.Catalogue[i].title.trim()) {
-      //     directory_list.push(this.Catalogue[i])
-      //   }
-      // }
-      // const params = {
-      //   title: this.materialName,
-      //   cover: this.materialCoverI,
-      //   class_cover: this.materialClassCoverI,
-      //   icon: this.iconI,
-      //   goal: this.materialTarget,
-      //   video: this.materialVideoV,
-      //   details: this.materialDetail,
-      //   details_image: this.materialDetailedI,
-      //   is_class_price: this.openPrice,
-      //   directory_list: directory_list,
-      //   class_price: this.price,
-      //   remark: this.remark
-      // }
-      // addteachingManagement(params)
-      //   .then(res => {
-      //     console.log(res)
-      //     if (res.error_code == 0) {
-      //       Message({
-      //         message: '添加成功',
-      //         type: 'success',
-      //         duration: 5 * 1000
-      //       })
-      //     }
-      //     this.$emit('close', true)
-      //   })
-      //   .catch(error => {
-      //     reject(error)
-      //   })
     },
     getDirectoryList(bookId) {
       return new Promise((resolve, reject) => {
@@ -742,7 +668,6 @@ export default {
                 for (let m = 0; m < works[0].images.length; m++) {
                   this.workImageList1.push({ url: works[0].images[m] })
                   this.works1images += `${works[0].images[m]},`
-                  console.log('llalala')
                 }
                 this.works1images = this.works1images.substring(0, this.works1images.length - 1)
               }
@@ -789,7 +714,6 @@ export default {
                     knowledges[i].images = knowledges[i].images.substring(0, knowledges[i].images.length - 1)
                   }
                   if (knowledges[i].material.videos.length > 0) {
-                    console.log('视频')
                     knowledges[i].Knowledgebox1.push('视频素材')
                     knowledges[i].show.knowledgeVideo = true
                     for (let m = 0; m < knowledges[i].material.videos.length; m++) {
@@ -941,7 +865,6 @@ export default {
       // }
     },
     tuozhanChange(res) {
-      console.log(res)
       if (res.indexOf('图片素材') > -1) {
         this.tuozhanImage = true
       } else {

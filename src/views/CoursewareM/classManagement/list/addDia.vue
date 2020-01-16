@@ -402,7 +402,6 @@ export default {
       }
     },
     templateAudio1(res, index) {
-      console.log(res)
       this.Knowledge[index].audios = []
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].audios.push({
@@ -520,12 +519,9 @@ export default {
           title: ''
         })
       }
-
-      console.log(this.Catalogue)
     },
     deleCatalogue(index) {
       this.Catalogue.splice(index, 1)
-      console.log(this.Catalogue)
     },
     addA() {
       const knowledges = []
@@ -714,7 +710,6 @@ export default {
       // }
     },
     tuozhanChange(res) {
-      console.log(res)
       if (res.indexOf('图片素材') > -1) {
         this.tuozhanImage = true
       } else {

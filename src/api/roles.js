@@ -25,7 +25,7 @@ export function addRoles(title, remark) {
   return request({
     url: `auth`,
     method: 'post',
-    params: {
+    data: {
       title: title,
       remark: remark
     }
@@ -35,5 +35,12 @@ export function getRolesDetail(id) {
   return request({
     url: `auth/${id}`,
     method: 'get'
+  })
+}
+export function deleteRoles(ids) {
+  return request({
+    url: `auth`,
+    method: 'delete',
+    params: { ids: ids }
   })
 }

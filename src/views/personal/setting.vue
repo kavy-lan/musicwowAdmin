@@ -33,9 +33,7 @@ export default {
       return new Promise((resolve, reject) => {
         changePassWord(this.oldPass, this.newPass)
           .then(res => {
-            console.log(res)
             if (res.error_code == 0) {
-              const { data } = res
               Message({
                 message: '修改成功',
                 type: 'success',
@@ -78,6 +76,7 @@ label {
 >>> .el-textarea__inner:focus,
 >>> .el-input__inner:focus {
   border-color: #07d1aa;
+  color: #606266
 }
 .password {
   margin: 0 auto;

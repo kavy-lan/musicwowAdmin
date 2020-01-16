@@ -135,7 +135,6 @@ export default {
           index2
         )
           .then(res => {
-            console.log(res)
             if (res.error_code == 0) {
               Message({
                 message: '编辑成功',

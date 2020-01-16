@@ -102,7 +102,6 @@ const actions = {
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
         commit('SET_ROUTER', data)
-        console.log(constantRoutes)
         resolve(data)
       }).catch(error => {
         reject(error)

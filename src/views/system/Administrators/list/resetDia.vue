@@ -24,7 +24,6 @@
 </template>
 
 <script>
-// import SingleImage from "@/components/Upload/SingleImage3";
 import { resetAdministrators } from '../../../../api/Administrators'
 import { Message } from 'element-ui'
 
@@ -54,16 +53,10 @@ export default {
     }
   },
   mounted() {
-    console.log(this.id)
   },
   methods: {
     close() {
       this.$emit('close', false)
-    },
-    file(res) {
-      console.log(res)
-      // this.imgUrl=[...this.imgUrl,...res]
-      // console.log(this.imgUrl)
     },
     handleClose() {
       this.$emit('close', false)
@@ -75,7 +68,6 @@ export default {
           this.password,
         )
           .then(res => {
-            console.log(res)
             if (res.error_code == 0) {
               Message({
                 message: '修改成功',
