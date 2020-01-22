@@ -3,7 +3,6 @@
     ref="upload"
     class="upload-demo"
     :action="action"
-    :on-preview="handlePreview"
     :on-remove="handleRemove"
     list-type="picture"
     :limit="limit"
@@ -14,25 +13,22 @@
     :on-change="change"
     :on-error="error"
     :accept="type"
-    :file-list="filelist"
+    :file-list="filelist "
   >
     <label v-if="label">{{ label }}</label>
     <el-button size="medium" type="primary" @click="upload">上传</el-button>
     <span slot="tip" class="el-upload__tip">{{ msg }}</span>
-    <video ref="noneVideo" src style="display:none" />
   </el-upload>
 </template>
 
 <script>
-import { getToken } from '@/api/qiniu'
-import { watch } from 'fs'
-import { MessageBox, Message } from 'element-ui'
+
+import { Message } from 'element-ui'
 import { getUploadConfig } from '@/api/upload'
-import { config } from '@vue/test-utils'
-import { log } from 'util'
+
 export default {
   name: 'SingleImageUpload3',
-  props: ['msg', 'size', 'type', 'limit', 'filelist', 'clear', 'time', 'label'],
+  props: ['msg', 'size', 'type', 'limit', 'filelist', 'clear1', 'time', 'label'],
   data() {
     return {
       formdata: {},
@@ -41,24 +37,37 @@ export default {
       config: '',
       removeFile: [],
       successFile: [],
-      keybox: [],
-      num: 0,
-      videoDuratime: true
+      keybox: []
     }
   },
   watch: {
     file(newval, oldval) {
+     
       this.$emit('files', newval)
+      
+      console.log(newval)
+      
     },
-    clear(newval, oldval) {
-      this.$refs.upload.clearFiles()
+    clear1(newval) { 
     }
   },
   mounted() {
     if (this.filelist != undefined) {
       this.file = this.filelist
     }
+    console.log(this.keybox)
+    console.log(this.file)
   },
+ beforeDestroy(){
+   this.$nextTick(res=>{
+console.log('销毁前')
+  // this.$refs.upload.clearFiles()
+        this.file = []     
+        this.$emit('files', [])
+        this.keybox = []
+   })
+  
+ },
   methods: {
     upload() {
       return new Promise((resolve, reject) => {
@@ -69,8 +78,6 @@ export default {
             var config = data.config
             this.config = config
             this.action = config.domain
-            console.log(this.action)
-            console.log(this.config)
             this.formdata = {
               // key: `pulic/image`,
               OSSAccessKeyId: config.access_key_id,
@@ -92,10 +99,8 @@ export default {
         }
       }
     },
-    handlePreview(file) {
-      console.log(file)
-    },
     before(res) {
+      console.log(this.keybox)
       if (res.name.length > 54) {
         Message({
           message: '上传文件名称长度不能大于50',
@@ -158,6 +163,11 @@ export default {
       })
     },
     success(response, file, fileList) {
+      this.$nextTick(res=>{
+console.log(this.keybox)
+      console.log(this.file)
+      })
+      
       for (let i = 0; i < this.keybox.length; i++) {
         this.file.push({
           url: this.keybox[i].url,
@@ -178,7 +188,6 @@ export default {
         type: 'success',
         duration: 5 * 1000
       })
-      console.log(this.file[0].url)
     },
     change(res) {},
     error(res) {
@@ -188,10 +197,8 @@ export default {
         duration: 5 * 1000
       })
     }
-  },
-  ha(newval, oldval) {
-    this.action = newval
   }
+
 }
 </script>
 <style lang="scss" scoped>

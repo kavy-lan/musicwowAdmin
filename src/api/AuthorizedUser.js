@@ -85,7 +85,7 @@ export function getOrgDirectory(bookId) {
     method: 'get'
   })
 }
-// 获取目录
+// 获取课时
 export function getOrgClass(bookId) {
   return request({
     url: `cs/auth_org/class_list/${bookId}`,
@@ -113,5 +113,71 @@ export function editOrg(id, org_id, book_id, authorize_type, effective_at, direc
     url: `cs/auth_org/${id}`,
     method: 'put',
     params: { org_id: org_id, book_id: book_id, authorize_type: authorize_type, effective_at: effective_at, directory_ids: directory_ids, class_ids: class_ids, remark: remark }
+  })
+}
+// 以下是用户添加授权
+export function userPowerList(page, filters, ops) {
+  return request({
+    url: 'cs/auth_user',
+    method: 'get',
+    params: { page: page, limit: '10', filters: filters, ops: ops }
+  })
+}
+export function alluserPowerList(page, filters, ops) {
+  return request({
+    url: 'cs/auth_user',
+    method: 'get',
+    params: { page: page, limit: '10000', filters: filters, ops: ops }
+  })
+}
+export function deleteuserPowerList(ids) {
+  return request({
+    url: 'cs/auth_user',
+    method: 'delete',
+    params: { ids: ids }
+  })
+}
+// 获取所有教材
+
+export function getUserBook() {
+  return request({
+    url: 'cs/auth_user/book_list',
+    method: 'get'
+  })
+}
+export function getUserDirectory(bookId) {
+  return request({
+    url: `cs/auth_user/directory_list/${bookId}`,
+    method: 'get'
+  })
+}
+// 获取课时
+export function getUserClass(bookId) {
+  return request({
+    url: `cs/auth_user/class_list/${bookId}`,
+    method: 'get'
+  })
+}
+// 添加用户授权
+export function addUser(user_id, book_id, authorize_type, effective_at, directory_ids, class_ids, remark) {
+  return request({
+    url: 'cs/auth_user',
+    method: 'post',
+    data: { user_id: user_id, book_id: book_id, authorize_type: authorize_type, effective_at: effective_at, directory_ids: directory_ids, class_ids: class_ids, remark: remark }
+  })
+}
+// 获取用户授权详情
+export function getUserDetail(id) {
+  return request({
+    url: `cs/auth_user/${id}`,
+    method: 'get'
+  })
+}
+// 编辑用户授权
+export function editUser(id, user_id, book_id, authorize_type, effective_at, directory_ids, class_ids, remark) {
+  return request({
+    url: `cs/auth_user/${id}`,
+    method: 'put',
+    params: { user_id: user_id, book_id: book_id, authorize_type: authorize_type, effective_at: effective_at, directory_ids: directory_ids, class_ids: class_ids, remark: remark }
   })
 }

@@ -40,28 +40,16 @@
       @select-all="handleSelectAll"
     >
       <el-table-column type="selection" width="55" align="center" prop="checkbox" />
-      <!-- <el-table-column align="left" label="ID" prop="id" /> -->
       <el-table-column align="center" label="用户名称" prop="username" />
-      <!-- <el-table-column align="center" label="用户头像" prop="head_image">
-        <template slot-scope="scope">
-          <img :src="scope.row.head_image" width="40" height="40" style="vertical-align:middle">
-        </template>
-      </el-table-column>-->
-      <!-- <el-table-column align="center" label="区域编号" prop="area_code" /> -->
       <el-table-column align="center" label="用户手机" prop="mobile" />
       <el-table-column align="center" label="备注说明" prop="remark" />
-      <!-- <el-table-column align="center" label="状态">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.status"
-            active-color="#07D1AA"
-            inactive-color="#D9D9D9"
-            @change="handleChange(scope.row)"
-          />
-        </template>
-      </el-table-column>-->
       <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
+          <el-button plain class="caozuoButton" @click="goPower(scope.row)">
+            <span plain class="caozuo">
+              <svg-icon class-name="search-icon" icon-class="tableEdit" />添加授权
+            </span>
+          </el-button>
           <el-button plain class="caozuoButton" @click="dialogVisibleEdit=true,editId=scope.row.id">
             <span plain class="caozuo">
               <svg-icon class-name="search-icon" icon-class="tableEdit" />编辑
@@ -103,7 +91,7 @@ import {
   AuthorizedUserList,
   deleteAuthorizedUserList,
   allList
-} from '../../api/AuthorizedUser'
+} from '../../../api/AuthorizedUser'
 import { Message } from 'element-ui'
 
 export default {
@@ -303,11 +291,14 @@ export default {
       this.ops = {}
       this.tableInit(1)
       this.searchModel = false
+    },
+    goPower(row) {
+      this.$router.push({ path: '/AuthorizedUser/userPower', query: { id: row.id }})
     }
   }
 }
 </script>
-<style  src="../../styles/list.css" scoped></style>
+<style  src="../../../styles/list.css" scoped></style>
 <style lang="scss" scoped>
 
 </style>

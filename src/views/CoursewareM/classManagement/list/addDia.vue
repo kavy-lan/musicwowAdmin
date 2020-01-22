@@ -40,7 +40,7 @@
             <div class="total">{{ Knowledge.length }}</div>
             <span>个知识点</span>
           </div>
-          <div v-for="(items,index) in Knowledge" :key="index" class="upload">
+          <div v-for="(items,index) in Knowledge" :key="index" ref="upload" class="upload">
             <div>
               <svg-icon
                 class-name="search-icon"
@@ -88,79 +88,89 @@
                 <el-checkbox label="视频素材" />
               </el-checkbox-group>
             </div>
-            <div v-if="items.template_type ==2">
+            <div :key="items.knowledge_no">
+              <!-- <single-image
+                v-show="false"
+              /> -->
               <single-image
                 v-if="items.show.baseImage"
+                :key="items.knowledge_no+1"
+                :filelist="items.empty1"
                 type=".jpg,.png,.gif"
                 size="2097152"
                 label="底图素材"
                 :limit="1"
-                :clear="items.clear"
                 @files="templateBase2($event,index)"
               />
               <single-image
+              
                 v-if="items.show.otherImage"
+                :key="items.knowledge_no+2"
+                :filelist="items.empty2"
                 msg="最多7张"
                 type=".jpg,.png,.gif"
                 size="2097152"
                 label="其他素材"
                 :limit="7"
-                :clear="items.clear"
                 @files="templateOther2($event,index)"
               />
-              <single-image
-                v-if="items.show.knowledgeVideo"
+              <!-- <single-image
+              
+                v-if="items.show.knowledgeVideo1"
+                :key="items.knowledge_no+3"
+                :filelist="items.empty3"
                 msg="最多4个"
                 type=".mp4"
                 :limit="4"
                 size="524288000"
                 label="视频素材"
-                :clear="items.clear"
+                :clear1="items.clear"
                 @files="templateVideo2($event,index)"
-              />
-              <single-image
-                v-if="items.show.knowledgeAudio"
+              /> -->
+              <!-- <single-image
+                v-if="items.show.knowledgeAudio1"
+                :key="items.knowledge_no+4"
+                :filelist="items.empty4"
                 msg="最多4个"
                 type=".mp3"
                 :limit="4"
                 label="音频素材"
-                :clear="items.clear"
+                :clear1="items.clear"
                 @files="templateAudio2($event,index)"
-              />
-            </div>
-            <div v-else>
+              /> -->
+           
               <single-image
                 v-if="items.show.knowledgeImage"
+                :key="items.knowledge_no+3"
+                :filelist="items.empty3"
                 msg="最多4张"
                 type=".jpg,.png,.gif"
                 size="2097152"
                 :limit="4"
                 label="图片素材"
-                :clear="items.clear"
                 @files="templateImage1($event,index)"
               />
               <single-image
                 v-if="items.show.knowledgeVideo"
+                :key="items.knowledge_no+4"
+                :filelist="items.empty4"
                 msg="最多4个"
                 type=".mp4"
                 size="524288000"
                 :limit="4"
                 label="视频素材"
-                :clear="items.clear"
                 @files="templateVideo1($event,index)"
               />
-              <div>
-                <single-image
-                  v-if="items.show.knowledgeAudio"
-                  msg="最多4个"
-                  type=".mp3"
-                  :limit="4"
-                  label="音频素材"
-                  :clear="items.clear"
-                  @files="templateAudio1($event,index)"
-                />
-              </div>
-
+              <single-image
+                v-if="items.show.knowledgeAudio"
+                :key="items.knowledge_no+5"
+                :filelist="items.empty5"
+                msg="最多4个"
+                type=".mp3"
+                :limit="4"
+                label="音频素材"
+                @files="templateAudio1($event,index)"
+              />
             </div>
           </div>
         </div>
@@ -320,7 +330,8 @@ import {
   addclassManagementList
 } from '../../../../api/classManagement'
 import SingleImage from '@/components/Upload/SingleImage3'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
+
 export default {
   components: {
     SingleImage
@@ -332,9 +343,9 @@ export default {
       checkList: ['复选框 A'],
       checked: true,
       Knowledgebox: [],
-      knowledgeVideo: false,
-      knowledgeAudio: false,
-      knowledgeImage: true,
+      // knowledgeVideo: false,
+      // knowledgeAudio: false,
+      // knowledgeImage: true,
       options: [],
       value1: '',
       classNum: '',
@@ -343,8 +354,6 @@ export default {
       workText2: '',
       KnowledgeNum: 0,
       Knowledge: [],
-      clear1: false,
-      clear2: false,
       CatalogueId: '',
       tuozhanSelete: [{ value: 1, label: '模版一[知识点]' }],
       tuozhanSeleteValue: '模版一[知识点]',
@@ -376,6 +385,7 @@ export default {
   },
   mounted() {
     this.getDirectoryList(this.id)
+    console.log(this.Knowledge)
   },
   methods: {
     close() {
@@ -385,6 +395,7 @@ export default {
       this.Knowledge[index].images = ''
       for (let i = 0; i < res.length; i++) {
         this.Knowledge[index].images += `${res[i].url},`
+        // this.Knowledge[index].images.push({ res[i].url})
       }
       this.Knowledge[index].images = this.Knowledge[index].images.substring(
         0,
@@ -410,25 +421,25 @@ export default {
         })
       }
     },
-    templateVideo2(res, index) {
-      this.Knowledge[index].videos = []
-      for (let i = 0; i < res.length; i++) {
-        this.Knowledge[index].videos.push({
-          url: res[i].url,
-          title: res[i].name,
-          cover: res[i].cover
-        })
-      }
-    },
-    templateAudio2(res, index) {
-      this.Knowledge[index].audios = []
-      for (let i = 0; i < res.length; i++) {
-        this.Knowledge[index].audios.push({
-          url: res[i].url,
-          title: res[i].name
-        })
-      }
-    },
+    // templateVideo2(res, index) {
+    //   this.Knowledge[index].videos = []
+    //   for (let i = 0; i < res.length; i++) {
+    //     this.Knowledge[index].videos.push({
+    //       url: res[i].url,
+    //       title: res[i].name,
+    //       cover: res[i].cover
+    //     })
+    //   }
+    // },
+    // templateAudio2(res, index) {
+    //   this.Knowledge[index].audios = []
+    //   for (let i = 0; i < res.length; i++) {
+    //     this.Knowledge[index].audios.push({
+    //       url: res[i].url,
+    //       title: res[i].name
+    //     })
+    //   }
+    // },
     templateBase2(res, index) {
       this.Knowledge[index].negative_image = ''
       for (let i = 0; i < res.length; i++) {
@@ -497,12 +508,12 @@ export default {
       this.$emit('close', false)
     },
     homeWorkV1(res) {
-      if (res.length > 1) {
+      if (res.length > 0) {
         this.works1videos = res[0].url
       }
     },
     homeWorkV2(res) {
-      if (res.length > 1) {
+      if (res.length > 0) {
         this.works2videos = res[0].url
       }
     },
@@ -524,6 +535,8 @@ export default {
       this.Catalogue.splice(index, 1)
     },
     addA() {
+      console.log(this.works1videos)
+      console.log(this.Knowledge)
       const knowledges = []
       this.Knowledge.map(item => {
         knowledges.push({
@@ -535,6 +548,8 @@ export default {
           audios: item.audios
         })
       })
+
+      // return
       this.works1.classwork_no = 1
       this.works2.classwork_no = 2
       this.works1.images = this.works1images
@@ -544,8 +559,7 @@ export default {
       this.works1.describe = this.workText1
       this.works2.describe = this.workText2
       const works = [this.works1, this.works2]
-      this.arrayTirm(knowledges)
-      this.objectTirm(this.afters)
+      console.log(works)
       if (this.classNum == this.className) {
         Message({
           message: '课时编号与课时名称不能重复',
@@ -629,14 +643,20 @@ export default {
         template_type: 1,
         images: '',
         videos: [],
-        audios: [],
+        empty1: [],
+        empty2: [],
+        empty3: [],
+        empty4: [],
+        empty5: [],
         negative_image: '',
         Knowledgebox1: ['图片素材'],
         Knowledgebox2: ['底图素材', '其他素材'],
         show: {
           knowledgeImage: true,
           knowledgeVideo: false,
+          // knowledgeVideo: false,
           knowledgeAudio: false,
+          // knowledgeAudio2: false,
           baseImage: false,
           otherImage: false
         },
@@ -647,11 +667,11 @@ export default {
             label: '模板2[交互]'
           }
         ],
-        Templatevalue: '模板1[知识点]',
-        clear: false
+        Templatevalue: '模板1[知识点]'
       })
     },
     deleteKnowledge(index) {
+
       this.Knowledge.splice(index, 1)
     },
     KnowledgeChange(res, index) {
@@ -659,54 +679,76 @@ export default {
         this.Knowledge[index].show.knowledgeAudio = true
       } else {
         this.Knowledge[index].show.knowledgeAudio = false
+        this.Knowledge[index].empty5 = []
+        this.Knowledge[index].audios = []
+
       }
       if (res.indexOf('视频素材') > -1) {
         this.Knowledge[index].show.knowledgeVideo = true
       } else {
         this.Knowledge[index].show.knowledgeVideo = false
+        this.Knowledge[index].empty4 = []
+        this.Knowledge[index].videos = []
+
       }
       if (res.indexOf('图片素材') > -1) {
         this.Knowledge[index].show.knowledgeImage = true
       } else {
         this.Knowledge[index].show.knowledgeImage = false
+        this.Knowledge[index].empty3 = []
+        this.Knowledge[index].images = ''
       }
 
       if (res.indexOf('底图素材') > -1) {
         this.Knowledge[index].show.baseImage = true
       } else {
         this.Knowledge[index].show.baseImage = false
+        this.Knowledge[index].empty1 = []
+        this.Knowledge[index].negative_image = ''
+
       }
 
       if (res.indexOf('其他素材') > -1) {
         this.Knowledge[index].show.otherImage = true
       } else {
         this.Knowledge[index].show.otherImage = false
+        this.Knowledge[index].empty2 = []
+        this.Knowledge[index].images = ''
       }
     },
     TemplateSelete(res, index) {
-      this.Knowledge[index].clear = !this.Knowledge[index].clear
-      if (res == 2) {
-        this.Knowledge[index].show.baseImage = true
-        this.Knowledge[index].show.otherImage = true
-        this.Knowledge[index].Knowledgebox2 = ['底图素材', '其他素材']
-        this.Knowledge[index].template_type = 2
-      } else {
+      console.log('清空列表了')
+      if (this.Knowledge[index].template_type == res) {
+        return false
+      }
+      this.Knowledge[index].template_type = res
+      if (res == 1) {
         this.Knowledge[index].show.baseImage = false
         this.Knowledge[index].show.otherImage = false
         this.Knowledge[index].show.knowledgeImage = true
         this.Knowledge[index].Knowledgebox1 = ['图片素材']
+      } else {
+        this.Knowledge[index].show.baseImage = true
+        this.Knowledge[index].show.otherImage = true
+        this.Knowledge[index].show.knowledgeImage = false
 
-        // this.Knowledge[index].show.baseImage = false
-        // this.Knowledge[index].show.otherImage = false
-        this.Knowledge[index].template_type = 1
+        this.Knowledge[index].Knowledgebox2 = ['底图素材', '其他素材']
       }
-      this.Knowledge[index].show.knowledgeAudio = false
       this.Knowledge[index].show.knowledgeVideo = false
+      // this.Knowledge[index].show.knowledgeAudio1 = false
+      // this.Knowledge[index].show.knowledgeVideo1 = false
+      this.Knowledge[index].show.knowledgeAudio = false
+      
       // for (let i = 0; i < this.Knowledge.length; i++) {
       this.Knowledge[index].images = ''
       this.Knowledge[index].negative_image = ''
       this.Knowledge[index].audios = []
       this.Knowledge[index].videos = []
+      this.Knowledge[index].empty1 = []
+      this.Knowledge[index].empty2 = []
+      this.Knowledge[index].empty3 = []
+      this.Knowledge[index].empty4 = []
+      this.Knowledge[index].empty5 = []
       // }
     },
     tuozhanChange(res) {
@@ -714,16 +756,19 @@ export default {
         this.tuozhanImage = true
       } else {
         this.tuozhanImage = false
+        this.afters.images = ''
       }
       if (res.indexOf('视频素材') > -1) {
         this.tuozhanVideo = true
       } else {
         this.tuozhanVideo = false
+        this.afters.videos = []
       }
       if (res.indexOf('音频素材') > -1) {
         this.tuozhanAudio = true
       } else {
         this.tuozhanAudio = false
+        this.afters.audios = []
       }
     },
     workSelete1(res) {
@@ -736,11 +781,13 @@ export default {
         this.workI1 = true
       } else {
         this.workI1 = false
+        this.works1images = ''
       }
       if (res.indexOf('作业视频') > -1) {
         this.workV1 = true
       } else {
         this.workV1 = false
+        this.works1videos = ''
       }
     },
     workSelete2(res) {
@@ -753,11 +800,13 @@ export default {
         this.workI2 = true
       } else {
         this.workI2 = false
+        this.works2images = ''
       }
       if (res.indexOf('作业视频') > -1) {
         this.workV2 = true
       } else {
         this.workV2 = false
+        this.works2videos = ''
       }
     },
     arrayTirm(array) {

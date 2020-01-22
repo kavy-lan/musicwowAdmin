@@ -1,15 +1,16 @@
 <template>
   <div>
     <div class="nameList">
-      <span :class="{'clickButton':SignIn == 2}" @click="singInChange(2)">机构</span>
-      <span :class="{'clickButton':SignIn == 1}" @click="singInChange(1)">用户</span>
+      <span :class="{'clickButton':SignIn == 2}" @click="singInChange(2)">授权机构</span>
+      <span :class="{'clickButton':SignIn == 1}" @click="singInChange(1)">授权用户</span>
     </div>
     <user-list v-if="SignIn == 1" />
     <me-chanism v-if="SignIn == 2" />
+    <router-view />
   </div>
 </template>
 <script>
-import UserList from './lists'
+import UserList from './user/lists'
 import MeChanism from './mechanism/lists'
 export default {
   components: { UserList, MeChanism },
